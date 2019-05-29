@@ -67,7 +67,7 @@ def initial_files_and_sections(search_uri):
 
 def rename_dir_or_files(file_or_dir_list, search_uri, input_type):
     file_or_dir_list.sort()
-    file = open("%s/%s_config.json" % (search_uri, input_type), "w+")
+    file = open("%s/.%s_config.json" % (search_uri, input_type), "w+")
     file.write(json.dumps(file_or_dir_list))
     return file_or_dir_list
 
