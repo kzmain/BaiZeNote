@@ -1,0 +1,16 @@
+# My answer
+Because it's unknown that if social network really works, but after ad budget decreased in October at the same gross sales also dramatically dropped on that month. So we suggest that we need to increase ad investment and see if it works. We need carefully prepare for ads in order to make tween girls like them. At the same time do some analysis on strong competitors' ads is also highly recommended.
+
+# Book answer
+
+## Acme Cosmetics Analytical Report
+
+### Context
+MoisturePlus customers are tween girls (where tween are people aged 11-15). They're basically the only customer group. Acme is trying out reallocating expenses from advertisements to social networking, but so far, the success of the initiative is unkonwn. We see no limit to potential sales growth among tween girls. Acme's competitors are extremely dangerous.
+
+### Interpretation of data
+Sales are slightly up in February compared to September, but kind of flat. Sales are way off their targets. Cutting ad expenses may have hurt Acme's ability to keep pace with sales targets. Cutting the prices does not seem to have helped sales keep pace with targets.
+
+### Recommendation
+It might be that the decline in sales relative to the target is linked to the decline in advertising relative to past advertising expenses. We have no good evidence to believe that social networking has been as successful as we had hoped. I will return advertising to September levels to see if the tween girls respond. **Advertising to tween girls is the way to get gross sales back in line with targets.**
+![Sharpen_Your_Pencil_P55_Book_Answer](./Sharpen_Your_Pencil_P55_Book_Answer.png "Sharpen_Your_Pencil_P55_Book_Answer")
