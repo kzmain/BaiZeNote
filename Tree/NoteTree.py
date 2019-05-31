@@ -20,9 +20,9 @@ class NoteTree:
             root_node = NoteRootNode()
             root_node.nodeId = self.node_id
             root_node.parentNodeId = None
-            dir_json = (open("%s/%s/.dir_list.json" % (os.getcwd(), node_uri), "r")).read()
-            file_json = (open("%s/%s/.file_list.json" % (os.getcwd(), node_uri), "r")).read()
-            notebook_json = (open("%s/%s/.notebook.json" % (os.getcwd(), node_uri), "r")).read()
+            dir_json = (open("%s/%s/.dir_list.json" % (".", node_uri), "r")).read()
+            file_json = (open("%s/%s/.file_list.json" % (".", node_uri), "r")).read()
+            notebook_json = (open("%s/%s/.notebook.json" % (".", node_uri), "r")).read()
             root_node.dir_dict = json.loads(dir_json)
             root_node.file_dict = json.loads(file_json)
             root_node.note_dict = json.loads(notebook_json)
@@ -35,8 +35,8 @@ class NoteTree:
             node.nodeId = self.node_id
             node.parentNodeId = self.current_node.nodeId
             self.current_node.childNodesIds.append(node.nodeId)
-            dir_json = (open("%s/%s/.dir_list.json" % (os.getcwd(), node_uri), "r")).read()
-            file_json = (open("%s/%s/.file_list.json" % (os.getcwd(), node_uri), "r")).read()
+            dir_json = (open("%s/%s/.dir_list.json" % (".", node_uri), "r")).read()
+            file_json = (open("%s/%s/.file_list.json" % (".", node_uri), "r")).read()
             node.dir_dict = json.loads(dir_json)
             node.file_dict = json.loads(file_json)
         self.nodes_dict[self.node_id] = node

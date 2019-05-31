@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25a3472b-9097-4a1b-af51-16d760192c7e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/HTMLs/HTML.py" beforeDir="false" afterPath="$PROJECT_DIR$/HTMLs/HTML.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/git_note.py" beforeDir="false" afterPath="$PROJECT_DIR$/git_note.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.notebook.json" beforeDir="false" afterPath="$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.notebook.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,7 +26,7 @@
     <SUITE FILE_PATH="coverage/GitNote$ListTagProcessor.coverage" NAME="ListTagProcessor Coverage Results" MODIFIED="1556296260380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$Splitter.coverage" NAME="Splitter Coverage Results" MODIFIED="1556441086784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown/Tools" />
     <SUITE FILE_PATH="coverage/GitNote$ImageTagProcessor.coverage" NAME="ImageTagProcessor Coverage Results" MODIFIED="1555215901675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
-    <SUITE FILE_PATH="coverage/GitNote$git_note.coverage" NAME="git_note Coverage Results" MODIFIED="1559292193121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GitNote$git_note.coverage" NAME="git_note Coverage Results" MODIFIED="1559292973809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GitNote$tester.coverage" NAME="tester Coverage Results" MODIFIED="1555040921388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$HeaderTagProcessor.coverage" NAME="HeaderTagProcessor Coverage Results" MODIFIED="1555247883138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$TableProcessor.coverage" NAME="TableProcessor Coverage Results" MODIFIED="1556892494207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
@@ -427,12 +425,12 @@
       <workItem from="1555332281916" duration="1185000" />
       <workItem from="1555917990581" duration="183134000" />
       <workItem from="1556583354021" duration="6616000" />
-      <workItem from="1559112262394" duration="46437000" />
+      <workItem from="1559112262394" duration="46772000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="456353000" />
+    <option name="totallyTimeSpent" value="456688000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
