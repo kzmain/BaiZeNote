@@ -5,12 +5,13 @@ class HTML:
     note_menu = "<div id=\"note-menu\">\n" \
                 "%s\n" \
                 "</div>"
+    # 0. %s node id
     # 1. %s node id
     # 2. %s svg
     # 3. %s current node name
     # 4. %s node id
     # 5. %s sub-folders span
-    sections_span = "<span onclick = \"test()\">\n" \
+    sections_span = "<span onclick = \"test(\'section%s\')\">\n" \
                     "  <p data-toggle=\"collapse\" data-target=\"#section%s\">\n" \
                     "    %s\n" \
                     "  </p>\n" \
@@ -19,9 +20,10 @@ class HTML:
                     "<div id=\"section%s\" class=\"collapse\">\n" \
                     "  %s\n" \
                     "</div>"
+    # 0. %s node id
     # 1. %s svg
     # 2. %s current node name
-    no_sections_span = "<span onclick = \"test()\">\n" \
+    no_sections_span = "<span onclick = \"test(\'section%s\')\">\n" \
                        "  <p>\n" \
                        "    %s\n" \
                        "  </p>\n" \
@@ -29,7 +31,7 @@ class HTML:
                        "</span>\n"
     # 1. %s svg
     # 2. %s current node name
-    no_notes_no_sections_span = "<span>\n" \
+    no_notes_no_sections_span = "<span onclick = \"test(\'section%s\')\">\n" \
                                 "  <p>\n" \
                                 "    %s\n" \
                                 "  </p>\n" \
@@ -79,16 +81,20 @@ class HTML:
     </style>
 
     <script>
-        function test() {
+        var note_menu_dict = %s
+        function test(section_id) {
             var note_menu = document.getElementById("note-menu")
             while (note_menu.firstChild) {
-                note_menu.removeChild(note_menu.firstChild);
+                note_menu.removeChild(note_menu.firstChild)
             }
-            var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
-            for(var key in obj){
-                var sectionSpan = document.createElement('span')
-                sectionSpan.innerText = obj[key]
-                note_menu.appendChild(sectionSpan)
+            var section_files_info = note_menu_dict[section_id]
+            for(var key in section_files_info){
+                var note_link = document.createElement('a')
+                note_link.setAttribute("href", section_files_info[key]["file_uri"])
+                var note_span = document.createElement('span')
+                note_span.innerText = section_files_info[key]["file_name"]
+                note_link.appendChild(note_span)
+                note_menu.appendChild(note_link)
             }
         }
     </script>

@@ -8,12 +8,14 @@ from HTMLs.HTML import HTML
 from SVGs.SVG import SVG
 
 section_menu_html = ""
+note_menu_dict = {}
 file_dict = {}
 
 
 def main():
     global section_menu_html
     global file_dict
+    global note_menu_dict
     if "-i" in sys.argv:
         # Get note book name
         try:
@@ -35,16 +37,18 @@ def main():
         note_tree = NoteTree()
         # write ".dir_list.json" and ".file_list.json" to EACH folder
         initial_files_and_sections(".", "%s" % note_book_name, note_tree)
-    #     for key, value in note_tree.nodes_dict.items():
-    #         print("%s NodeName: %s" % (key, value.name))
-    #         print("%s ChildNodes: %s" % (key, value.childNodesIds))
-    #         print("%s DirDict: %s" % (key, value.dir_dict))
-    #         print("%s FileDict: %s" % (key, value.file_dict))
-    #
-    # print(file_dict)
-    section_menu_html = "%s%s%s"% ("\n<div class=\"section-menu\">\n", section_menu_html, "\n<div>")
-    body_html = "%s%s%s"% ("\n<body>\n", section_menu_html, "\n</body>")
-    html = "%s%s" % (HTML.head, body_html)
+        print(json.dumps(note_menu_dict))
+        # for key, value in note_tree.nodes_dict.items():
+            # print("%s NodeName: %s" % (key, value.name))
+        #     # print("%s ChildNodes: %s" % (key, value.childNodesIds))
+        #     # print("%s DirDict: %s" % (key, value.dir_dict))
+        #     print("%s FileDict: %s" % (key, note_menu_dict["section%s" % key]))
+
+    section_menu_html = "%s%s%s" % ("\n<div class=\"section-menu\">\n", section_menu_html, "\n</div>")
+    note_menu_html = "%s%s" % ("\n<div id=\"note-menu\">\n<span></span>", "\n</div>")
+    body_html = "\n<body>\n" + section_menu_html + note_menu_html + "\n</body>"
+    head_html = HTML.head.replace("%s", json.dumps(note_menu_dict))
+    html = "%s%s" % (head_html, body_html)
     file = open("a.html", "w+")
     file.write(html)
     file.close()
@@ -54,6 +58,7 @@ def main():
 def initial_files_and_sections(parent_path, target_folder, note_tree):
     global section_menu_html
     global file_dict
+    global note_menu_dict
     search_uri = "%s/%s" % (parent_path, target_folder)
     dir_file_list = os.listdir(search_uri)
     dir_list = []
@@ -91,7 +96,8 @@ def initial_files_and_sections(parent_path, target_folder, note_tree):
         if current_node.name != "Index":
             current_node.html = \
                 HTML.sections_span % \
-                (current_node_id, SVG.sections_svg, current_node.name, current_node_id, child_nodes_html)
+                (current_node_id, current_node_id, SVG.sections_svg, current_node.name, current_node_id,
+                 child_nodes_html)
         else:
             current_node.html = child_nodes_html
         # ！！！！！！！回头要check
@@ -99,16 +105,18 @@ def initial_files_and_sections(parent_path, target_folder, note_tree):
     # No dir, have file(s)
     elif len(dir_list) == 0 and len(file_list) > 0:
         current_node = note_tree.nodes_dict[current_node_id]
-        current_node.html = HTML.no_sections_span % (SVG.no_sections_svg, current_node.name)
+        current_node.html = HTML.no_sections_span % (current_node_id, SVG.no_sections_svg, current_node.name)
         note_tree.nodes_dict[current_node_id] = current_node
     # no dir, no file
     else:
         current_node = note_tree.nodes_dict[current_node_id]
-        current_node.html = HTML.no_notes_no_sections_span % (SVG.no_notes_no_sections_svg, current_node.name)
+        current_node.html = HTML.no_notes_no_sections_span % (current_node_id, SVG.no_notes_no_sections_svg, current_node.name)
         note_tree.nodes_dict[current_node_id] = current_node
     # node dict
     file_dict[current_node_id] = file_list
     section_menu_html = current_node.html
+    # note menu files dict
+    note_menu_dict["section%s" % current_node_id] = current_node.file_dict
     return note_tree
 
 
@@ -141,7 +149,8 @@ def write_dir_or_files_json(file_or_dir_list, search_uri, input_type):
     file_or_dir_dict = {}
     count = 1
     for element in file_or_dir_list:
-        file_or_dir_dict[count] = "%s/%s" % (search_uri, element)
+        file_name_link_dict = {"%s_name" % input_type: element, "%s_uri" % input_type: "%s/%s" % (search_uri, element)}
+        file_or_dir_dict[count] = file_name_link_dict
         count += 1
     file = open("%s/.%s_list.json" % (search_uri, input_type), "w+")
     file.write(json.dumps(file_or_dir_dict))
