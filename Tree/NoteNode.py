@@ -4,6 +4,8 @@ class NoteNode:
     childNodesIds = []
     dir_dict = {}
     file_dict = {}
+    name = "Index"
+    html = ""
 
     def __init__(self):
         self.nodeId = None
@@ -11,4 +13,6 @@ class NoteNode:
         self.childNodesIds = []
         self.dir_dict = {}
         self.file_dict = {}
+        self.name = "Index"
+        self.html = ""
 
