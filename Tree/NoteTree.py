@@ -15,7 +15,7 @@ class NoteTree:
         self.current_node = None
         self.node_id = 0
 
-    def add_child_node(self, node_uri):
+    def add_child_node(self, node_uri, node_name):
         if self.current_node is None and len(self.nodes_dict) == 0:
             root_node = NoteRootNode()
             root_node.nodeId = self.node_id
@@ -31,6 +31,7 @@ class NoteTree:
             raise Exception
         else:
             node = NoteNode()
+            node.name = node_name
             node.nodeId = self.node_id
             node.parentNodeId = self.current_node.nodeId
             self.current_node.childNodesIds.append(node.nodeId)
