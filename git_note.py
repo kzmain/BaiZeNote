@@ -6,6 +6,7 @@ import json
 from Tree.NoteTree import NoteTree
 from HTMLs.HTML import HTML
 from SVGs.SVG import SVG
+import emarkdown.markdown
 
 section_menu_html = ""
 note_menu_dict = {}
@@ -13,6 +14,7 @@ file_dict = {}
 
 
 def main():
+    emarkdown.markdown.process(['-f', '~/Sharpen_Your_Pencil_P55.md'])
     global section_menu_html
     global file_dict
     global note_menu_dict
@@ -156,7 +158,6 @@ def write_dir_or_files_json(file_or_dir_list, search_uri, input_type):
     file.write(json.dumps(file_or_dir_dict))
     file.close()
     return file_or_dir_list
-
 
 if __name__ == '__main__':
     main()
