@@ -12,7 +12,7 @@ class NoteNode:
         self.parentNodeId = None
         self.childNodesIds = []
         self.dir_dict = {}
-        self.file_dict = {}
+        self.x = {}
         self.name = "Index"
         self.html = ""
 
