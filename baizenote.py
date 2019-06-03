@@ -4,6 +4,8 @@ import sys
 import datetime
 import logging
 import json
+from bs4 import BeautifulSoup as bs
+import shutil
 
 from Note import Note
 from HTMLs.HTML import HTML
@@ -14,6 +16,7 @@ from Tools import URIReplacement
 
 
 def main():
+    print(os.getcwd())
     note = Note()
     # ----Create a new notebook mode
     if "-c" in sys.argv:
@@ -39,22 +42,21 @@ def main():
             note_book_name_index = sys.argv.index("-i") + 1
             note_book_root = sys.argv[note_book_name_index]
             note_book_root = re.sub("\\$", note_book_root, note_book_root)
-            # !!!!! Fix it later
             note_book_name = os.path.basename(note_book_root)
             note.note_root = note_book_root
-            note.note_name = note_book_name
+            note.note_dict = write_notebook_json(note.note_root)
+            note.note_dict["Name"] = note_book_name
         except IndexError:
             logging.error("Notebook name is required after \"-c\".")
             return
         # 2. Write notebook setting in ".json" format
         # 2.1 Write ".notebook.json" to top folder
-        write_notebook_json(note.note_root)
         # 2.2 Write ".dir_list.json" and ".file_list.json" to EACH folder
         note = initial_files_and_sections(note, "/", "")
     else:
         raise Exception
     root_node = note.note_tree.go_to_node(0)
-    section_menu_html = HTML.section_menu % root_node.html
+    section_menu_content_html = root_node.html
     note_menu_html = "%s%s" % ("\n<div id=\"note-menu\" class=\"col-sm-2\">\n<span></span>", "\n</div>")
     html_info_dict = {}
     for key, value in note.note_tree.tree_nodes_dict.items():
@@ -66,33 +68,75 @@ def main():
                     "<div id=\"show-note-area\" class=\"col-sm-8\"><span>%s</span></div>" \
                     "\n</div>" \
                     "\n</div>" \
-                    "\n</body>" % (section_menu_html, note_menu_html, note.note_name)
+                    "\n</body>" % (section_menu_content_html, note_menu_html, note.note_dict["Name"])
 
         head_html = HTML.head_local.replace("%s", json.dumps(html_info_dict))
-        file = open(note.note_root + "/index.html", "w+")
+        note_file = open(note.note_root + "/index.html", "w+")
         html = "%s%s" % (head_html, body_html)
-        file.write(html)
-        file.close()
+        note_file.write(html)
+        note_file.close()
     elif "-server" in sys.argv:
-        for root, dirs, files in os.walk("%s" % note.note_root, topdown=False):
-            files = [fi for fi in files if fi.endswith(".html")]
-            for name in [fi for fi in files if fi.endswith(".html")]:
-                file = open(os.path.join(root, name), "r+")
-                body_section = file.read()
-                file.seek(0)
+        static_dir_path_full = "%s/%s" % (note.note_root, "static_files/")
+        current_work_dir = os.getcwd()
+        try:
+            os.mkdir(static_dir_path_full)
+        except FileExistsError:
+            pass
+        try:
+            os.mkdir("%s%s" % (static_dir_path_full, "js"))
+        except FileExistsError:
+            pass
+        try:
+            os.mkdir("%s%s" % (static_dir_path_full, "css"))
+        except FileExistsError:
+            pass
 
-                body_html = "\n<body>" \
-                            "\n<div class=\"container-fluid\">" \
-                            "\n<div class=\"row\">%s%s" \
-                            "<div id=\"show-note-area\" class=\"col-sm-8\"><span>%s</span></div>" \
-                            "\n</div>" \
-                            "\n</div>" \
-                            "\n</body>" % (section_menu_html, note_menu_html, body_section)
-                head_html = HTML.head_server.replace("%s", json.dumps(html_info_dict))
-                html = "%s%s" % (head_html, body_html)
-                file.write(html)
-                file.truncate()
-                file.close()
+        # ------------------ 稍后要改成loop
+        shutil.copy(current_work_dir + "/js/show_current_note_page.js",
+                    "%s/%s" % (note.note_root, "static_files/js/show_current_note_page.js"))
+        shutil.copy(current_work_dir + "/css/main.css",
+                    "%s/%s" % (note.note_root, "static_files/css/main.css"))
+        head_html = HTML.head_server.replace("%s", json.dumps(html_info_dict))
+        head_file = open("%s%s" % (static_dir_path_full, "head.html"), "w+")
+        head_file.write(head_html)
+        head_file.close()
+        note_info_file = open("%s%s" % (note.note_root, "/static_files/note_info"), "w+")
+        note_info_file.write("%s%s" % ("let note_menu_dict = ", json.dumps(html_info_dict)))
+        # !! 删除 note_dict 中的 section_path_relative
+        for section_id, section_dict in note.note_tree.tree_nodes_dict.items():
+            md_section_menu_html = section_menu_content_html
+            for note_id, note_dict in section_dict.md_dict.items():
+
+                # body_html = "\n<body>" \
+                #             "\n<div class=\"container-fluid\">" \
+                #             "\n<div class=\"row\">%s%s" \
+                #             "<div id=\"show-note-area\" class=\"col-sm-8\"><span>%s</span></div>" \
+                #             "\n</div>" \
+                #             "\n</div>" \
+                #             "\n</body>" % (section_menu_html, note_menu_html, body_section)
+                # head_html = HTML.head_server.replace("%s", json.dumps(html_info_dict))
+                # html = "%s%s" % (head_html, body_html)
+                soup = bs(md_section_menu_html, 'html.parser')
+                parent_node_id = section_dict.parentNodeId
+                current_div = soup.find('div', attrs={'id': 'section%s' % (parent_node_id)})
+                if current_div:
+                    parent_div = current_div.parent
+                    count = 0
+                    try:
+                        while current_div["id"]:
+                            current_div.attrs["class"] = "collapse show"
+                            current_div = parent_div
+                            parent_div = parent_div.parent
+                            count += 1
+                    except KeyError:
+                        pass
+
+                menu_file = open("%s%s%s" % (note.note_root, note_dict["html_path_relative"], ".menu.html"), "w+")
+                menu_file.write(str(soup))
+                menu_file.close()
+                html_file = open("%s%s" % (note.note_root, note_dict["html_path_relative"]), "w+")
+                html_file.write(HTML.generate_head(html_info_dict) + HTML.generate_body("section%s"%section_id, note_id))
+                html_file.close()
 
 
 # write ".notebook.json" to top folder
@@ -115,6 +159,7 @@ def write_notebook_json(note_book_name):
              }
         note_book_config_json.write(json.dumps(note_book_detail_dict))
         note_book_config_json.close()
+        return note_book_detail_dict
     except FileExistsError:
         # !!!!!!! May be go to update mode
         logging.error("Cannot create notebook configs.")
@@ -176,9 +221,8 @@ def get_md_section_list(note, target_section_path_relative):
         inclusion_dict = {}
         for element in inclusion_list:
             element_path_relative = "%s%s" % (target_section_path_relative, element)
-            # file_dir_dict[inclusion_type][inclusion_type + str(count)] = \
-
-            element_info_dict = {"%s_name" % inclusion_type: element}
+            element_info_dict = {"%s_name" % inclusion_type: element,
+                                 "section_path_relative": target_section_path_relative}
             if inclusion_type == "md":
                 html_name = re.sub(r"\.md$", ".html", element)
                 html_path_relative = "%s%s" % (target_section_path_relative, html_name)
@@ -195,35 +239,6 @@ def get_md_section_list(note, target_section_path_relative):
     return file_dir_dict
 
 
-# # related to initial_files_and_sections
-# # write ".dir_list.json" and ".file_list.json" to current folder
-# def get_note_structure_info(md_section_list_dict, note, target_path_relative):
-#     file_dir_dict = {"section_path_relative": target_path_relative, "md": {}, "section": {}}
-#     for input_type, files in md_section_list_dict.items():
-#         count = 1
-#         for file_name in files:
-#             file_path_relative = ("%s%s" % (target_path_relative, file_name)) if target_path_relative != "/" else (
-#                     "%s%s" % (target_path_relative, file_name))
-#             file_name_link_dict = \
-#                 {
-#                     "%s_name" % input_type: file_name,
-#                     # "%s_uri" % input_type: file_path_relative
-#                 }
-#             file_dir_dict[input_type + str(count)] = file_name_link_dict
-#             if input_type == "md":
-#                 html_path_relative = re.sub(r"\.md$", ".html", file_path_relative)
-#                 html_code_md = md_to_html(note, file_path_relative, target_path_relative)
-#                 file_dir_dict[input_type + str(count)]["html_path_relative"] = html_path_relative
-#                 if "-local" in sys.argv:
-#                     file_dir_dict[input_type + str(count)]["html_code"] = html_code_md
-#             if input_type == "section":
-#                 if "-server" in sys.argv:
-#                     file_dir_dict.clear()
-#             count += 1
-#     # note.add_sections_notes(file_dir_dict)
-#     return file_dir_dict
-
-
 # related to initial_files_and_sections
 # e.g.
 def md_to_html(note, file_relative_location, folder_path_relative):
@@ -232,11 +247,14 @@ def md_to_html(note, file_relative_location, folder_path_relative):
     # Open local html files
     # Read .md file's .html
     html_path_relative = re.sub(r"\.md$", ".html", file_relative_location)
-    html_file = open(note.note_root + html_path_relative, "r")
+    html_path_full = note.note_root + html_path_relative
+    html_file = open(html_path_full, "r")
     html_code = html_file.read()
     html_file.close()
     if "-local" in sys.argv:
         html_code = URIReplacement.replace_img_uri(html_code, folder_path_relative)
+    if "-server" in sys.argv:
+        os.rename(html_path_full, "%s%s" % (html_path_full, ".note.html"))
     local_mode_del_md_html(note.note_root + html_path_relative)
     return html_code
 
