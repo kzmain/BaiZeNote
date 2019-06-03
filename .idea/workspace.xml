@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25a3472b-9097-4a1b-af51-16d760192c7e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/GitNote.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GitNote.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/git_note.py" beforeDir="false" afterPath="$PROJECT_DIR$/git_note.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.notebook.json" beforeDir="false" afterPath="$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.notebook.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HTMLs/HTML.py" beforeDir="false" afterPath="$PROJECT_DIR$/HTMLs/HTML.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Note.py" beforeDir="false" afterPath="$PROJECT_DIR$/Note.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tree/NoteNode.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tree/NoteNode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tree/NoteTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tree/NoteTree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/git_note.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/本地.py" beforeDir="false" afterPath="$PROJECT_DIR$/baizenote.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,6 +17,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/BaiZeNote$git_note.coverage" NAME="git_note Coverage Results" MODIFIED="1559418989331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GitNote$CodeTagProcessor.coverage" NAME="CodeTagProcessor Coverage Results" MODIFIED="1556356783102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
+    <SUITE FILE_PATH="coverage/GitNote$MarkDown.coverage" NAME="MarkDown Coverage Results" MODIFIED="1556892615617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
+    <SUITE FILE_PATH="coverage/GitNote$ProcessorPacker.coverage" NAME="ProcessorPacker Coverage Results" MODIFIED="1556087744622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown/Tools" />
+    <SUITE FILE_PATH="coverage/GitNote$BlockQuoteTagProcessor.coverage" NAME="BlockQuoteTagProcessor Coverage Results" MODIFIED="1556037087175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
+    <SUITE FILE_PATH="coverage/GitNote$ListTagProcessor.coverage" NAME="ListTagProcessor Coverage Results" MODIFIED="1556296260380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
+    <SUITE FILE_PATH="coverage/GitNote$Splitter.coverage" NAME="Splitter Coverage Results" MODIFIED="1556441086784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown/Tools" />
+    <SUITE FILE_PATH="coverage/GitNote$tester.coverage" NAME="tester Coverage Results" MODIFIED="1555040921388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
+    <SUITE FILE_PATH="coverage/GitNote$TableProcessor.coverage" NAME="TableProcessor Coverage Results" MODIFIED="1556892494207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$HeaderBlockTagProcessor.coverage" NAME="HeaderBlockTagProcessor Coverage Results" MODIFIED="1554565566851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$MiddleProcessor.coverage" NAME="MiddleProcessor Coverage Results" MODIFIED="1555991044509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$regex.coverage" NAME="regex Coverage Results" MODIFIED="1554520092489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/venv" />
@@ -22,34 +33,49 @@
     <SUITE FILE_PATH="coverage/GitNote$test.coverage" NAME="test Coverage Results" MODIFIED="1555919273695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$HeadingTagProcessor.coverage" NAME="HeadingTagProcessor Coverage Results" MODIFIED="1555921657407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$SymmetryTagProcessor.coverage" NAME="SymmetryTagProcessor Coverage Results" MODIFIED="1555245437261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
-    <SUITE FILE_PATH="coverage/GitNote$CodeTagProcessor.coverage" NAME="CodeTagProcessor Coverage Results" MODIFIED="1556356783102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
-    <SUITE FILE_PATH="coverage/GitNote$MarkDown.coverage" NAME="MarkDown Coverage Results" MODIFIED="1556892615617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
-    <SUITE FILE_PATH="coverage/GitNote$ProcessorPacker.coverage" NAME="ProcessorPacker Coverage Results" MODIFIED="1556087744622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown/Tools" />
     <SUITE FILE_PATH="coverage/GitNote$CodeBlockTagProcessor.coverage" NAME="CodeBlockTagProcessor Coverage Results" MODIFIED="1554554467207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
-    <SUITE FILE_PATH="coverage/GitNote$BlockQuoteTagProcessor.coverage" NAME="BlockQuoteTagProcessor Coverage Results" MODIFIED="1556037087175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
-    <SUITE FILE_PATH="coverage/GitNote$ListTagProcessor.coverage" NAME="ListTagProcessor Coverage Results" MODIFIED="1556296260380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
-    <SUITE FILE_PATH="coverage/GitNote$Splitter.coverage" NAME="Splitter Coverage Results" MODIFIED="1556441086784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown/Tools" />
     <SUITE FILE_PATH="coverage/GitNote$ImageTagProcessor.coverage" NAME="ImageTagProcessor Coverage Results" MODIFIED="1555215901675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$git_note.coverage" NAME="git_note Coverage Results" MODIFIED="1559304290887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GitNote$tester.coverage" NAME="tester Coverage Results" MODIFIED="1555040921388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$HeaderTagProcessor.coverage" NAME="HeaderTagProcessor Coverage Results" MODIFIED="1555247883138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
-    <SUITE FILE_PATH="coverage/GitNote$TableProcessor.coverage" NAME="TableProcessor Coverage Results" MODIFIED="1556892494207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
+    <SUITE FILE_PATH="coverage/BaiZeNote$.coverage" NAME="本地 Coverage Results" MODIFIED="1559511082044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GitNote$HorizontalRuleTagProcessor.coverage" NAME="HorizontalRuleTagProcessor Coverage Results" MODIFIED="1555249070748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$ParagraphTagProcessor.coverage" NAME="ParagraphTagProcessor Coverage Results" MODIFIED="1556347905797" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$LinkTagProcessor.coverage" NAME="LinkTagProcessor Coverage Results" MODIFIED="1556422386170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
+    <SUITE FILE_PATH="coverage/BaiZeNote$HTML.coverage" NAME="HTML Coverage Results" MODIFIED="1559410623656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/HTMLs" />
     <SUITE FILE_PATH="coverage/GitNote$SVG.coverage" NAME="SVG Coverage Results" MODIFIED="1559238494264" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/SVGs" />
     <SUITE FILE_PATH="coverage/GitNote$HeadBlockTagProcessor.coverage" NAME="HeadBlockTagProcessor Coverage Results" MODIFIED="1554532585164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/git_note.py">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/baizenote.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+            <state relative-caret-position="518">
+              <caret line="90" column="84" selection-start-line="90" selection-start-column="84" selection-end-line="90" selection-end-column="84" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#456#1022#0" />
+                <element signature="e#1057#1418#0" />
+                <element signature="e#1211#1286#0" />
+                <element signature="e#2753#3660#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.7/site-packages/emarkdown/markdown.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="174">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tree/NoteNode.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -57,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tree/NoteTree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="38" column="60" selection-start-line="38" selection-start-column="60" selection-end-line="38" selection-end-column="60" />
+            <state relative-caret-position="408">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -67,46 +93,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Tree/NoteNode.py">
+        <entry file="file://$PROJECT_DIR$/Note.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="22" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="22" />
+            <state relative-caret-position="240">
+              <caret line="16" column="4" selection-start-line="16" selection-start-column="6" selection-end-line="18" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/a.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-517">
-              <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HTMLs/HTML.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVGs/SVG.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
+            <state relative-caret-position="-1065">
+              <caret line="99" column="11" selection-start-line="99" selection-start-column="11" selection-end-line="99" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -123,39 +122,40 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dict</find>
-      <find>right</find>
-      <find>tag_regx</find>
-      <find>sp</find>
-      <find>space</find>
-      <find>split_list</find>
-      <find>match</find>
-      <find>sp.</find>
-      <find>Sp</find>
-      <find>split</find>
-      <find>sort</find>
-      <find>pop</find>
-      <find>%s</find>
-      <find>add</find>
-      <find>reverse</find>
-      <find>div</find>
+      <find>file_dir_dict</find>
+      <find>notes_dict</find>
       <find>print</find>
-      <find>section_</find>
-      <find>sections_span</find>
-      <find>no_sections_span</find>
-      <find>dir_list.</find>
-      <find>file_dict</find>
-      <find>current_node</find>
+      <find>pr</find>
+      <find>root_node</find>
+      <find>note_book_name</find>
+      <find>a.json</find>
+      <find>node.html</find>
+      <find>.json</find>
       <find>open</find>
-      <find>section</find>
-      <find>no_notes_no_sections_span</find>
-      <find>;</find>
-      <find>Folder</find>
-      <find>os</find>
-      <find>os.</find>
+      <find>md</find>
+      <find>md_to</find>
+      <find>note_menu_dict</find>
+      <find>node_list</find>
+      <find>current_parent_folder_relative_uri</find>
+      <find>middle_html</find>
+      <find>section_</find>
+      <find>add_child_no</find>
+      <find>write_dir_or_files_json</find>
+      <find>initial_files_and_sections</find>
+      <find>write_notebook_json</find>
+      <find>note</find>
+      <find>get_md_section_list</find>
+      <find>get_note_structure_info</find>
+      <find>md_to_html</find>
+      <find>local_mode_del_md_html</find>
+      <find>process_section_menu</find>
+      <find>nodes_dict</find>
+      <find>&lt;/div&gt;</find>
+      <find>add</find>
     </findStrings>
     <replaceStrings>
       <replace>%;</replace>
+      <replace>#section-menu</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -164,13 +164,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/emarkdown/Emphasis.py" />
-        <option value="$PROJECT_DIR$/emarkdown/EmphasisBlockTagProcessor.py" />
-        <option value="$PROJECT_DIR$/emarkdown/package.json" />
-        <option value="$PROJECT_DIR$/emarkdown/CodeBlockTagProcessor.py" />
-        <option value="$PROJECT_DIR$/emarkdown/HeaderBlockTagProcessor.py" />
-        <option value="$PROJECT_DIR$/emarkdown/selfdefinedtags/DangerBlockTagProcessor.py" />
-        <option value="$PROJECT_DIR$/emarkdown/SelfDefinedTagProcessor.py" />
         <option value="$PROJECT_DIR$/emarkdown/selfdefinedtags/TableProcessor.py" />
         <option value="$PROJECT_DIR$/emarkdown/selfdefinedtags/horizontal_rule_tag.py" />
         <option value="$PROJECT_DIR$/emarkdown/HorizontalRuleTag.py" />
@@ -207,20 +200,27 @@
         <option value="$PROJECT_DIR$/NoteTree.py" />
         <option value="$PROJECT_DIR$/Tree/NoteRootNode.py" />
         <option value="$PROJECT_DIR$/SVG/SVG.py" />
-        <option value="$PROJECT_DIR$/Tree/NoteNode.py" />
         <option value="$PROJECT_DIR$/SVGs/SVG.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/a.html" />
         <option value="$PROJECT_DIR$/Head_First_Data_Analysis_2009/.dir_list.json" />
-        <option value="$PROJECT_DIR$/HTMLs/HTML.py" />
-        <option value="$PROJECT_DIR$/Tree/NoteTree.py" />
+        <option value="/usr/local/lib/python3.7/site-packages/emarkdown/markdown.py" />
+        <option value="$PROJECT_DIR$/Head_First_Data_Analysis_2009/1.Data Analysis procedure/Sharpen_Your_Pencil_P47.html" />
+        <option value="$PROJECT_DIR$/Head_First_Data_Analysis_2009/1.Data Analysis procedure/Data Analysis procedure.html" />
         <option value="$PROJECT_DIR$/git_note.py" />
+        <option value="$PROJECT_DIR$/Tools/URIReplacement.py" />
+        <option value="$PROJECT_DIR$/本地.py" />
+        <option value="$PROJECT_DIR$/Note.py" />
+        <option value="$PROJECT_DIR$/Tree/NoteTree.py" />
+        <option value="$PROJECT_DIR$/Tree/NoteNode.py" />
+        <option value="$PROJECT_DIR$/baizenote.py" />
+        <option value="$PROJECT_DIR$/HTMLs/HTML.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
-    <option name="y" value="39" />
+    <option name="x" value="21" />
+    <option name="y" value="52" />
     <option name="width" value="1680" />
     <option name="height" value="963" />
   </component>
@@ -235,13 +235,13 @@
         <subPane>
           <expand>
             <path>
-              <item name="GitNote" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GitNote" type="462c0819:PsiDirectoryNode" />
+              <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="GitNote" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GitNote" type="462c0819:PsiDirectoryNode" />
-              <item name="📚Head_First_Data_Analysis_2009" type="462c0819:PsiDirectoryNode" />
+              <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
+              <item name="Tree" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -251,20 +251,22 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/emarkdown" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Tree" />
       <recent name="$PROJECT_DIR$/emarkdown/Checkers" />
       <recent name="$PROJECT_DIR$/emarkdown" />
       <recent name="$PROJECT_DIR$/emarkdown/SelfDefinedTags" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/emarkdown" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -279,7 +281,51 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.git_note">
+  <component name="RunManager" selected="Python.本地">
+    <configuration name="本地" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="GitNote" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/baizenote.py" />
+      <option name="PARAMETERS" value="-i &quot;$PROJECT_DIR$/../📚Head_First_Data_Analysis_2009&quot; -server" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="HTML" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="GitNote" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/HTMLs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/HTMLs/HTML.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="MarkDown" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GitNote" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -324,50 +370,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Splitter" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="GitNote" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/emarkdown/Tools" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/emarkdown/Tools/Splitter.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TableProcessor" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="GitNote" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/emarkdown" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/emarkdown/TableProcessor.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="git_note" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GitNote" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -392,18 +394,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.MarkDown" />
-      <item itemvalue="Python.Splitter" />
-      <item itemvalue="Python.TableProcessor" />
       <item itemvalue="Python.git_note" />
       <item itemvalue="Python.SVG" />
+      <item itemvalue="Python.HTML" />
+      <item itemvalue="Python.本地" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.本地" />
         <item itemvalue="Python.git_note" />
+        <item itemvalue="Python.HTML" />
         <item itemvalue="Python.SVG" />
         <item itemvalue="Python.MarkDown" />
-        <item itemvalue="Python.TableProcessor" />
-        <item itemvalue="Python.Splitter" />
       </list>
     </recent_temporary>
   </component>
@@ -425,12 +427,13 @@
       <workItem from="1555332281916" duration="1185000" />
       <workItem from="1555917990581" duration="183134000" />
       <workItem from="1556583354021" duration="6616000" />
-      <workItem from="1559112262394" duration="54634000" />
+      <workItem from="1559112262394" duration="54989000" />
+      <workItem from="1559389414219" duration="73049000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="464550000" />
+    <option name="totallyTimeSpent" value="537954000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -442,26 +445,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="39" width="1680" height="963" extended-state="0" />
+    <frame x="21" y="52" width="1680" height="963" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1910867" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1935287" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.498779" weight="0.3295063" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.5787546" visible="true" weight="0.26061997" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.36019537" weight="0.19173364" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.497558" weight="0.3295063" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.63003665" visible="true" weight="0.25947186" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.509768" weight="0.3455798" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.498779" weight="0.3295063" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.42124543" side_tool="true" visible="true" weight="0.26061997" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.36996338" side_tool="true" visible="true" weight="0.25947186" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4981685" weight="0.3295063" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.498779" weight="0.3295063" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" sideWeight="0.498779" weight="0.32857144" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" sideWeight="0.4981685" weight="0.3283582" />
       <window_info anchor="right" x="0" y="0" width="370" height="763" id="Documentation" order="0" side_tool="true" weight="0.16544567" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -487,33 +490,14 @@
           <option name="timeStamp" value="354" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Tree/NoteTree.py</url>
-          <line>47</line>
-          <option name="timeStamp" value="368" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/git_note.py</url>
-          <line>64</line>
-          <option name="timeStamp" value="369" />
+          <url>file://$PROJECT_DIR$/baizenote.py</url>
+          <line>61</line>
+          <option name="timeStamp" value="431" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/emarkdown/ParagraphTagProcessor.py" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/typing.pyi">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="364" column="8" selection-start-line="364" selection-start-column="8" selection-end-line="364" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/emarkdown/config.json" />
-    <entry file="file://$PROJECT_DIR$/emarkdown/Tools/ProcessorPacker.py" />
-    <entry file="file://$PROJECT_DIR$/emarkdown/LinkTagProcessor.py" />
-    <entry file="file://$PROJECT_DIR$/emarkdown/TableProcessor.py" />
-    <entry file="file://$PROJECT_DIR$/emarkdown/ImageTagProcessor.py" />
-    <entry file="file://$PROJECT_DIR$/emarkdown/HorizontalRuleTagProcessor.py" />
     <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/sre_parse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -537,77 +521,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/encoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="180" lean-forward="true" selection-start-line="180" selection-end-line="180" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ThisIsTestFolder/notebook.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ThisIsTestFolder/.notebook.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="27" lean-forward="true" selection-start-column="27" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_config">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/dir_config">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dir_config">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/file_config">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/2.Intro/dir_config">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/file_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/dir_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ThisIsTestFolder/notebook.json" />
+    <entry file="file://$PROJECT_DIR$/ThisIsTestFolder/.notebook.json" />
+    <entry file="file://$PROJECT_DIR$/file_config" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/dir_config" />
+    <entry file="file://$PROJECT_DIR$/dir_config" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/file_config" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/2.Intro/dir_config" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/file_config.json" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/dir_config.json" />
     <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.file_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.file_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.dir_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/.file_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.dir_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.file_config.json" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.file_config.json" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.dir_config.json" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/.file_config.json" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.dir_config.json" />
     <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/.dir_list.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/.file_list.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.section_type.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.section_type.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.file_list.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.section_type.json" />
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.section_type.json" />
     <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.dir_list.json">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -615,29 +550,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/4. Decide/.file_config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/4. Decide/.file_config.json" />
     <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/4. Decide/.file_list.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/untitled folder/.dir_list.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/untitled folder/.dir_list.json" />
     <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.notebook.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tree/NoteRootNode.py">
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.dir_list.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/1. Define the problem.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/Intro.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1887" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/Intro/.file_list.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/Sharpen_Your_Pencil_P47.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/Sharpen_Your_Pencil_P55.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3178" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/Data Analysis procedure.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="277" column="7" selection-start-line="277" selection-start-column="7" selection-end-line="277" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -648,19 +612,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.dir_list.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/1.Data Analysis procedure/.file_list.json">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/📚Head_First_Data_Analysis_2009/.file_list.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -669,51 +622,92 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/a.html">
+    <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-517">
-          <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+        <state relative-caret-position="45">
+          <caret line="311" selection-start-line="311" selection-end-line="311" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HTMLs/HTML.py">
+    <entry file="file://$PROJECT_DIR$/Tree/NoteRootNode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+        <state relative-caret-position="45">
+          <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tree/NoteNode.py">
+    <entry file="file://$PROJECT_DIR$/git_note.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="22" />
+        <state relative-caret-position="396">
+          <caret line="47" column="21" lean-forward="true" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/encoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="178" selection-start-line="178" selection-end-line="178" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tools/URIReplacement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Note.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="6" selection-end-line="18" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tree/NoteTree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="38" column="60" selection-start-line="38" selection-start-column="60" selection-end-line="38" selection-end-column="60" />
+        <state relative-caret-position="408">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/emarkdown/markdown.py">
+    <entry file="file://$PROJECT_DIR$/Tree/NoteNode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        <state relative-caret-position="60">
+          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/git_note.py">
+    <entry file="file:///usr/local/lib/python3.7/site-packages/emarkdown/markdown.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        <state relative-caret-position="174">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/baizenote.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="90" column="84" selection-start-line="90" selection-start-column="84" selection-end-line="90" selection-end-column="84" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#456#1022#0" />
+            <element signature="e#1057#1418#0" />
+            <element signature="e#1211#1286#0" />
+            <element signature="e#2753#3660#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTMLs/HTML.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1065">
+          <caret line="99" column="11" selection-start-line="99" selection-start-column="11" selection-end-line="99" selection-end-column="11" />
         </state>
       </provider>
     </entry>
