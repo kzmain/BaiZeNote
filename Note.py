@@ -14,6 +14,6 @@ class Note:
         self.section_id = 0
         self.notebook_dict = {}
 
-    def add_sections_notes(self, file_dir_dict):
-        self.notebook_dict["section%s" % self.section_id] = file_dir_dict
-        self.section_id += 1
+    # def add_sections_notes(self, file_dir_dict):
+    #     self.notebook_dict["section%s" % self.section_id] = file_dir_dict
+    #     self.section_id += 1

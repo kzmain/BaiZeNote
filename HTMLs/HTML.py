@@ -38,7 +38,7 @@ class HTML:
                                 "  <p>%s</p>\n" \
                                 "</span>\n"
 
-    head = """<head>
+    head_local = """<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -86,29 +86,114 @@ class HTML:
           max-height: 100vh;
           min-height: 100vh;
         }
+        img{
+            max-width: 60%;
+            max-height: 500px;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 
     <script>
-        var note_menu_dict = %s
+        let note_menu_dict = %s
         function test(section_id) {
+          let note_menu = document.getElementById("note-menu");
+          while (note_menu.firstChild) {
+                note_menu.removeChild(note_menu.firstChild)
+            }
+          let section_files_info = note_menu_dict[section_id];
+          for(let key in section_files_info){
+
+            let note_span = document.createElement('span');
+            note_span.innerText = section_files_info[key]["html_name"]
+            note_span.setAttribute("onclick","note_function('"+ section_id+"','" + key + "');");
+            note_menu.appendChild(note_span)
+          }
+        }
+        
+        function note_function(section_id, note_id){
+          let show_note_area = document.getElementById("show-note-area");
+          show_note_area.innerHTML = note_menu_dict[section_id][note_id]["html_code"]
+        }
+    </script>
+</head>"""
+
+    head_server = """<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <style>
+            #section-menu, #note-menu {
+                /*width: 250px; !* Set a width if you like *!*/
+                display: inline-block;
+                background-color: #eee;
+                /*overflow-y: auto;*/
+            }
+
+            #section-menu span, #note-menu span {
+                background-color: #eee; /* Grey background color */
+                color: black; /* Black text color */
+                display: block; /* Make the links appear below each other */
+                padding: 12px; /* Add some padding */
+                text-decoration: none; /* Remove underline from links */
+            }
+            #show-note-area{
+              /*overflow-y: auto;*/
+            }
+
+            #section-menu span:hover, #note-menu span:hover {
+                background-color: #ccc; /* Dark grey background on mouse-over */
+            }
+
+            #section-menu span:active, #note-menu span:active {
+                background-color: #4CAF50; /* Add a green color to the "active/current" link */
+                color: white;
+            }
+            #section-menu p {
+                display: inline;
+            }
+
+            .collapse {
+                margin-left: 10px;
+            }
+
+            .col-sm-8, .col-sm-2{
+              overflow-y:scroll;
+              max-height: 100vh;
+              min-height: 100vh;
+            }
+            img{
+                max-width: 60%;
+                max-height: 500px;
+                height: auto;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+
+            <script>
+            var note_menu_dict = %s
+            function test(section_id) {
             var note_menu = document.getElementById("note-menu")
             while (note_menu.firstChild) {
                 note_menu.removeChild(note_menu.firstChild)
             }
             var section_files_info = note_menu_dict[section_id]
             for(var key in section_files_info){
-                if(!(key.includes("file"))){
-                    continue
-                }
+                var note_link = document.createElement('a')
                 var note_span = document.createElement('span')
-                note_span.innerText = section_files_info[key]["file_name"]
-                note_span.setAttribute("onclick","note_function('"+ section_id+"','" + key + "');");
-                note_menu.appendChild(note_span)
+                note_link.setAttribute("href", section_files_info[key]["html_path_relative"])
+                note_span.innerText = section_files_info[key]["html_name"]
+                note_link.appendChild(note_span)
+                note_menu.appendChild(note_link)
             }
         }
-        function note_function(section_id, note_id){
-          var show_note_area = document.getElementById("show-note-area")
-          show_note_area.innerHTML = note_menu_dict[section_id][note_id]["html_code"]
-        }
-    </script>
-</head>"""
+        </script>
+    </head>"""

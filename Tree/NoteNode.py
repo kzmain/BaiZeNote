@@ -2,8 +2,8 @@ class NoteNode:
     nodeId = None
     parentNodeId = None
     childNodesIds = []
-    dir_dict = {}
-    file_dict = {}
+    md_dict = {}
+    section_dict = {}
     name = "Index"
     html = ""
 
@@ -11,8 +11,8 @@ class NoteNode:
         self.nodeId = None
         self.parentNodeId = None
         self.childNodesIds = []
-        self.dir_dict = {}
-        self.x = {}
+        self.md_dict = {}
+        self.section_dict = {}
         self.name = "Index"
         self.html = ""
 
