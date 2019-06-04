@@ -24,6 +24,12 @@
     background-color: #4CAF50; /* Add a green color to the "active/current" link */
     color: white;
 }
+
+#section-menu .active, #note-menu .active {
+    background-color: #4CAF50; /* Add a green color to the "active/current" link */
+    color: white;
+}
+
 #section-menu p {
     display: inline;
 }
