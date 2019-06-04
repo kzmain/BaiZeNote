@@ -2,29 +2,33 @@ let current_section_id = "";
 let current_note_id = "";
 let note_history_dict = {};
 
-function get_local_file(file_location, change_tag) {
-    let rawFile = new XMLHttpRequest();
-    rawFile.onreadystatechange = function () {
-        if (rawFile.readyState === 4) {
-            if (rawFile.status === 200 || rawFile.status === 0) {
-                change_tag.innerHTML = rawFile.responseText;
+function get_local_file(file_location, change_tag, section_id, note_id) {
+    let target_file = new XMLHttpRequest();
+    target_file.onreadystatechange = function () {
+        if (target_file.readyState === 4) {
+            if (target_file.status === 200 || target_file.status === 0) {
+                change_tag.innerHTML = target_file.responseText;
+                if (file_location === "/source/section-menu.blade.html"){
+                    get_note_menu(section_id);
+                    readTextFile(section_id, note_id);
+                }
+
             }
         }
     };
-    rawFile.open("GET", file_location);
-    rawFile.send(null);
+    target_file.open("GET", file_location);
+    target_file.send(null);
 }
 
-function show_current_note_page(section_id, md_id) {
-    let show_note_area = document.getElementById("show-note-area");
+function show_current_note_page(section_id, note_id) {
+    current_section_id = section_id;
+    current_note_id = note_id;
     let section_menu_area = document.getElementById("section-menu");
-    let note_path_relative = note_menu_dict[section_id][md_id]["html_path_relative"] + ".note.html";
     let section_menu_path_relative = "/source/section-menu.blade.html";
-    get_local_file(note_path_relative, show_note_area);
-    get_local_file(section_menu_path_relative, section_menu_area);
-
-    get_note_menu(section_id);
-    readTextFile(section_id, md_id);
+    get_local_file(section_menu_path_relative, section_menu_area, section_id, note_id);
+    let show_note_area = document.getElementById("show-note-area");
+    let note_path_relative = note_menu_dict[section_id][note_id]["html_path_relative"] + ".note.html";
+    get_local_file(note_path_relative, show_note_area, section_id, note_id);
 }
 
 function get_note_menu(section_id) {
@@ -104,5 +108,9 @@ function readTextFile(section_id, note_id) {
     // Remember history section_id <-> note_id
     // 记录历史 section_id <-> note_id
     note_history_dict[section_id] = note_id
+
+
+
+
 }
 
