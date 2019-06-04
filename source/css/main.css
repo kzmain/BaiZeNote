@@ -1,0 +1,54 @@
+#section-menu, #note-menu{
+    /*width: 250px; !* Set a width if you like *!*/
+    display: inline-block;
+    background-color: #eee;
+    /*overflow-y: auto;*/
+}
+
+#section-menu span, #note-menu span {
+    background-color: #eee; /* Grey background color */
+    color: black; /* Black text color */
+    display: block; /* Make the links appear below each other */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+}
+#show-note-area{
+    /*overflow-y: auto;*/
+}
+
+#section-menu span:hover, #note-menu span:hover {
+    background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+#section-menu span:active, #note-menu span:active {
+    background-color: #4CAF50; /* Add a green color to the "active/current" link */
+    color: white;
+}
+
+#section-menu .active, #note-menu .active {
+    background-color: #4CAF50; /* Add a green color to the "active/current" link */
+    color: white;
+}
+
+#section-menu p {
+    display: inline;
+}
+
+.collapse {
+    margin-left: 10px;
+}
+
+.col-sm-8, .col-sm-2{
+
+    overflow-y:scroll;
+    max-height: 100vh;
+    min-height: 100vh;
+}
+img{
+    max-width: 60%;
+    max-height: 500px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

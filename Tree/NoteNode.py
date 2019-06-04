@@ -6,6 +6,7 @@ class NoteNode:
     section_dict = {}
     name = "Index"
     html = ""
+    relative_path = ""
 
     def __init__(self):
         self.nodeId = None
@@ -15,4 +16,5 @@ class NoteNode:
         self.section_dict = {}
         self.name = "Index"
         self.html = ""
+        self.relative_path = ""
 
