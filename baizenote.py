@@ -14,10 +14,13 @@ import emarkdown.markdown as md
 from Tools import URIReplacement
 
 
+# 📕Note book 参数信息
 # "-n" 模式 创建新的notebook
 # "-g" 模式 转换Markdown文件成静态html网页文件，"-g" 模式有两个子模式 "-server" 和 "-local"
 #     "-local" 模式仅生成一个 "index.html"，用于在本地查看
 #     "-server" 模式每个页面都生成单独的静态网页文件，以便在线用于在线网站
+# ----------------------------------------------------------------------------------------------------------------------
+# 📕Note book argument info
 # "-n" mode - Create a new note book
 # "-g" mode - Generate Markdown files to static html files, "-g" mode has two sub-mode "-server" and "-local"
 #     "-local" mode will generate one "index.html", for easy local use
@@ -121,9 +124,12 @@ def main():
         raise Exception
 
 
-# 将 ".notebook.json" 写入到笔记根目录,这包含笔记本的所有的信息
-# Write ".notebook.json" in note root folder, This include basic info of notebook
 # ！！！！！！！！！！！！！后面要更改Author
+# 📕1. 核心任务：
+#   1.1. 将 ".notebook.json" 写入到笔记根目录,这包含笔记本的所有的信息
+# ----------------------------------------------------------------------------------------------------------------------
+# 📕1. Core tasks:
+#   1.1. Write ".notebook.json" in note root folder, This include basic info of notebook
 def write_notebook_json(note_book_root_location):
     c_datetime = datetime.datetime.now()
     current_date = "%s-%s-%s" % (c_datetime.year, c_datetime.month, c_datetime.day)
@@ -158,25 +164,26 @@ def write_notebook_json(note_book_root_location):
 #   1.1.1 将当前 node 所有子的 note（md文件）为 html 文件
 #   1.2. 处理子node信息，并将其添加为当前node的子node（储存note的相关信息）
 #   1.3. 生成当前 node 的 section menu
-# 📕1. Core Tasks:
-#   1.1. Process current node's info, and add it into node_tree, which stores all note related info
-#   1.1.1 Generate all current node's notes' (md files) md files
-#   1.2. Process current node's sub-nodes' info, and add them into node tree, which stores all note related info
-#   1.3. Generate current node's section menu
 # 📗2. 相关信息
 #   2.1 文件夹 - Section - Node 的对应关系
 #       硬盘中"文件夹" -> HTML笔记中的Section -> 内存中 Node
 #   2.2 .md文件 - 笔记 （Note） 的对应关系
 #       硬盘中".md文件" -> HTML笔记中的 笔记（Note）
+# 📘3. 相关functions
+#   3.1. get_section_info_dict()
+#   3.2. process_section_menu()
+# ----------------------------------------------------------------------------------------------------------------------
+# 📕1. Core Tasks:
+#   1.1. Process current node's info, and add it into node_tree, which stores all note related info
+#   1.1.1 Generate all current node's notes' (md files) md files
+#   1.2. Process current node's sub-nodes' info, and add them into node tree, which stores all note related info
+#   1.3. Generate current node's section menu
 # 📗2. Related info
 #   2.1 Folder - section - node 's relationship
 #       "Folder" in hard disk -> section in HTML file -> node in RAM
 #   2.2 .md files - note 的对应关系
 #       ".md file" in hard disk-> note in HTML file
-# 📘3. 相关functions
-#   3.1. get_section_info_dict()
-#   3.2. process_section_menu()
-#   3. Related functions
+# 📘3. Related functions
 #   3.1. get_section_info_dict()
 #   3.2. process_section_menu()
 def initial_files_and_sections(note, parent_path_relative, target_sub_section):
@@ -221,15 +228,18 @@ def initial_files_and_sections(note, parent_path_relative, target_sub_section):
 # 📕1. 核心任务
 #   1.1. 获取当前 section 的相关信息
 #   1.2. 生成 .md 文件对应的 html，"-server" 模式会写入，"-local" 模式会写入后删除
-# 📕1. Core Tasks
-#   1.1. Get current section's related info
-#   1.2. Generate html for each current folder's .md files,
-#   "-server" mode will write html, "-local" mode will write html first then remove it later
 # 📗2. section_info_dict 结构
 # ！！！To be continue
 # 📘3. 相关function
 #   3.1. md_to_htm()
-#   3. Related function
+# ----------------------------------------------------------------------------------------------------------------------
+# 📕1. Core Tasks
+#   1.1. Get current section's related info
+#   1.2. Generate html for each current folder's .md files,
+#   "-server" mode will write html, "-local" mode will write html first then remove it later
+# 📗2. section_info_dict structure
+# ！！！To be continue
+# 📘3. Related function
 #   3.1. md_to_htm()
 def get_section_info_dict(note, target_section_path_relative):
     target_section_path_full = note.note_root + target_section_path_relative
@@ -311,7 +321,7 @@ def md_to_html(note, file_relative_location, folder_path_relative):
 # 📕1. 核心任务
 #   1.1. 处理当前 node 的section menu
 #       当前 node 的section menu 应该包含其子node的section menu
-# 📘2. Section menu 类型
+# 📗2. Section menu 类型
 #   2.1 有 sub-section （不管其是否有笔记）
 #   2.2 没有 sub-section 但有笔记
 #   2.3 没有 sub-section 没有笔记
@@ -319,7 +329,7 @@ def md_to_html(note, file_relative_location, folder_path_relative):
 # 📕1. Core Tasks
 #   1.1. Process current node's section menu
 #       current node's section menu need also contains it's sub-nodes' section
-# 📘2.Section menu has three types:
+# 📗2.Section menu has three types:
 #   2.1. Has sub-section (no matter if has notes)
 #   2.2. Has NO sub-section and has notes
 #   2.3. Has NO sub-section and has NO notes
