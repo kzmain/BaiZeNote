@@ -1,6 +1,3 @@
-import json
-import os
-
 from Tree.NoteNode import NoteNode
 from Tree.NoteRootNode import NoteRootNode
 

@@ -55,26 +55,29 @@ def main():
         raise Exception
     root_node = note.note_tree.go_to_node(0)
     section_menu_content_html = root_node.html
-    note_menu_html = "%s%s" % ("\n<div id=\"note-menu\" class=\"col-sm-2\">\n<span></span>", "\n</div>")
     html_info_dict = {}
     for section_number, section_node in note.note_tree.tree_nodes_dict.items():
         html_info_dict["section%s" % section_number] = section_node.md_dict
     if "-local" in sys.argv:
+        # Generate <header> (include <header> tag)
+        header_html = HTML.generate_head(note, html_info_dict)
         body_html = "\n<body>" \
                     "\n<div class=\"container-fluid\">" \
-                    "\n<div class=\"row\">%s%s" \
-                    "<div id=\"show-note-area\" class=\"col-sm-8\"><span>%s</span></div>" \
+                    "\n<div class=\"row\">" \
+                    "    \n<div id=\"section-menu\" class=\"col-sm-2\">\n%s</div>" \
+                    "    \n<div id=\"note-menu\" class=\"col-sm-2\">\n<span></span></div>"\
+                    "    \n<div id=\"show-note-area\" class=\"col-sm-8\"><span>%s</span></div>" \
                     "\n</div>" \
                     "\n</div>" \
-                    "\n</body>" % (section_menu_content_html, note_menu_html, note.note_dict["Name"])
-        head_html = HTML.head_local.replace("%s", json.dumps(html_info_dict))
+                    "\n</body>" % (section_menu_content_html, note.note_dict["Name"])
+        # head_html = HTML.head_local.replace("%s", json.dumps(html_info_dict))
         note_file = open(note.note_root + "/index.html", "w+")
-        html = "%s%s" % (head_html, body_html)
+        html = "%s%s" % (header_html, body_html)
         note_file.write(html)
         note_file.close()
     elif "-server" in sys.argv:
         # Generate <header> (include <header> tag)
-        header_html = HTML.generate_server_head(note, html_info_dict)
+        header_html = HTML.generate_head(note, html_info_dict)
         # Generate <body> <div id="section_menu"> 's content (does NOT include <div id="section_menu"> tag)
         section_menu_path_full = note.note_root + HTML.static_file_path_relative + "/section-menu.blade.html"
         section_menu_html_file = open(section_menu_path_full, "w+")
