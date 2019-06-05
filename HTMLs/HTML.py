@@ -49,88 +49,6 @@ class HTML:
                                 "  <p>%s</p>\n" \
                                 "</span>\n"
 
-    head_local = """<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <style>
-        #section-menu, #note-menu {
-            /*width: 250px; !* Set a width if you like *!*/
-            display: inline-block;
-            background-color: #eee;
-            /*overflow-y: auto;*/
-        }
-
-        #section-menu span, #note-menu span {
-            background-color: #eee; /* Grey background color */
-            color: black; /* Black text color */
-            display: block; /* Make the links appear below each other */
-            padding: 12px; /* Add some padding */
-            text-decoration: none; /* Remove underline from links */
-        }
-        #show-note-area{
-          /*overflow-y: auto;*/
-        }
-
-        #section-menu span:hover, #note-menu span:hover {
-            background-color: #ccc; /* Dark grey background on mouse-over */
-        }
-
-        #section-menu span:active, #note-menu span:active {
-            background-color: #4CAF50; /* Add a green color to the "active/current" link */
-            color: white;
-        }
-        #section-menu p {
-            display: inline;
-        }
-
-        .collapse {
-            margin-left: 10px;
-        }
-
-        .col-sm-8, .col-sm-2{
-          overflow-y:scroll;
-          max-height: 100vh;
-          min-height: 100vh;
-        }
-        img{
-            max-width: 60%;
-            max-height: 500px;
-            height: auto;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
-
-    <script>
-        let note_menu_dict = %s
-        function test(section_id) {
-          let note_menu = document.getElementById("note-menu");
-          while (note_menu.firstChild) {
-                note_menu.removeChild(note_menu.firstChild)
-            }
-          let section_files_info = note_menu_dict[section_id];
-          for(let key in section_files_info){
-
-            let note_span = document.createElement('span');
-            note_span.innerText = section_files_info[key]["html_name"]
-            note_span.setAttribute("onclick","note_function('"+ section_id+"','" + key + "');");
-            note_menu.appendChild(note_span)
-          }
-        }
-        
-        function note_function(section_id, note_id){
-          let show_note_area = document.getElementById("show-note-area");
-          show_note_area.innerHTML = note_menu_dict[section_id][note_id]["html_code"]
-        }
-    </script>
-</head>"""
-
     static_file_path_relative = "/source"
     remote_libs_path_relative = "%s/header.blade.html" % static_file_path_relative
     note_info_script_path_relative = "%s/js/note_info.js" % static_file_path_relative
@@ -138,6 +56,8 @@ class HTML:
 
     # Generate "-server" mode's head
     # Generate "-local" mode's head
+    # 生成 "-server" 模式的 <head>
+    # 生成 "-local" 模式的 <head>
     @staticmethod
     def generate_head(note, note_info_dict):
         header_html_list = []
@@ -227,6 +147,7 @@ class HTML:
         return "<head>\n" + all_header_html + "</head>"
 
     # Generate "-server" mode's body
+    # 生存 "-server" 模式的 <body>
     @staticmethod
     def generate_server_body(section_id, md_id):
         body_html = \
@@ -239,4 +160,17 @@ class HTML:
             "\n" \
             "<script>show_current_note_page(\"%s\", \"%s\")</script>" \
             "</body>" % (section_id, md_id)
+        return body_html
+
+    @staticmethod
+    def generate_local_body(section_menu_content_html, note_name):
+        body_html = "\n<body>" \
+                    "\n<div class=\"container-fluid\">" \
+                    "\n<div class=\"row\">" \
+                    "    \n<div id=\"section-menu\" class=\"col-sm-2\">\n%s</div>" \
+                    "    \n<div id=\"note-menu\" class=\"col-sm-2\">\n<span></span></div>" \
+                    "    \n<div id=\"show-note-area\" class=\"col-sm-8\"><span>%s</span></div>" \
+                    "\n</div>" \
+                    "\n</div>" \
+                    "\n</body>" % (section_menu_content_html, note_name)
         return body_html
