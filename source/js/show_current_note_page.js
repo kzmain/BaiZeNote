@@ -2,10 +2,6 @@ let current_section_id = "";
 let current_note_id = "";
 let note_history_dict = {};
 
-
-
-
-
 function get_note_menu(section_id) {
     let note_menu = document.getElementById("note-menu");
     while (note_menu.firstChild) {

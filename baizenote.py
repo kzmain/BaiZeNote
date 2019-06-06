@@ -6,7 +6,7 @@ import logging
 import json
 
 from Note import Note
-from HTMLs.HTML import HTML
+from HTML.HTML import HTML
 from Path import Path
 from SVGs.SVG import SVG
 import emarkdown.markdown as md
@@ -287,6 +287,8 @@ def get_section_info_dict(note, target_section_path_relative):
             inclusion_dict["%s%s" % (inclusion_type, count)] = element_info_dict
             count += 1
         section_info_dict[inclusion_type] = inclusion_dict
+    section_json_file = open("%s/%s" % (target_section_path_full, ".section_info.json"), "w+")
+    section_json_file.write(json.dumps(section_info_dict))
     return section_info_dict
 
 
