@@ -12,6 +12,7 @@ from SVGs.SVG import SVG
 import emarkdown.markdown as md
 
 from Tools import URIReplacement
+from Tools import File
 
 
 # 📕Note book 参数信息
@@ -62,7 +63,8 @@ def main():
         try:
             note_book_name_index = sys.argv.index("-g") + 1
             note_book_root = sys.argv[note_book_name_index]
-            note_book_root = re.sub("\\$", note_book_root, note_book_root)
+            # note_book_root = re.sub("\\$", note_book_root, note_book_root)
+            note_book_root = os.path.abspath(note_book_root)
             note_book_name = os.path.basename(note_book_root)
             note.note_root = note_book_root
             note.note_name = note_book_name
@@ -97,7 +99,7 @@ def main():
             # 生成 <head> 部分，（包括 <head> 标签， 脚本/CSS 将直接写入到 index.html）
             # Generate <head> part (include <head> tag, and scripts/css will write into index.html directly)
             header_html = HTML.generate_head(note, section_md_info_dict)
-            body_html = HTML.generate_local_body(section_menu_content_html, note.note_dict["Name"])
+            body_html = HTML.generate_local_body(section_menu_content_html, note.note_name)
             note_file = open(note.note_root + "/index.html", "w+")
             html = "%s%s" % (header_html, body_html)
             note_file.write(html)
@@ -108,7 +110,7 @@ def main():
             header_html = HTML.generate_head(note, section_md_info_dict)
             # 生成 <body> <div id="section_menu"> 的内容 (不！包括 <div id="section_menu"> tag)
             # Generate <body> <div id="section_menu"> 's content (does NOT include <div id="section_menu"> tag)
-            section_menu_path_full = note.note_root + HTML.static_file_path_relative + "/section-menu.blade.html"
+            section_menu_path_full = os.path.join(note.note_root, HTML.static_file_path_relative, "section-menu.blade.html")
             section_menu_html_file = open(section_menu_path_full, "w+")
             section_menu_html_file.write(section_menu_content_html)
             section_menu_html_file.close()
@@ -149,8 +151,16 @@ def write_notebook_json(note_book_root_location):
     # 情况 2 如果 .notebook.json 不存在,则初始化写入信息到 .notebook.json
     # Circumstance 2 if .notebook.json does NOT exist, write initial info to .notebook.json
     else:
+        while True:
+            enter_author_string = "Please input notebook name, if multiple author please separate by comma \",\" : \n"
+            confirm_author_string = "Is(Are) following your notebook's author(s) name(s)?(y\\n)\n%s\n"
+            author_raw = input(enter_author_string)
+            author_list = author_raw.split(",")
+            author_list = [x for x in author_list if x.strip()]
+            if input(confirm_author_string % str(author_list)).lower() in ["yes", "y"]:
+                break
         note_book_config_json = open("%s/.notebook.json" % note_book_root_location, "w+")
-        note_book_dict = {"Author": ["Kai"], "Note_Name": note_name,
+        note_book_dict = {"Author": author_list, "Note_Name": note_name,
                           "Date": current_date, "Time": ["%s|%s" % (current_date, current_time)]
                           }
         note_book_config_json.write(json.dumps(note_book_dict))
@@ -242,7 +252,7 @@ def initial_files_and_sections(note, parent_path_relative, target_sub_section):
 # 📘3. Related function
 #   3.1. md_to_htm()
 def get_section_info_dict(note, target_section_path_relative):
-    target_section_path_full = note.note_root + target_section_path_relative
+    target_section_path_full = os.path.join(note.note_root + target_section_path_relative)
     # 获取本文件夹1级子*文件*及*文件夹*的名字
     # Get Level 1 *sub-folders* and *files* name
     dir_file_list = os.listdir(target_section_path_full)
@@ -265,7 +275,7 @@ def get_section_info_dict(note, target_section_path_relative):
     # Get section related info (Core part of this function)
     section_info_dict = \
         {"section_path_relative": target_section_path_relative,
-         "section_name": os.path.basename(os.path.dirname(target_section_path_full)),
+         "section_name": os.path.basename(target_section_path_full),
          "md": {}, "section": {}}
     for inclusion_type, inclusion_list in section_md_list_dict.items():
         count = 0
@@ -273,6 +283,7 @@ def get_section_info_dict(note, target_section_path_relative):
         for inclusion_name in inclusion_list:
             element_path_relative = "%s%s" % (target_section_path_relative, inclusion_name)
             element_info_dict = {"%s_name" % inclusion_type: inclusion_name}
+            # element_info_dict["creation_time"]= os.path.getctime()
             if inclusion_type == "md":
                 html_name = re.sub(r"\.md$", ".html", inclusion_name)
                 html_path_relative = "%s%s" % (target_section_path_relative, html_name)

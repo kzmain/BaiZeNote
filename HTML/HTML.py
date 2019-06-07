@@ -3,15 +3,19 @@ import os
 import re
 import shutil
 import sys
+import logging
+from Tools import File
 
 
 class HTML:
     section_menu = "<div id=\"section-menu\" class=\"col-sm-2\">\n" \
                    "%s\n" \
                    "</div>"
+
     note_menu = "<div id=\"note-menu\" class=\"col-sm-2\">\n" \
                 "%s\n" \
                 "</div>"
+
     # 0. %s node id
     # 1. %s node id
     # 2. %s node id
@@ -28,6 +32,7 @@ class HTML:
                     "<div id=\"section%s\" class=\"collapse\">\n" \
                     "  %s\n" \
                     "</div>"
+
     # 0. %s node id
     # 1. %s node id
     # 2. %s svg
@@ -38,6 +43,7 @@ class HTML:
                        "  </p>\n" \
                        "  <p>%s</p>\n" \
                        "</span>\n"
+
     # 1. %s node id
     # 2. %s node id
     # 3. %s svg
@@ -52,18 +58,18 @@ class HTML:
     note_info_script = "let note_menu_dict = %s"
 
     # 不同模式下 在库中 对应的静态文件所在地
-    static_file_in_lib_path_relative_local_mode = "/source/local/"
-    static_file_in_lib_path_relative_server_mode = "/source/server/"
-    static_file_in_lib_path_relative_all_mode = "/source/all/"
-    static_file_in_lib_path_relative_temp_files = "/source/temp/"
+    static_file_in_lib_path_relative_local_mode = "source/local"
+    static_file_in_lib_path_relative_server_mode = "source/server"
+    static_file_in_lib_path_relative_all_mode = "source/all"
+    static_file_in_lib_path_relative_temp_files = "source/temp"
 
     remote_libs_in_lib_path_relative = "%s/header.blade.html" % static_file_in_lib_path_relative_temp_files
     # 不同模式下 在目标 对应的静态文件所在地
-    static_file_target_path_relative = "/source"
-    note_info_script_target_path_relative = "%s/js/note_info.js" % static_file_target_path_relative
+    static_file_dest_path_rel = "source"
+    note_info_script_target_path_relative = "%s/js/note_info.js" % static_file_dest_path_rel
 
     # ！！！！！！最后要删除
-    static_file_path_relative = "/source"
+    static_file_path_relative = "source"
     remote_libs_path_relative = "%s/header.blade.html" % static_file_path_relative
     note_info_script_path_relative = "%s/js/note_info.js" % static_file_path_relative
 
@@ -100,21 +106,38 @@ class HTML:
         header_html_list = []
         # Include Remote Libs
         # 读取Remote的 JavaScript/CSS 库
-        remote_libs_path_full = os.getcwd() + HTML.remote_libs_in_lib_path_relative
+        remote_libs_path_full = os.path.join(os.getcwd(), HTML.remote_libs_in_lib_path_relative)
         remote_libs_file = open(remote_libs_path_full, "r")
         header_html_list.append(remote_libs_file.read())
         remote_libs_file.close()
         # Copy to destination (Only -server mode require this operation)
         # 将静态文件文件夹拷贝到系统 (仅 -server 模式需要此操作)
+        static_file_dest_path_full = os.path.join(note.note_root, HTML.static_file_dest_path_rel)
+        # if "-server" in sys.argv:
+        if os.path.exists(static_file_dest_path_full):
+            shutil.rmtree(static_file_dest_path_full)
+        try:
+            os.mkdir(static_file_dest_path_full)
+        except FileExistsError:
+            # 如果笔记的文件夹已经存在
+            # If note folder already exist
+            logging.warning("Static files folder already existed.")
+
+        # 获取 "/source/all" 和 "/source/server" 下文件夹
         if "-server" in sys.argv:
-            if os.path.exists(note.note_root + HTML.static_file_path_relative):
-                shutil.rmtree(note.note_root + HTML.static_file_path_relative)
-            shutil.copytree(os.getcwd() + HTML.static_file_path_relative,
-                            note.note_root + HTML.static_file_path_relative)
+            static_file_current_mode_path_rel = HTML.static_file_in_lib_path_relative_server_mode
         elif "-local" in sys.argv:
-            pass
+            static_file_current_mode_path_rel = HTML.static_file_in_lib_path_relative_local_mode
         else:
-            pass
+            logging.error("HTML output type is required")
+            raise Exception
+
+        static_path_full_all_mode = os.path.join(os.getcwd(), HTML.static_file_in_lib_path_relative_all_mode)
+        static_path_current_server_mode = os.path.join(os.getcwd(), static_file_current_mode_path_rel)
+
+        File.File.tree_merge_tree_copy(static_path_full_all_mode, static_file_dest_path_full)
+        File.File.tree_merge_tree_copy(static_path_current_server_mode, static_file_dest_path_full)
+
         # Write mode to script ("-server", "-local")
         # 将 mode 写入 script ("-server", "-local")
         if "-server" in sys.argv:
@@ -132,10 +155,11 @@ class HTML:
         # "-local" 模式将会将 note info 字典写入到 <head> 标签中
         note_info_script = HTML.note_info_script % json.dumps(note_info_dict)
         if "-server" in sys.argv:
-            note_info_file = open(note.note_root + HTML.note_info_script_path_relative, "w+")
+            note_info_script_target_path_full = os.path.join(note.note_root, HTML.note_info_script_target_path_relative)
+            note_info_file = open(note_info_script_target_path_full, "w+")
             note_info_file.write(note_info_script)
             note_info_file.close()
-            header_html_list.append("<script src=\"%s\"></script>" % HTML.note_info_script_path_relative)
+            header_html_list.append("<script src=\"%s\"></script>" % HTML.note_info_script_target_path_relative)
         elif "-local" in sys.argv:
             header_html_list.append("<script>%s</script>" % note_info_script)
         else:
@@ -145,8 +169,8 @@ class HTML:
         head_html_dict = {}
         if "-server" in sys.argv:
             head_html_dict = {
-                "css": "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s/%s/%s\">",
-                "js": "<script src=\"%s/%s/%s\"></script>"
+                "css": "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">",
+                "js": "<script src=\"%s\"></script>"
             }
         elif "-local" in sys.argv:
             head_html_dict = {
@@ -156,17 +180,18 @@ class HTML:
         else:
             pass
         dir_lists = []
-        for element in os.listdir(os.getcwd() + HTML.static_file_path_relative):
-            if os.path.isdir("%s/%s" % (os.getcwd() + HTML.static_file_path_relative, element)):
+        for element in os.listdir(static_file_dest_path_full):
+            if os.path.isdir("%s/%s" % (static_file_dest_path_full, element)):
                 dir_lists.append(element)
         for static_type in dir_lists:
-            static_dir_path_full = "%s/%s/%s/" % (os.getcwd(), HTML.static_file_path_relative, static_type)
+            static_dir_path_full = os.path.join(static_file_dest_path_full, static_type)
             for file_name in os.listdir(static_dir_path_full):
                 if re.search(r"\.%s$" % static_type, file_name):
                     if "-server" in sys.argv:
                         try:
-                            header_html_list.append(
-                                head_html_dict[static_type] % (HTML.static_file_path_relative, static_type, file_name))
+                            file_path_rel = os.path.join(HTML.static_file_dest_path_rel, static_type, file_name)
+                            file_path_rel = "/" + os.path.relpath(file_path_rel)
+                            header_html_list.append(head_html_dict[static_type] % file_path_rel)
                         except IndexError:
                             pass
                     elif "-local" in sys.argv:
