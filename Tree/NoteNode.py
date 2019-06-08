@@ -17,4 +17,3 @@ class NoteNode:
         self.name = "Index"
         self.html = ""
         self.relative_path = ""
-
