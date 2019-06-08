@@ -68,11 +68,6 @@ class HTML:
     static_file_dest_path_rel = "source"
     note_info_script_target_path_relative = "%s/js/note_info.js" % static_file_dest_path_rel
 
-    # ！！！！！！最后要删除
-    static_file_path_relative = "source"
-    remote_libs_path_relative = "%s/header.blade.html" % static_file_path_relative
-    note_info_script_path_relative = "%s/js/note_info.js" % static_file_path_relative
-
     # 📕1. 核心任务
     #   1.1. 生成 "-server"/"-local" 模式的 <head> 部分
     #       1.1.1. "-server" 模式:
@@ -203,7 +198,8 @@ class HTML:
                             pass
                     else:
                         pass
-
+        if "-local" in sys.argv:
+            shutil.rmtree(static_file_dest_path_full)
         all_header_html = ""
         for header_html in header_html_list:
             all_header_html += header_html + "\n"

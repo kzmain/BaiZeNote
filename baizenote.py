@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 import sys
 import datetime
 import logging
@@ -29,6 +30,34 @@ from Tools import File
 def main():
     # "-n" 模式，创建一个新的笔记仓库
     # "-n" mode make a new note repository
+    note_books_dest_json_path = os.path.join(os.getcwd(), "source/configs/notebooks_root.json")
+    if not os.path.exists(note_books_dest_json_path):
+        while True:
+            try:
+                all_note_books_dest_raw = input("Please input all notebooks repository:\n")
+                all_note_books_dest = os.path.abspath(all_note_books_dest_raw)
+                all_note_books_dest_dict = {"note_root_dest": all_note_books_dest}
+                if os.getcwd() == os.path.commonpath([all_note_books_dest, os.getcwd()]):
+                    logging.error("Permission denied! Cannot put under module's lib. Please enter a new absolute URI")
+                    continue
+                if not os.path.exists(all_note_books_dest):
+                    os.mkdir(all_note_books_dest)
+                test_file_path = os.path.join(all_note_books_dest, "test.join")
+                open(test_file_path, "w+").close()
+                os.remove(test_file_path)
+
+                all_note_books_dest_json_file = open(note_books_dest_json_path, "w+")
+                all_note_books_dest_json_file.write(json.dumps(all_note_books_dest_dict))
+                all_note_books_dest_json_file.close()
+                break
+            except PermissionError:
+                logging.error("Permission denied! Please enter another notebooks repository destination")
+    else:
+        all_note_books_dest_json_file = open(note_books_dest_json_path, "r")
+        all_note_books_dest_dict = json.loads(all_note_books_dest_json_file.read())
+        all_note_books_dest = all_note_books_dest_dict["note_root_dest"]
+        if not os.path.exists(all_note_books_dest):
+            os.mkdir(all_note_books_dest)
     if "-n" in sys.argv:
         note = Note()
         # 1. 获取笔记名称
@@ -153,7 +182,7 @@ def write_notebook_json(note_book_root_location):
     else:
         while True:
             enter_author_string = "Please input notebook name, if multiple author please separate by comma \",\" : \n"
-            confirm_author_string = "Is(Are) following your notebook's author(s) name(s)?(y\\n)\n%s\n"
+            confirm_author_string = "Is(Are) following your notebook's author(s) name(s)?(y/n)\n%s\n"
             author_raw = input(enter_author_string)
             author_list = author_raw.split(",")
             author_list = [x for x in author_list if x.strip()]
