@@ -98,6 +98,9 @@ class HTML:
     #       Step 4 Return HTML code back
     @staticmethod
     def generate_head(note, note_info_dict):
+        note_dest_path_full = os.path.join(note.note_books_repository, note.note_name)
+        static_file_dest_path_full = os.path.join(note_dest_path_full, HTML.static_file_dest_path_rel)
+
         header_html_list = []
         # Include Remote Libs
         # 读取Remote的 JavaScript/CSS 库
@@ -107,8 +110,10 @@ class HTML:
         remote_libs_file.close()
         # Copy to destination (Only -server mode require this operation)
         # 将静态文件文件夹拷贝到系统 (仅 -server 模式需要此操作)
-        static_file_dest_path_full = os.path.join(note.note_root, HTML.static_file_dest_path_rel)
         # if "-server" in sys.argv:
+        if not os.path.exists(note_dest_path_full):
+            os.mkdir(note_dest_path_full)
+
         if os.path.exists(static_file_dest_path_full):
             shutil.rmtree(static_file_dest_path_full)
         try:
@@ -130,8 +135,8 @@ class HTML:
         static_path_full_all_mode = os.path.join(os.getcwd(), HTML.static_file_in_lib_path_relative_all_mode)
         static_path_current_server_mode = os.path.join(os.getcwd(), static_file_current_mode_path_rel)
 
-        File.File.tree_merge_tree_copy(static_path_full_all_mode, static_file_dest_path_full)
-        File.File.tree_merge_tree_copy(static_path_current_server_mode, static_file_dest_path_full)
+        File.File.tree_merge_copy(static_path_full_all_mode, static_file_dest_path_full)
+        File.File.tree_merge_copy(static_path_current_server_mode, static_file_dest_path_full)
 
         # Write mode to script ("-server", "-local")
         # 将 mode 写入 script ("-server", "-local")
@@ -154,7 +159,6 @@ class HTML:
             note_info_file = open(note_info_script_target_path_full, "w+")
             note_info_file.write(note_info_script)
             note_info_file.close()
-            header_html_list.append("<script src=\"%s\"></script>" % HTML.note_info_script_target_path_relative)
         elif "-local" in sys.argv:
             header_html_list.append("<script>%s</script>" % note_info_script)
         else:
