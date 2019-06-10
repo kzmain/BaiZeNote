@@ -1,6 +1,4 @@
 import copy
-import os
-from pathlib import Path
 
 from HTML.HTML import HTML
 from NotePath.Source import Source

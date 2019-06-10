@@ -13,8 +13,8 @@ from datetime import datetime
 class BaiZeSys:
     PATH_FULL_SYS = os.path.abspath(os.curdir)
 
-    PATH_RELA_NOTEBOOKS_REPO_LOCATION_JSON = "source/configs/note_books_repo_location.json"
-    PATH_RELA_NOTEBOOKS_JSON = "source/configs/note_books_repo_all_notebooks.json"
+    PATH_RELA_NOTEBOOKS_REPO_LOCATION_JSON = "configs/note_books_repo_location.json"
+    PATH_RELA_NOTEBOOKS_JSON = "configs/note_books_repo_all_notebooks.json"
     PATH_FULL_NOTEBOOKS_JSON = os.path.join(PATH_FULL_SYS, PATH_RELA_NOTEBOOKS_JSON)
 
     NOTEBOOKS_REPO_LOCATION_KEY = "NOTE_BOOKS_REPO_PATH_FULL"

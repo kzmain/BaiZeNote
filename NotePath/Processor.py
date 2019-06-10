@@ -65,12 +65,12 @@ class Processor:
         return Destination.Destination.server_mode_write_converted_htmls(notebook, nodes_dict)
 
     @staticmethod
-    def server_mode_write_body_htmls():
-        return Destination.Destination.server_mode_write_body_htmls()
+    def server_mode_write_body_htmls(notebook, nodes_dict):
+        return Destination.Destination.server_mode_write_body_htmls(notebook, nodes_dict)
 
     @staticmethod
     def server_mode_write_static_resources(notebook, nodes_dict):
-        return Destination.Destination.server_mode_get_static_resources(notebook, nodes_dict)
+        return Destination.Destination.server_mode_write_static_resources(notebook, nodes_dict)
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
