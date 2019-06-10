@@ -55,6 +55,23 @@ class Processor:
     def initial_notebooks_repository():
         return Destination.Destination.initial_notebooks_repository()
 
+    @staticmethod
+    def prepare_file_writing(notebook_resource, notebook_destination):
+        return Destination.Destination.prepare_file_writing(notebook_resource, notebook_destination)
+
+    @staticmethod
+    def server_mode_write_converted_htmls(notebook, nodes_dict):
+        # TODO What to do when note status lock / hide tag/reference and so on
+        return Destination.Destination.server_mode_write_converted_htmls(notebook, nodes_dict)
+
+    @staticmethod
+    def server_mode_write_body_htmls():
+        return Destination.Destination.server_mode_write_body_htmls()
+
+    @staticmethod
+    def server_mode_write_static_resources(notebook, nodes_dict):
+        return Destination.Destination.server_mode_get_static_resources(notebook, nodes_dict)
+
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
     def source_check_section_json(notebook_root):

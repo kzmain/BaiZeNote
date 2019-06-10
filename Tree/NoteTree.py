@@ -57,12 +57,11 @@ class NoteTree:
         return
 
     def set_note_tree(self, notebook_root, notebook_section_path_rel, all_sections_info_dicts):
+        # TODO SPLIT NO LONGER NEED NOTE INFO
         section_info_not_need_list = [Source.SOURCE_SECTION_DICT_SECTION_MODIFICATION_TIME,
                                       Source.SOURCE_SECTION_DICT_SECTION_CREATION_TIME,
                                       Source.SOURCE_SECTION_DICT_REL_PATH]
         note_info_not_need_list = []
-        section_path_rel = notebook_section_path_rel
-        section_path_full = os.path.abspath(os.path.join(notebook_root, section_path_rel))
 
         current_node_info_dict = copy.deepcopy(all_sections_info_dicts[notebook_section_path_rel])
         current_node_notes_info_dict = current_node_info_dict[Source.SOURCE_SECTION_DICT_NOTES_DICT]
@@ -77,10 +76,10 @@ class NoteTree:
         for sub_nodes_path_rel in sub_nodes:
             self.go_to_node(current_node_id)
             self.set_note_tree(notebook_root, sub_nodes_path_rel, all_sections_info_dicts)
-        self.generate_section_menu(current_node_id)
+        self.__generate_html_section_menu(current_node_id)
         return self.nodes_dict
 
-    def generate_section_menu(self, section_id):
+    def __generate_html_section_menu(self, section_id):
         # TODO WHEN SECTION STATUS: HIDE, LOCK WHAT TO DO
         if section_id < 0:
             raise IndexError
@@ -116,6 +115,8 @@ class NoteTree:
 
         self.nodes_dict[section_id] = section_node
         return
+
+
     # # 📕1. 核心任务
     # #   1.1. 处理当前 node 的section menu
     # #       当前 node 的section menu 应该包含其子node的section menu
@@ -232,116 +233,3 @@ class NoteTree:
     #     note.note_tree = process_section_menu(note.note_tree)
     #     return note
 
-
-note_book_root_test = "/Users/kzmain/_Repository/📚Head_First_Data_Analysis_2009"
-all_sections_info_dicts_test = {
-    '.': {'REL_PATH': '.', 'SECTION_NAME': '📚Head_First_Data_Analysis_2009', 'SECTION_LOCK': False,
-          'SECTION_HIDE': False, 'SECTION_TAG': [], 'SECTION_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-          'SECTION_MODIFICATION_TIME': ['Wed May 29 19:22:12 2019'],
-          'SUB_SECTION_REL_PATH_DICT': {'0': 'Intro', '1': '1.Data Analysis procedure', '2': '.idea'},
-          'NOTES_DICT': {}},
-    'Intro': {'REL_PATH': 'Intro', 'SECTION_NAME': 'Intro', 'SECTION_LOCK': False, 'SECTION_HIDE': False,
-              'SECTION_TAG': [], 'SECTION_CREATION_TIME': 'Mon Jun 10 06:41:42 2019',
-              'SECTION_MODIFICATION_TIME': ['Mon Jun 10 06:41:42 2019'],
-              'SUB_SECTION_REL_PATH_DICT': {'0': 'Intro/untitled folder'}, 'NOTES_DICT': {
-            '0': {'NOTE_FILE_NAME': 'Intro', 'NOTE_FILE_PATH': 'Intro/Intro.md', 'NOTE_FILE_TYPE': '.md',
-                  'NOTE_REFERENCES': {}, 'NOTE_LOCK': False, 'NOTE_HIDE': False, 'NOTE_TAG': [],
-                  'NOTE_CREATION_TIME': 'Mon Jun 10 06:33:36 2019',
-                  'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:33:36 2019']}}},
-    'Intro/untitled folder': {'REL_PATH': 'Intro/untitled folder', 'SECTION_NAME': 'untitled folder',
-                              'SECTION_LOCK': False, 'SECTION_HIDE': False, 'SECTION_TAG': [],
-                              'SECTION_CREATION_TIME': 'Mon Jun 10 19:54:08 2019',
-                              'SECTION_MODIFICATION_TIME': ['Mon Jun 10 19:54:08 2019'],
-                              'SUB_SECTION_REL_PATH_DICT': {'0': 'Intro/untitled folder/untitled folder'},
-                              'NOTES_DICT': {}},
-    'Intro/untitled folder/untitled folder': {'REL_PATH': 'Intro/untitled folder/untitled folder',
-                                              'SECTION_NAME': 'untitled folder', 'SECTION_LOCK': False,
-                                              'SECTION_HIDE': False, 'SECTION_TAG': [],
-                                              'SECTION_CREATION_TIME': 'Mon Jun 10 19:54:08 2019',
-                                              'SECTION_MODIFICATION_TIME': ['Mon Jun 10 19:54:08 2019'],
-                                              'SUB_SECTION_REL_PATH_DICT': {}, 'NOTES_DICT': {}},
-    '1.Data Analysis procedure': {'REL_PATH': '1.Data Analysis procedure', 'SECTION_NAME': '1.Data Analysis procedure',
-                                  'SECTION_LOCK': False, 'SECTION_HIDE': False, 'SECTION_TAG': [],
-                                  'SECTION_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                                  'SECTION_MODIFICATION_TIME': ['Sat Jun  1 00:30:37 2019'],
-                                  'SUB_SECTION_REL_PATH_DICT': {'0': '1.Data Analysis procedure/1. Define the problem',
-                                                                '1': '1.Data Analysis procedure/2. Disassemble',
-                                                                '2': '1.Data Analysis procedure/3. Evaluate',
-                                                                '3': '1.Data Analysis procedure/4. Decide'},
-                                  'NOTES_DICT': {
-                                      '0': {'NOTE_FILE_NAME': 'Data Analysis procedure',
-                                            'NOTE_FILE_PATH': '1.Data Analysis procedure/Data Analysis procedure.md',
-                                            'NOTE_FILE_TYPE': '.md',
-                                            'NOTE_REFERENCES': {}, 'NOTE_LOCK': False, 'NOTE_HIDE': False,
-                                            'NOTE_TAG': [],
-                                            'NOTE_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                                            'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:25:33 2019']},
-                                      '2': {'NOTE_FILE_NAME': 'Sharpen_Your_Pencil_P47',
-                                            'NOTE_FILE_PATH': '1.Data Analysis procedure/Sharpen_Your_Pencil_P47.md',
-                                            'NOTE_FILE_TYPE': '.md',
-                                            'NOTE_REFERENCES': {}, 'NOTE_LOCK': False, 'NOTE_HIDE': False,
-                                            'NOTE_TAG': [],
-                                            'NOTE_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                                            'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:25:33 2019',
-                                                                       'Mon Jun 10 19:38:57 2019']},
-                                      '3': {'NOTE_FILE_NAME': 'Sharpen_Your_Pencil_P52',
-                                            'NOTE_FILE_PATH': '1.Data Analysis procedure/Sharpen_Your_Pencil_P52.md',
-                                            'NOTE_FILE_TYPE': '.md',
-                                            'NOTE_REFERENCES': {}, 'NOTE_LOCK': False, 'NOTE_HIDE': False,
-                                            'NOTE_TAG': [],
-                                            'NOTE_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                                            'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:25:33 2019']},
-                                      '5': {'NOTE_FILE_NAME': 'Sharpen_Your_Pencil_P47 copy',
-                                            'NOTE_FILE_PATH': '1.Data Analysis procedure/Sharpen_Your_Pencil_P47 copy.md',
-                                            'NOTE_FILE_TYPE': '.md', 'NOTE_REFERENCES': {}, 'NOTE_LOCK': False,
-                                            'NOTE_HIDE': False,
-                                            'NOTE_TAG': [], 'NOTE_CREATION_TIME': 'Mon Jun 10 06:43:55 2019',
-                                            'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:43:55 2019',
-                                                                       'Mon Jun 10 19:38:51 2019']}}},
-    '1.Data Analysis procedure/1. Define the problem': {'REL_PATH': '1.Data Analysis procedure/1. Define the problem',
-                                                        'SECTION_NAME': '1. Define the problem', 'SECTION_LOCK': False,
-                                                        'SECTION_HIDE': False, 'SECTION_TAG': [],
-                                                        'SECTION_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                                                        'SECTION_MODIFICATION_TIME': ['Sat Jun  1 00:30:37 2019'],
-                                                        'SUB_SECTION_REL_PATH_DICT': {}, 'NOTES_DICT': {
-            '0': {'NOTE_FILE_NAME': '1',
-                  'NOTE_FILE_PATH': '1.Data Analysis procedure/1. Define the problem/1. Define the problem.md',
-                  'NOTE_FILE_TYPE': '.md', 'NOTE_REFERENCES': {}, 'NOTE_LOCK': False, 'NOTE_HIDE': False,
-                  'NOTE_TAG': [], 'NOTE_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                  'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:25:33 2019']}}},
-    '1.Data Analysis procedure/2. Disassemble': {'REL_PATH': '1.Data Analysis procedure/2. Disassemble',
-                                                 'SECTION_NAME': '2. Disassemble', 'SECTION_LOCK': False,
-                                                 'SECTION_HIDE': False, 'SECTION_TAG': [],
-                                                 'SECTION_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                                                 'SECTION_MODIFICATION_TIME': ['Sat Jun  1 00:30:37 2019'],
-                                                 'SUB_SECTION_REL_PATH_DICT': {}, 'NOTES_DICT': {
-            '0': {'NOTE_FILE_NAME': '2', 'NOTE_FILE_PATH': '1.Data Analysis procedure/2. Disassemble/2. Disassemble.md',
-                  'NOTE_FILE_TYPE': '.md', 'NOTE_REFERENCES': {}, 'NOTE_LOCK': False, 'NOTE_HIDE': False,
-                  'NOTE_TAG': [], 'NOTE_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                  'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:25:33 2019']}}},
-    '1.Data Analysis procedure/3. Evaluate': {'REL_PATH': '1.Data Analysis procedure/3. Evaluate',
-                                              'SECTION_NAME': '3. Evaluate', 'SECTION_LOCK': False,
-                                              'SECTION_HIDE': False, 'SECTION_TAG': [],
-                                              'SECTION_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                                              'SECTION_MODIFICATION_TIME': ['Sat Jun  1 00:30:37 2019'],
-                                              'SUB_SECTION_REL_PATH_DICT': {}, 'NOTES_DICT': {
-            '0': {'NOTE_FILE_NAME': '3', 'NOTE_FILE_PATH': '1.Data Analysis procedure/3. Evaluate/3. Evaluate.md',
-                  'NOTE_FILE_TYPE': '.md', 'NOTE_REFERENCES': {}, 'NOTE_LOCK': False, 'NOTE_HIDE': False,
-                  'NOTE_TAG': [], 'NOTE_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                  'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:25:33 2019']}}},
-    '1.Data Analysis procedure/4. Decide': {'REL_PATH': '1.Data Analysis procedure/4. Decide',
-                                            'SECTION_NAME': '4. Decide', 'SECTION_LOCK': False, 'SECTION_HIDE': False,
-                                            'SECTION_TAG': [], 'SECTION_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                                            'SECTION_MODIFICATION_TIME': ['Sat Jun  1 00:30:37 2019'],
-                                            'SUB_SECTION_REL_PATH_DICT': {}, 'NOTES_DICT': {
-            '0': {'NOTE_FILE_NAME': '4', 'NOTE_FILE_PATH': '1.Data Analysis procedure/4. Decide/4. Decide.md',
-                  'NOTE_FILE_TYPE': '.md', 'NOTE_REFERENCES': {}, 'NOTE_LOCK': False, 'NOTE_HIDE': False,
-                  'NOTE_TAG': [], 'NOTE_CREATION_TIME': 'Mon Jun 10 06:25:33 2019',
-                  'NOTE_MODIFICATION_TIME': ['Mon Jun 10 06:25:33 2019']}}},
-    '.idea': {'REL_PATH': '.idea', 'SECTION_NAME': '.idea', 'SECTION_LOCK': False, 'SECTION_HIDE': False,
-              'SECTION_TAG': [], 'SECTION_CREATION_TIME': 'Mon Jun 10 06:42:18 2019',
-              'SECTION_MODIFICATION_TIME': ['Mon Jun 10 06:42:18 2019'], 'SUB_SECTION_REL_PATH_DICT': {},
-              'NOTES_DICT': {}}}
-note_tree_test = NoteTree()
-a = note_tree_test.set_note_tree(note_book_root_test, ".", all_sections_info_dicts_test)
-print()

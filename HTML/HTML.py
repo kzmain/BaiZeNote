@@ -1,9 +1,12 @@
+import copy
 import json
 import os
 import re
 import shutil
 import sys
 import logging
+
+from NotePath.Source import Source
 from Tools import File
 
 
@@ -58,8 +61,8 @@ class HTML:
     note_info_script = "let note_menu_dict = %s"
 
     # 不同模式下 在库中 对应的静态文件所在地
-    static_file_in_lib_path_relative_local_mode = "source/local"
-    static_file_in_lib_path_relative_server_mode = "source/server"
+    static_file_in_lib_path_rel_local_mode = "source/local"
+    static_file_in_lib_path_rel_server_mode = "source/server"
     static_file_in_lib_path_relative_all_mode = "source/all"
     static_file_in_lib_path_relative_temp_files = "source/temp"
 
@@ -96,47 +99,24 @@ class HTML:
     #       Step 2 Get note_info_dict's json and add it into <head> tag
     #       Step 3 Read static files under "/source/local/" and "/source/all/"  and write into <head> tag
     #       Step 4 Return HTML code back
-    @staticmethod
-    def generate_head(note, note_info_dict):
-        note_dest_path_full = os.path.join(note.note_books_repository, note.note_name)
-        static_file_dest_path_full = os.path.join(note_dest_path_full, HTML.static_file_dest_path_rel)
 
-        header_html_list = []
-        # Include Remote Libs
-        # 读取Remote的 JavaScript/CSS 库
+    @staticmethod
+    def get_remote_libs():
         remote_libs_path_full = os.path.join(os.getcwd(), HTML.remote_libs_in_lib_path_relative)
         remote_libs_file = open(remote_libs_path_full, "r")
-        header_html_list.append(remote_libs_file.read())
+        remote_libs = remote_libs_file.read()
         remote_libs_file.close()
-        # Copy to destination (Only -server mode require this operation)
-        # 将静态文件文件夹拷贝到系统 (仅 -server 模式需要此操作)
-        # if "-server" in sys.argv:
-        if not os.path.exists(note_dest_path_full):
-            os.mkdir(note_dest_path_full)
+        return remote_libs
 
-        if os.path.exists(static_file_dest_path_full):
-            shutil.rmtree(static_file_dest_path_full)
-        try:
-            os.mkdir(static_file_dest_path_full)
-        except FileExistsError:
-            # 如果笔记的文件夹已经存在
-            # If note folder already exist
-            logging.warning("Static files folder already existed.")
+    @staticmethod
+    def generate_head(note_book, nodes_dict):
+        notes_dest_path_full = note_book.notebook_dest
+        files_dest_path_full = os.path.join(notes_dest_path_full, HTML.static_file_dest_path_rel)
+        header_html_list = []
 
-        # 获取 "/source/all" 和 "/source/server" 下文件夹
-        if "-server" in sys.argv:
-            static_file_current_mode_path_rel = HTML.static_file_in_lib_path_relative_server_mode
-        elif "-local" in sys.argv:
-            static_file_current_mode_path_rel = HTML.static_file_in_lib_path_relative_local_mode
-        else:
-            logging.error("HTML output type is required")
-            raise Exception
-
-        static_path_full_all_mode = os.path.join(os.getcwd(), HTML.static_file_in_lib_path_relative_all_mode)
-        static_path_current_server_mode = os.path.join(os.getcwd(), static_file_current_mode_path_rel)
-
-        File.File.tree_merge_copy(static_path_full_all_mode, static_file_dest_path_full)
-        File.File.tree_merge_copy(static_path_current_server_mode, static_file_dest_path_full)
+        # Include Remote Libs
+        # 读取Remote的 JavaScript/CSS 库/ <meta>
+        header_html_list.append(HTML.get_remote_libs())
 
         # Write mode to script ("-server", "-local")
         # 将 mode 写入 script ("-server", "-local")
@@ -146,6 +126,18 @@ class HTML:
             header_html_list.append("<script> let note_mode = \"local\"</script>")
         else:
             pass
+
+
+
+
+
+
+
+
+
+
+
+
         # Get note info (section id - note_id dictionary)
         # "-server" mode will write note info dict as a js file to /[NOTE_ROOT]/source/js/note_info.js
         # "-local" mode will write note info dict in to <head> tag directly
