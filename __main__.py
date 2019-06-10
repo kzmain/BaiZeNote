@@ -5,17 +5,24 @@ import sys
 import time
 import logging
 import json
+from pathlib import Path
 
 from HTML.HTML import HTML
 from NotePath.Processor import Processor
+from NotePath.Source import Source
 from Notebook import Notebook
-
 
 from Tools.File import File
 from source.temp.svg.SVG import SVG
 import emarkdown.markdown as md
 
 from Tools import URIReplacement
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# 如果 创建一相同的note，保存本地文件时需要 换名字
+# 如果 创建一相同的section，保存本地文件时需要 换名字
+# ----------------------------------------------------------------------------------------------------------------------
 
 
 # 📕Note book 参数信息
@@ -78,25 +85,13 @@ def main():
             notebook.notebook_name = os.path.basename(notebook_path)
             notebook.notebook_dest = Processor.get_notebook_destination(notebooks_destination, notebook.notebook_name)
             notebook.notebook_dict = Processor.sys_get_notebooks_info()[notebook_path]
-            Processor.source_check_section_json(notebook.notebook_root)
-            # for root, dirs, files in os.walk(notebook.notebook_root):
-            #     for name in files:
-            #         print(os.path.join(root, name))
-            #     for name in dirs:
-            #         print(os.path.join(root, name))
-            # if notebook.modified_time not in notebook.notebook_dict["Modification_Time"]:
-                # 处理改动过的modification
-                # 结束以后要append mtime
-                # notebook.notebook_dict = Processor.sys_get_notebooks_info()[notebook_path]
-                # print("yes")
-            # 获取 相同文件夹 树
+            sections_info_dicts= Processor.source_check_section_json(notebook.notebook_root)
+
             if os.path.exists(notebook.notebook_dest):
                 shutil.rmtree(notebook.notebook_dest)
             File.folder_tree_copy(notebook.notebook_root, notebook.notebook_dest)
+
             # 处理html
-
-
-
 
         # 3. 初始化每个笔记
         #   Task 1 获取每个 文件夹/.md文件 信息
@@ -153,120 +148,57 @@ def main():
         raise Exception
 
 
-# ！！！！！！！！！！！！！前半部分需要分割！因为写入以后才知道上次更改时间
-# 📕1. 核心任务：
-#   1.1. 将 ".notebook.json" 写入到笔记根目录,这包含笔记本的所有的信息
-# ----------------------------------------------------------------------------------------------------------------------
-# 📕1. Core tasks:
-#   1.1. Write ".notebook.json" in note root folder, This include basic info of notebook
-def write_notebook_json(note_book_root_location):
-    # c_datetime = datetime.datetime.now()
-    # current_date = "%s-%s-%s" % (c_datetime.year, c_datetime.month, c_datetime.day)
-    # current_time = "%s:%s:%s:%s" % (c_datetime.hour, c_datetime.minute, c_datetime.second, c_datetime.microsecond)
-    # note_name = os.path.basename(note_book_root_location)
-    # 情况 2 如果 .notebook.json 存在则添加最新更改时间
-    # Circumstance 2 if .notebook.json exists add current update time
-    # note_book_config_json_full_path = os.path.join(note_book_root_location, Source.SOURCE_PATH_REL_NOTEBOOK_JSON)
-    notebooks_config_full_path = os.path.join(NoteSys.PATH_FULL_SYS, NoteSys.PATH_RELA_NOTEBOOKS_JSON)
-    notebooks_config_file = open(notebooks_config_full_path, "r")
-    notebooks_config_dict = json.loads(notebooks_config_file.read())
-    if note_book_root_location in notebooks_config_dict:
-        # ！！！！！！！要只用r+覆盖
-        note_book_json_file = open(note_book_config_json_full_path, "r")
-        note_book_dict = json.loads(note_book_json_file.read())
-        note_book_json_file.close()
-        note_book_json_file = open(note_book_config_json_full_path, "w+")
-        new_ctime = time.ctime(os.path.getmtime(note_book_config_json_full_path))
-        if new_ctime not in note_book_dict["Modification_Time"]:
-            note_book_dict["Modification_Time"].append(new_ctime)
-            note_book_json_file.write(json.dumps(note_book_dict))
-        note_book_json_file.close()
-    # 情况 2 如果 .notebook.json 不存在,则初始化写入信息到 .notebook.json
-    # Circumstance 2 if .notebook.json does NOT exist, write initial info to .notebook.json
-    else:
-        while True:
-            enter_author_string = "Please input notebook name, if multiple author please separate by comma \",\" : \n"
-            confirm_author_string = "Is(Are) following your notebook's author(s) name(s)?(y/n)\n%s\n"
-            author_raw = input(enter_author_string)
-            author_list = author_raw.split(",")
-            author_list = [x for x in author_list if x.strip()]
-            if input(confirm_author_string % str(author_list)).lower() in ["yes", "y"]:
-                break
-        note_book_dict = {"Author": author_list, "Note_Name": os.path.basename(note_book_root_location),
-                          "Creation_time": time.ctime(os.path.getctime(note_book_config_json_full_path)),
-                          "Modification_Time": [time.ctime(os.path.getmtime(note_book_config_json_full_path))]
-                          }
-    NoteSys.sys_add_a_notebook(note_book_root_location, note_book_dict)
-    return note_book_dict
+# # ！！！！！！！！！！！！！前半部分需要分割！因为写入以后才知道上次更改时间
+# # 📕1. 核心任务：
+# #   1.1. 将 ".notebook.json" 写入到笔记根目录,这包含笔记本的所有的信息
+# # ----------------------------------------------------------------------------------------------------------------------
+# # 📕1. Core tasks:
+# #   1.1. Write ".notebook.json" in note root folder, This include basic info of notebook
+# def write_notebook_json(note_book_root_location):
+#     # c_datetime = datetime.datetime.now()
+#     # current_date = "%s-%s-%s" % (c_datetime.year, c_datetime.month, c_datetime.day)
+#     # current_time = "%s:%s:%s:%s" % (c_datetime.hour, c_datetime.minute, c_datetime.second, c_datetime.microsecond)
+#     # note_name = os.path.basename(note_book_root_location)
+#     # 情况 2 如果 .notebook.json 存在则添加最新更改时间
+#     # Circumstance 2 if .notebook.json exists add current update time
+#     # note_book_config_json_full_path = os.path.join(note_book_root_location, Source.SOURCE_PATH_REL_NOTEBOOK_JSON)
+#     notebooks_config_full_path = os.path.join(NoteSys.PATH_FULL_SYS, NoteSys.PATH_RELA_NOTEBOOKS_JSON)
+#     notebooks_config_file = open(notebooks_config_full_path, "r")
+#     notebooks_config_dict = json.loads(notebooks_config_file.read())
+#     if note_book_root_location in notebooks_config_dict:
+#         # ！！！！！！！要只用r+覆盖
+#         note_book_json_file = open(note_book_config_json_full_path, "r")
+#         note_book_dict = json.loads(note_book_json_file.read())
+#         note_book_json_file.close()
+#         note_book_json_file = open(note_book_config_json_full_path, "w+")
+#         new_ctime = time.ctime(os.path.getmtime(note_book_config_json_full_path))
+#         if new_ctime not in note_book_dict["Modification_Time"]:
+#             note_book_dict["Modification_Time"].append(new_ctime)
+#             note_book_json_file.write(json.dumps(note_book_dict))
+#         note_book_json_file.close()
+#     # 情况 2 如果 .notebook.json 不存在,则初始化写入信息到 .notebook.json
+#     # Circumstance 2 if .notebook.json does NOT exist, write initial info to .notebook.json
+#     else:
+#         while True:
+#             enter_author_string = "Please input notebook name, if multiple author please separate by comma \",\" : \n"
+#             confirm_author_string = "Is(Are) following your notebook's author(s) name(s)?(y/n)\n%s\n"
+#             author_raw = input(enter_author_string)
+#             author_list = author_raw.split(",")
+#             author_list = [x for x in author_list if x.strip()]
+#             if input(confirm_author_string % str(author_list)).lower() in ["yes", "y"]:
+#                 break
+#         note_book_dict = {"Author": author_list, "Note_Name": os.path.basename(note_book_root_location),
+#                           "Creation_time": time.ctime(os.path.getctime(note_book_config_json_full_path)),
+#                           "Modification_Time": [time.ctime(os.path.getmtime(note_book_config_json_full_path))]
+#                           }
+#     NoteSys.sys_add_a_notebook(note_book_root_location, note_book_dict)
+#     return note_book_dict
 
 
-# ！！！！！！！！！write ".dir_list.json" and ".file_list.json" to EACH folder
-# 📕1. 核心任务：
-#   1.1. 处理当前node信息，并将其添加进node_tree（储存note的相关信息）
-#   1.1.1 将当前 node 所有子的 note（md文件）为 html 文件
-#   1.2. 处理子node信息，并将其添加为当前node的子node（储存note的相关信息）
-#   1.3. 生成当前 node 的 section menu
-# 📗2. 相关信息
-#   2.1 文件夹 - Section - Node 的对应关系
-#       硬盘中"文件夹" -> HTML笔记中的Section -> 内存中 Node
-#   2.2 .md文件 - 笔记 （Note） 的对应关系
-#       硬盘中".md文件" -> HTML笔记中的 笔记（Note）
-# 📘3. 相关functions
-#   3.1. get_section_info_dict()
-#   3.2. process_section_menu()
-# ----------------------------------------------------------------------------------------------------------------------
-# 📕1. Core Tasks:
-#   1.1. Process current node's info, and add it into node_tree, which stores all note related info
-#   1.1.1 Generate all current node's notes' (md files) md files
-#   1.2. Process current node's sub-nodes' info, and add them into node tree, which stores all note related info
-#   1.3. Generate current node's section menu
-# 📗2. Related info
-#   2.1 Folder - section - node 's relationship
-#       "Folder" in hard disk -> section in HTML file -> node in RAM
-#   2.2 .md files - note 的对应关系
-#       ".md file" in hard disk-> note in HTML file
-# 📘3. Related functions
-#   3.1. get_section_info_dict()
-#   3.2. process_section_menu()
-def initial_files_and_sections(note, target_section_path_relative):
-    # 1. 获取 目标文件夹的相对文件位置
-    # 1. Get target folder relative path
-    # if target_sub_section != "":
-    #     target_section_path_relative = "%s%s/" % (parent_path_relative, target_sub_section)
-    # else:
-    #     target_section_path_relative = parent_path_relative
-    target_section_path_abs = os.path.abspath(os.path.join(note.note_root, target_section_path_relative))
-    # 2. 获取 section 的相关的信息
-    # 2. Get section relative infos
-    section_info_dict = write_section_info_dict(note, target_section_path_relative)
-    # 3. 在 note_tree 中将现在的node添加为子node
-    # 3. Add current node in to note_tree
-    node_name = os.path.basename(target_section_path_abs)
-    note.note_tree.add_child_node(node_name, section_info_dict)
-    # 4. 处理当前node所有的子node
-    #   - 因为他本身的section menu基于他的所有子node的情况，只有所有子node的section menu确定了才能完成其section menu
-    # Process current node's children's nodes
-    #   - This because a section's menu is based on it's children's nodes circumstance, only all its children nodes'
-    # section menu is generated, can confirm current node's section menu
-    current_node_id = note.note_tree.node_id - 1
-    current_node = note.note_tree.go_to_node(current_node_id)
-    dir_list = []
-    # 4.1 获取所有的 子文件夹/子section
-    # 4.1 Get all sub-folders/sub-sections
-    for key, value in current_node.section_dict.items():
-        dir_list.append(value["section_name"])
-    # 4.2 处理子section的核心
-    # 4.2 Core part of processing sub-sections
-    while len(dir_list) > 0:
-        note.note_tree.go_to_node(current_node_id)
-        new_target_sub_folder = dir_list.pop()
-        new_target_section_path_relative = os.path.join(target_section_path_relative, new_target_sub_folder)
-        note = initial_files_and_sections(note, new_target_section_path_relative)
-        note.note_tree.go_to_parent_node()
-    # 5. 处理当前 node 的 section menu
-    # 5. Generate current node's section menu
-    note.note_tree = process_section_menu(note.note_tree)
-    return note
+
+
+
+
 
 
 # 📕1. 核心任务
@@ -338,7 +270,6 @@ def write_section_info_dict(note, target_section_path_relative):
     section_json_file = open(section_json_file_path_full, "w+")
     section_json_file.write(json.dumps(section_info_dict))
     return section_info_dict
-
 
 
 # 📕1. 核心任务
