@@ -147,7 +147,7 @@ class Destination:
             for note_id, note_dict in section_dict.items():
                 note_rel_raw = note_dict[Source.SOURCE_SUB_NOTE_DICT_NOTE_FILE_PATH_REL]
                 note_file_type = note_dict[Source.SOURCE_SUB_NOTE_DICT_NOTE_FILE_TYPE]
-                note_html_rel_raw = re.sub("%s" % note_file_type, "", note_rel_raw, 1)
+                note_html_rel_raw = re.sub("%s$" % note_file_type, "", note_rel_raw, 1)
                 next_name_counter = 0
                 while note_html_rel_raw in note_rel_list:
                     note_html_rel_raw += str(next_name_counter)
@@ -164,20 +164,21 @@ class Destination:
         return nodes_dict
 
     @staticmethod
-    def server_mode_write_body_htmls(notebook, nodes_dict):
+    def server_mode_write_body_htmls(notebook, nodes_dict, html_head):
         for section_id, section_dict in nodes_dict.items():
             for note_id, note_dict in section_dict.items():
                 html_path_rel = note_dict[Source.SOURCE_SUB_NOTE_DICT_HTML_FILE_REL]
                 html_path_full = os.path.join(notebook.notebook_dest, html_path_rel)
                 html_body = HTML.generate_server_body(section_id, note_id)
                 html_file = open(html_path_full, "w+")
+                html_file.write(html_head)
                 html_file.write(html_body)
                 html_file.close()
 
     @staticmethod
     def server_mode_write_static_resources(note_book, nodes_dict):
         notes_dest_path_full = note_book.notebook_dest
-        files_dest_path_full = os.path.join(notes_dest_path_full, HTML.static_file_dest_path_rel)
+        files_dest_path_full = os.path.join(notes_dest_path_full, HTML.dest_path_rel)
         # 准备目标文件夹下的 source 静态文件夹
         if os.path.exists(files_dest_path_full):
             shutil.rmtree(files_dest_path_full)
@@ -199,9 +200,14 @@ class Destination:
         File.tree_merge_copy(static_path_current_mode, files_dest_path_full)
 
         head_html = HTML.generate_head(note_book, nodes_dict)
-        head_html_file = open(os.path.join(files_dest_path_full, HTML.static_file_dest_file_name_head), "w+")
+        head_html_file = open(os.path.join(files_dest_path_full, HTML.dest_file_name_head_html), "w+")
         head_html_file.write(head_html)
         head_html_file.close()
+        section_menu_html_file = open(os.path.join(files_dest_path_full, HTML.dest_file_name_section_menu_html), "w+")
+        node_root_id = note_book.notebook_tree.node_id_root
+        section_menu_html_file.write(note_book.notebook_tree.nodes_dict[node_root_id].html_section_menu)
+        section_menu_html_file.close()
+        return head_html
 
 
 

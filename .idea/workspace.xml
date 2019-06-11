@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25a3472b-9097-4a1b-af51-16d760192c7e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HTML/HTML.py" beforeDir="false" afterPath="$PROJECT_DIR$/HTML/HTML.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NotePath/BaiZeSys.py" beforeDir="false" afterPath="$PROJECT_DIR$/NotePath/BaiZeSys.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NotePath/Destination.py" beforeDir="false" afterPath="$PROJECT_DIR$/NotePath/Destination.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NotePath/Processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/NotePath/Processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NotePath/Source.py" beforeDir="false" afterPath="$PROJECT_DIR$/NotePath/Source.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tree/NoteTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tree/NoteTree.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/configs/note_books_repo_all_notebooks.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/note_books_repo_all_notebooks.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/configs/note_books_repo_all_notebooks.json2019-06-09 23:54:16.189752.backup" beforeDir="false" afterPath="$PROJECT_DIR$/configs/note_books_repo_all_notebooks.json2019-06-09 23:54:16.189752.backup" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/configs/note_books_repo_location.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/note_books_repo_location.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/server/js/show_current_note_page.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/server/js/show_current_note_page.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,7 +18,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/BaiZeNote$git_note.coverage" NAME="git_note Coverage Results" MODIFIED="1559418989331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/BaiZeNote$baizenote.coverage" NAME="baizenote Coverage Results" MODIFIED="1560193127298" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/BaiZeNote$baizenote.coverage" NAME="baizenote Coverage Results" MODIFIED="1560243221683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GitNote$CodeTagProcessor.coverage" NAME="CodeTagProcessor Coverage Results" MODIFIED="1556356783102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$MarkDown.coverage" NAME="MarkDown Coverage Results" MODIFIED="1556892615617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$ProcessorPacker.coverage" NAME="ProcessorPacker Coverage Results" MODIFIED="1556087744622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown/Tools" />
@@ -60,8 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__main__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
-              <caret line="120" column="21" lean-forward="true" selection-start-line="120" selection-start-column="21" selection-end-line="120" selection-end-column="21" />
+            <state relative-caret-position="146">
+              <caret line="91" selection-start-line="91" selection-end-line="91" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#2658#2678#0" />
@@ -72,22 +69,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NotePath/BaiZeSys.py">
+        <entry file="file://$PROJECT_DIR$/Tree/NoteTree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+            <state relative-caret-position="59">
+              <caret line="93" column="40" selection-start-line="93" selection-start-column="40" selection-end-line="93" selection-end-column="40" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NotePath/Processor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="67" column="57" selection-start-line="67" selection-start-column="57" selection-end-line="67" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -95,27 +83,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NotePath/Destination.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="174" column="33" selection-start-line="174" selection-start-column="33" selection-end-line="174" selection-end-column="33" />
+            <state relative-caret-position="190">
+              <caret line="149" column="36" lean-forward="true" selection-start-line="149" selection-start-column="36" selection-end-line="149" selection-end-column="87" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#496#1972#0" />
-                <element signature="e#1939#2214#0" />
-                <element signature="e#2300#3777#0" />
-                <element signature="e#3820#5608#0" />
-                <element signature="e#6874#8182#0" />
-                <element signature="e#8349#9675#0" />
-                <element signature="e#5629#5824#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HTML/HTML.py">
+        <entry file="file://$PROJECT_DIR$/NotePath/BaiZeSys.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+            <state relative-caret-position="135">
+              <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NotePath/Source.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="431">
+              <caret line="104" column="117" selection-start-line="104" selection-start-column="117" selection-end-line="104" selection-end-column="117" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -124,15 +117,46 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Tree/NoteTree.py">
+        <entry file="file://$PROJECT_DIR$/HTML/HTML.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1262">
+            <state relative-caret-position="75">
               <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#1430#1726#0" />
-                <element signature="e#3005#4909#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/server/js/show_current_note_page.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
+              <folding>
+                <element signature="e#493#746#0" />
+                <element signature="n#!!block;n#get_note_menu#0" />
+                <element signature="n#!!block;n#get_note#0" />
+                <element signature="e#4528#5112#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tree/NoteNode.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NotePath/Processor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="72" column="63" selection-start-line="72" selection-start-column="63" selection-end-line="72" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -149,12 +173,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>！</find>
-      <find>write_section_info_dict</find>
-      <find>initial_files_and_sections</find>
-      <find>SOURCE_PATH_REL_SECTION_JSON</find>
-      <find>SECTION_MODIFICATION_TIME</find>
-      <find>_SOURCE_SUB_NOTE_DICT_NOTE_FILE_NAME</find>
       <find>_SOURCE_SUB_NOTE_DICT_NOTE_NAME</find>
       <find>SOURCE_SUB_NOTE_DICT_SECTION_MODIFICATION_TIME</find>
       <find>SUB_SECTION_LIST</find>
@@ -175,10 +193,16 @@
       <find>notebooks's author</find>
       <find>self.nodes_dict[section_id]</find>
       <find>node_info_dict</find>
-      <find>add_child</find>
-      <find>configs</find>
-      <find>static_type</find>
       <find>nodes_dict</find>
+      <find>static_type</find>
+      <find>section%</find>
+      <find>$</find>
+      <find>add_child</find>
+      <find>re.</find>
+      <find>configs</find>
+      <find>SOURCE_SUB_NOTE_DICT_NOTE_NAME</find>
+      <find>read</find>
+      <find>get_note_menu</find>
     </findStrings>
     <replaceStrings>
       <replace>%;</replace>
@@ -192,7 +216,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/emarkdown/MarkDown.py" />
         <option value="$PROJECT_DIR$/RootNode.py" />
         <option value="$PROJECT_DIR$/Node.py" />
         <option value="$PROJECT_DIR$/NoteTree.py" />
@@ -236,13 +259,14 @@
         <option value="$PROJECT_DIR$/source/configs/note_books_repo_all_notebooks.json" />
         <option value="$PROJECT_DIR$/Tree/NoteRootNode.py" />
         <option value="$PROJECT_DIR$/Tree/NoteNode.py" />
-        <option value="$PROJECT_DIR$/NotePath/Source.py" />
-        <option value="$PROJECT_DIR$/NotePath/Processor.py" />
-        <option value="$PROJECT_DIR$/NotePath/Destination.py" />
         <option value="$PROJECT_DIR$/NotePath/BaiZeSys.py" />
         <option value="$PROJECT_DIR$/__main__.py" />
-        <option value="$PROJECT_DIR$/HTML/HTML.py" />
+        <option value="$PROJECT_DIR$/NotePath/Processor.py" />
         <option value="$PROJECT_DIR$/Tree/NoteTree.py" />
+        <option value="$PROJECT_DIR$/NotePath/Destination.py" />
+        <option value="$PROJECT_DIR$/NotePath/Source.py" />
+        <option value="$PROJECT_DIR$/source/server/js/show_current_note_page.js" />
+        <option value="$PROJECT_DIR$/HTML/HTML.py" />
       </list>
     </option>
   </component>
@@ -273,17 +297,20 @@
             <path>
               <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
               <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
-              <item name="NotePath" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
               <item name="source" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
               <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
-              <item name="Tree" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -455,7 +482,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="756259000" />
+    <option name="totallyTimeSpent" value="761385000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -470,20 +497,20 @@
     <frame x="0" y="23" width="1680" height="963" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.68476355" visible="true" weight="0.34615386" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.68476355" visible="true" weight="0.34615386" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.31523642" side_tool="true" weight="0.1935287" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47557998" weight="0.3283582" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.54212457" visible="true" weight="0.25947186" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4884005" weight="0.3444317" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.54090357" visible="true" weight="0.25947186" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4871795" weight="0.3444317" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.498779" weight="0.3295063" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4993895" weight="0.3295063" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.45787546" side_tool="true" visible="true" weight="0.25947186" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.45909646" side_tool="true" visible="true" weight="0.25947186" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4981685" weight="0.3295063" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.498779" weight="0.3295063" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" sideWeight="0.4981685" weight="0.3283582" />
@@ -515,6 +542,11 @@
           <url>file://$PROJECT_DIR$/__main__.py</url>
           <line>208</line>
           <option name="timeStamp" value="548" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/NotePath/Source.py</url>
+          <line>103</line>
+          <option name="timeStamp" value="629" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/js/show_current_note_page.js</url>
@@ -574,13 +606,6 @@
     <entry file="file://$PROJECT_DIR$/source/js/get_note.js" />
     <entry file="file://$PROJECT_DIR$/source/a.xml" />
     <entry file="file://$PROJECT_DIR$/source/js/show_current_note_page.js" />
-    <entry file="file://$PROJECT_DIR$/source/server/js/show_current_note_page.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="87" column="34" selection-start-line="87" selection-start-column="34" selection-end-line="87" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tools/URIReplacement.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -689,41 +714,6 @@
     <entry file="file://$PROJECT_DIR$/source/temp/header.blade.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Notebook.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tree/NoteNode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="27" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/re.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="184" column="4" selection-start-line="184" selection-start-column="4" selection-end-line="184" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NotePath/Source.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="30" column="55" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#2657#3651#0" />
-            <element signature="e#3738#6247#0" />
-            <element signature="e#6357#11186#0" />
-            <element signature="e#11272#11850#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/configs/note_books_repo_all_notebooks.json2019-06-09 23:54:16.189752.backup">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -737,10 +727,48 @@
     <entry file="file://$PROJECT_DIR$/configs/note_books_repo_location.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="311" selection-start-line="311" selection-end-line="311" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Notebook.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="26" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tree/NoteNode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NotePath/Processor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="72" column="63" selection-start-line="72" selection-start-column="63" selection-end-line="72" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tree/NoteTree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="93" column="40" selection-start-line="93" selection-start-column="40" selection-end-line="93" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/__main__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="120" column="21" lean-forward="true" selection-start-line="120" selection-start-column="21" selection-end-line="120" selection-end-column="21" />
+        <state relative-caret-position="146">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
             <element signature="e#2658#2678#0" />
@@ -749,65 +777,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
+    <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/re.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="311" selection-start-line="311" selection-end-line="311" />
+        <state relative-caret-position="206">
+          <caret line="184" column="4" selection-start-line="184" selection-start-column="4" selection-end-line="184" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NotePath/BaiZeSys.py">
+    <entry file="file://$PROJECT_DIR$/NotePath/Destination.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+        <state relative-caret-position="190">
+          <caret line="149" column="36" lean-forward="true" selection-start-line="149" selection-start-column="36" selection-end-line="149" selection-end-column="87" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NotePath/Processor.py">
+    <entry file="file://$PROJECT_DIR$/NotePath/BaiZeSys.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="67" column="57" selection-start-line="67" selection-start-column="57" selection-end-line="67" selection-end-column="57" />
+        <state relative-caret-position="135">
+          <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NotePath/Destination.py">
+    <entry file="file://$PROJECT_DIR$/NotePath/Source.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="174" column="33" selection-start-line="174" selection-start-column="33" selection-end-line="174" selection-end-column="33" />
+        <state relative-caret-position="431">
+          <caret line="104" column="117" selection-start-line="104" selection-start-column="117" selection-end-line="104" selection-end-column="117" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#496#1972#0" />
-            <element signature="e#1939#2214#0" />
-            <element signature="e#2300#3777#0" />
-            <element signature="e#3820#5608#0" />
-            <element signature="e#6874#8182#0" />
-            <element signature="e#8349#9675#0" />
-            <element signature="e#5629#5824#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/server/js/show_current_note_page.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
+          <folding>
+            <element signature="e#493#746#0" />
+            <element signature="n#!!block;n#get_note_menu#0" />
+            <element signature="n#!!block;n#get_note#0" />
+            <element signature="e#4528#5112#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HTML/HTML.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tree/NoteTree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1262">
+        <state relative-caret-position="75">
           <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#1430#1726#0" />
-            <element signature="e#3005#4909#0" />
           </folding>
         </state>
       </provider>

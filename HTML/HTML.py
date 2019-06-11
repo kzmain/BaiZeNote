@@ -21,7 +21,7 @@ class HTML:
     # 4. %s current node name
     # 5. %s node id
     # 6. %s sub-folders span
-    sections_span = "<span onclick = \"get_note_menu(\'section%s\')\" id = \"section-span-%s\">\n" \
+    sections_span = "<span onclick = \"get_note_menu(\'%s\')\" id = \"section-span-%s\">\n" \
                     "  <p data-toggle=\"collapse\" data-target=\"#section%s\">\n" \
                     "    %s\n" \
                     "  </p>\n" \
@@ -35,7 +35,7 @@ class HTML:
     # 1. %s node id
     # 2. %s svg
     # 3. %s current node name
-    no_sections_span = "<span onclick = \"get_note_menu(\'section%s\')\" id = \"section-span-%s\">\n" \
+    no_sections_span = "<span onclick = \"get_note_menu(\'%s\')\" id = \"section-span-%s\">\n" \
                        "  <p>\n" \
                        "    %s\n" \
                        "  </p>\n" \
@@ -46,7 +46,7 @@ class HTML:
     # 2. %s node id
     # 3. %s svg
     # 2. %s current node name
-    no_notes_no_sections_span = "<span onclick = \"get_note_menu(\'section%s\')\" id = \"section-span-%s\">\n" \
+    no_notes_no_sections_span = "<span onclick = \"get_note_menu(\'%s\')\" id = \"section-span-%s\">\n" \
                                 "  <p>\n" \
                                 "    %s\n" \
                                 "  </p>\n" \
@@ -63,9 +63,10 @@ class HTML:
 
     remote_libs_in_lib_path_relative = "%s/header.blade.html" % static_file_in_lib_path_relative_temp_files
     # 不同模式下 在目标 对应的静态文件所在地
-    static_file_dest_path_rel = "source"
-    static_file_dest_file_name_head = "header.blade.html"
-    static_file_dest_path_rel_note_info_js = "%s/js/note_info.js" % static_file_dest_path_rel
+    dest_path_rel = "source"
+    dest_path_rel_note_info_js = "%s/js/note_info.js" % dest_path_rel
+    dest_file_name_head_html = "header.blade.html"
+    dest_file_name_section_menu_html = "section-menu.blade.html"
 
     # 📕1. 核心任务
     #   1.1. 生成 "-server"/"-local" 模式的 <head> 部分
@@ -107,24 +108,16 @@ class HTML:
     @staticmethod
     def generate_head(note_book, nodes_dict):
         notes_dest_path_full = note_book.notebook_dest
-        files_dest_path_full = os.path.join(notes_dest_path_full, HTML.static_file_dest_path_rel)
+        files_dest_path_full = os.path.join(notes_dest_path_full, HTML.dest_path_rel)
         header_html_list = [HTML.get_remote_libs()]
 
         # Include Remote Libs
         # 读取Remote的 JavaScript/CSS 库/ <meta>
 
-        # Write mode to script ("-server", "-local")
-        # 将 mode 写入 script ("-server", "-local")
-        if "-server" in sys.argv:
-            header_html_list.append("<script> let note_mode = \"server\"</script>")
-        elif "-local" in sys.argv:
-            header_html_list.append("<script> let note_mode = \"local\"</script>")
-        else:
-            pass
         note_info_json = HTML.note_info_script % json.dumps(nodes_dict)
         if "-server" in sys.argv:
             note_info_script_path_full = os.path.join(note_book.notebook_dest,
-                                                      HTML.static_file_dest_path_rel_note_info_js)
+                                                      HTML.dest_path_rel_note_info_js)
             note_info_file = open(note_info_script_path_full, "w+")
             note_info_file.write(note_info_json)
             note_info_file.close()
