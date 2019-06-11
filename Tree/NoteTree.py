@@ -91,7 +91,7 @@ class NoteTree:
                 children_nodes_section_html += self.nodes_dict[child_node_id].html_section_menu
             # 当本 node 不为 root node 时，生成此 node 的 section menu
             # If current node is not root node, generate current node's section menu
-            if str(type(section_node)) == str(type(NoteRootNode())):
+            if str(type(section_node)) != str(type(NoteRootNode())):
                 section_node.html_section_menu = \
                     HTML.sections_span % (
                         section_id, section_id, section_id, SVG.sections_svg,

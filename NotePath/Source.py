@@ -1,6 +1,7 @@
 import copy
 import json
 import os
+import re
 import time
 from pathlib import Path
 
@@ -99,7 +100,9 @@ class Source:
             file_dict = copy.deepcopy(Source.SOURCE_SUB_NOTE_DICT)
             file_dict[Source.SOURCE_SUB_NOTE_DICT_NOTE_FILE_PATH_REL] = os.path.relpath(file_path, notebook_root)
             file_dict[Source.SOURCE_SUB_NOTE_DICT_NOTE_FILE_TYPE] = Path(file_path).suffix.lower()
-            file_dict[Source.SOURCE_SUB_NOTE_DICT_NOTE_NAME] = str(os.path.basename(file_path).split(".")[0])
+
+            file_dict[Source.SOURCE_SUB_NOTE_DICT_NOTE_NAME] = \
+                re.sub("%s$" % file_dict[Source.SOURCE_SUB_NOTE_DICT_NOTE_FILE_TYPE], "", os.path.basename(file_path))
             file_dict[Source.SOURCE_SUB_NOTE_DICT_NOTE_CREATION_TIME] = time.ctime(os.path.getctime(file_path))
             file_dict[Source.SOURCE_SUB_NOTE_DICT_MODIFICATION_TIME] = [time.ctime(os.path.getctime(file_path))]
             section_dict[Source.SOURCE_SECTION_DICT_NOTES_DICT]["%s" % file_id] = file_dict

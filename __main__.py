@@ -98,8 +98,8 @@ def main():
                 for key, node in nodes_dict.items():
                     nodes_dict[key] = node.node_info_dict[Source.SOURCE_SECTION_DICT_NOTES_DICT]
                 nodes_dict = Processor.server_mode_write_converted_htmls(notebook, nodes_dict)
-                Processor.server_mode_write_static_resources(notebook, nodes_dict)
-                Processor.server_mode_write_body_htmls(notebook, nodes_dict)
+                html_head = Processor.server_mode_write_static_resources(notebook, nodes_dict)
+                Processor.server_mode_write_body_htmls(notebook, nodes_dict, html_head)
                 pass
     else:
         raise Exception
