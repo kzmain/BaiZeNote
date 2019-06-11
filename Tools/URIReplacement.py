@@ -1,16 +1,19 @@
+import os
 import re
+import uuid
 
 
 # class URIReplacement:
 
-def replace_img_uri(html_text, parent_folder, copy_list):
-    html_text = ___replace___(r"<img( )* src=\"\.\/", html_text, "./", "。/%s/" % parent_folder)
-    html_text = ___replace___(r"<img( )* src=\"\。", html_text, "。", "")
-
-    regex = re.compile(r'(?<=<img src=\"/)((?!\")(\w|\W))+')
-    it = re.finditer(regex, html_text)
-    for match in it:
-        copy_list.append(match.group(0))
+def replace_img_uri(html_text, note_folder_resource, image_dict):
+    match = re.search(r'(?<=<img src=\")((\.\/)|\.\.\/)+((?!\")(\w|\W))+', html_text)
+    while match:
+        source_file_path = os.path.abspath(os.path.join(note_folder_resource, match.group(0)))
+        file_extension = os.path.splitext(source_file_path)[1]
+        dest_file_name = str(uuid.uuid4()) + file_extension
+        image_dict[source_file_path] = dest_file_name
+        html_text = html_text[:match.start()] + "/source/images/" + dest_file_name + html_text[match.end():]
+        match = re.search(r'(?<=<img src=\")((\.\/)|\.\.\/)+((?!\")(\w|\W))+', html_text)
     return html_text
 
 

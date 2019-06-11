@@ -17,8 +17,8 @@ function read_note_text(section_id, note_id) {
     get_local_file(note_path_relative, show_note_area, section_id, note_id);
 }
 
-function get_note_menu(section_id) {
-    if (current_section_id == section_id){
+function get_note_menu(section_id, note_id = -1) {
+    if (current_section_id === parseInt(section_id)){
         return
     }
     let note_menu = document.getElementById("note-menu");
@@ -45,12 +45,16 @@ function get_note_menu(section_id) {
         }
     }
 
-    //如果历史上 曾点过词section，获取最后一次访问的 note-id 标记为 active 并且显示对应的 note 内容
-    if (!note_history_dict.hasOwnProperty(section_id)){
-        note_history_dict[section_id] = Object.keys(note_menu_dict[section_id])[0];
+
+    if(note_id == -1){
+        //如果历史上 曾点过词section，获取最后一次访问的 note-id 标记为 active 并且显示对应的 note 内容
+        if (!note_history_dict.hasOwnProperty(section_id)){
+            note_history_dict[section_id] = Object.keys(note_menu_dict[section_id])[0];
+        }
+        note_id = note_history_dict[section_id];
     }
-    note_id = note_history_dict[section_id]
-    read_note_text(section_id, note_id);
+
+    // read_note_text(section_id, note_id);
     if (current_section_id != ""){
         document.getElementById("section-span-" + current_section_id).classList.remove("active");
     }
@@ -62,7 +66,7 @@ function get_note_menu(section_id) {
 }
 
 function get_note(section_id, note_id) {
-    read_note_text(section_id, note_id)
+    read_note_text(section_id, note_id);
     window.history.pushState("", 'Title', "/" + note_menu_dict[section_id][note_id]["HTML_FILE_REL"]);
     // Remove active class note span in note menu
     // 去除现在note menu所有 active 的 class 的 note
@@ -81,7 +85,7 @@ function get_local_file(file_location, change_tag, section_id, note_id) {
             if (target_file.status === 200 || target_file.status === 0) {
                 change_tag.innerHTML = target_file.responseText;
                 if (file_location === "/source/section-menu.blade.html"){
-                    get_note_menu(section_id);
+                    get_note_menu(section_id, note_id);
                     expand_note_menu(section_id)
                 }
 

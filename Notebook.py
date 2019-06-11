@@ -10,6 +10,7 @@ class Notebook:
         self.notebook_name = ""
         self.notebook_dest = ""
         self.modified_time = ""
+        self.statistic_files_dict = {}
 
         self.current_parent_folder_relative_uri = ""
         self.current_target_sub_folder = ""

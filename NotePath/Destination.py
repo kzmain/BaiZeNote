@@ -15,7 +15,8 @@ import emarkdown.markdown as md
 
 class Destination:
     BAIZE_REPO_NAME = "BaiZeNote"
-    BAIZE_REPO_SUB_FOLDERS_LIST = ["server", "local", "server/sources", "local/sources"]
+    BAIZE_REPO_SUB_FOLDERS_LIST = ["server", "local",
+                                   "server/sources", "local/sources"]
 
     PATH_RELA_NOTEBOOKS_REPO_LOCATION_JSON = BaiZeSys.PATH_RELA_NOTEBOOKS_REPO_LOCATION_JSON
     NOTEBOOKS_REPO_LOCATION_KEY = BaiZeSys.NOTEBOOKS_REPO_LOCATION_KEY
@@ -143,7 +144,7 @@ class Destination:
     def server_mode_write_converted_htmls(notebook, nodes_dict):
         # TODO What to do when note status lock / hide tag/reference and so on
         # TODO 后面emarkdown改了以后，generate 和 写入要分开
-        copy_list = []
+        image_dict = {}
         for section_id, section_dict in nodes_dict.items():
             note_rel_list = []
             for note_id, note_dict in section_dict.items():
@@ -166,19 +167,24 @@ class Destination:
                     html_file = open(note_html_destination_path_full, "r")
                     raw_html_code = html_file.read()
                     html_file.close()
-                    parent_path = "%s" % os.path.dirname(note_html_path_rel)
-                    html_code = URIReplacement.replace_img_uri(raw_html_code, parent_path, copy_list)
+
+                    note_folder_resource = os.path.dirname(note_html_resource_path_full)
+                    html_code = URIReplacement.replace_img_uri(raw_html_code, note_folder_resource, image_dict)
+
                     if raw_html_code != html_code:
                         html_file = open(note_html_destination_path_full, "w+")
                         html_file.write(html_code)
                         html_file.close()
-        for file in copy_list:
-            file_source = os.path.join(notebook.notebook_root, file)
-            file_destin = os.path.join(notebook.notebook_dest, file)
-            try:
-                shutil.copy(file_source, file_destin)
-            except FileNotFoundError:
-                logging.warning("Local file %s not found!" % file)
+        notebook.statistic_files_dict["images"] = image_dict
+        # for source_uri, dest_uri_rel in image_dict.items():
+        #     try:
+        #         dest_image_dir = os.path.join(notebook.notebook_dest, "sources/image/")
+        #         if not os.path.exists(dest_image_dir):
+        #             os.mkdir(dest_image_dir)
+        #         file_dest = os.path.join(notebook.notebook_dest, "source/image/", dest_uri_rel)
+        #         shutil.copy(source_uri, file_dest)
+        #     except FileNotFoundError:
+        #         logging.warning("Local file %s not found!" % source_uri)
         return nodes_dict
 
     @staticmethod
@@ -225,6 +231,17 @@ class Destination:
         node_root_id = note_book.notebook_tree.node_id_root
         section_menu_html_file.write(note_book.notebook_tree.nodes_dict[node_root_id].html_section_menu)
         section_menu_html_file.close()
+
+        for file_type, file_dict in note_book.statistic_files_dict.items():
+            dest_file_dir = os.path.join(files_dest_path_full, file_type)
+            if not os.path.exists(dest_file_dir):
+                os.mkdir(dest_file_dir)
+            for resource_file_path_full, dest_file_path_rel in file_dict.items():
+                dest_file_path_full = os.path.join(files_dest_path_full, file_type, dest_file_path_rel)
+                try:
+                    shutil.copy(resource_file_path_full, dest_file_path_full)
+                except FileNotFoundError:
+                    logging.warning("Local file %s not found!" % resource_file_path_full)
         return head_html
 
 
