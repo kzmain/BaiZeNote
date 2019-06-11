@@ -8,7 +8,6 @@ function show_current_note_page(section_id, note_id) {
     let section_menu_area = document.getElementById("section-menu");
     let section_menu_path_relative = "/source/section-menu.blade.html";
     get_local_file(section_menu_path_relative, section_menu_area, section_id, note_id);
-    // read_note_text(section_id, note_id)
 }
 
 //显示笔记
@@ -31,7 +30,7 @@ function get_note_menu(section_id) {
     let section_files_info = note_menu_dict[section_id];
     // 如果 没有note 直接 显示没有笔记 并返回
     if (Object.keys(section_files_info).length === 0){
-        let section_name = document.getElementById("section-span-" + section_id.replace("section", "")).innerText.trim();
+        let section_name = document.getElementById("section-span-" + section_id).innerText.trim();
         let show_note_area = document.getElementById("show-note-area");
         show_note_area.innerHTML = "<h1>" + section_name + " section is empty" + "</h1>"
         return
@@ -51,15 +50,20 @@ function get_note_menu(section_id) {
         note_history_dict[section_id] = Object.keys(note_menu_dict[section_id])[0];
     }
     note_id = note_history_dict[section_id]
-    document.getElementById(section_id + "-" + note_id).classList.add("active");
     read_note_text(section_id, note_id);
-
+    if (current_section_id != ""){
+        document.getElementById("section-span-" + current_section_id).classList.remove("active");
+    }
+    // document.getElementById(section_id + "-" + note_id).classList.add("active");
     current_section_id = section_id;
     current_note_id = note_id;
+    document.getElementById("section-span-" + section_id).classList.add("active");
+    get_note(section_id, note_id)
 }
 
 function get_note(section_id, note_id) {
     read_note_text(section_id, note_id)
+    window.history.pushState("", 'Title', "/" + note_menu_dict[section_id][note_id]["HTML_FILE_REL"]);
     // Remove active class note span in note menu
     // 去除现在note menu所有 active 的 class 的 note
     let note_menu = document.getElementById("note-menu");
@@ -78,7 +82,7 @@ function get_local_file(file_location, change_tag, section_id, note_id) {
                 change_tag.innerHTML = target_file.responseText;
                 if (file_location === "/source/section-menu.blade.html"){
                     get_note_menu(section_id);
-                    // read_note_text(section_id, note_id);
+                    expand_note_menu(section_id)
                 }
 
             }
@@ -86,5 +90,14 @@ function get_local_file(file_location, change_tag, section_id, note_id) {
     };
     target_file.open("GET", file_location);
     target_file.send(null);
+}
+
+function expand_note_menu(section_id) {
+    let current_section_span = document.getElementById("section-span-" + section_id).parentElement
+    while(current_section_span.id != "section-menu"){
+        current_section_span.classList.add("show")
+        current_section_span = current_section_span.parentElement
+    }
+
 }
 
