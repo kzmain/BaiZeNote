@@ -3,9 +3,14 @@ import re
 
 # class URIReplacement:
 
-def replace_img_uri(html_text, parent_folder):
-    html_text = ___replace___(r"<img( )* src=\"\.\/", html_text, "./", "。%s" % parent_folder)
-    html_text = ___replace___(r"<img( )* src=\"\。", html_text, "。", ".")
+def replace_img_uri(html_text, parent_folder, copy_list):
+    html_text = ___replace___(r"<img( )* src=\"\.\/", html_text, "./", "。/%s/" % parent_folder)
+    html_text = ___replace___(r"<img( )* src=\"\。", html_text, "。", "")
+
+    regex = re.compile(r'(?<=<img src=\"/)((?!\")(\w|\W))+')
+    it = re.finditer(regex, html_text)
+    for match in it:
+        copy_list.append(match.group(0))
     return html_text
 
 

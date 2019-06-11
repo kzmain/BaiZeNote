@@ -8,6 +8,7 @@ import sys
 from HTML.HTML import HTML
 from NotePath.BaiZeSys import BaiZeSys
 from NotePath.Source import Source
+from Tools import URIReplacement
 from Tools.File import File
 import emarkdown.markdown as md
 
@@ -142,6 +143,7 @@ class Destination:
     def server_mode_write_converted_htmls(notebook, nodes_dict):
         # TODO What to do when note status lock / hide tag/reference and so on
         # TODO 后面emarkdown改了以后，generate 和 写入要分开
+        copy_list = []
         for section_id, section_dict in nodes_dict.items():
             note_rel_list = []
             for note_id, note_dict in section_dict.items():
@@ -161,6 +163,22 @@ class Destination:
 
                 if note_file_type == ".md":
                     md.process(["-f", note_html_resource_path_full, "-d", note_html_destination_path_full])
+                    html_file = open(note_html_destination_path_full, "r")
+                    raw_html_code = html_file.read()
+                    html_file.close()
+                    parent_path = "%s" % os.path.dirname(note_html_path_rel)
+                    html_code = URIReplacement.replace_img_uri(raw_html_code, parent_path, copy_list)
+                    if raw_html_code != html_code:
+                        html_file = open(note_html_destination_path_full, "w+")
+                        html_file.write(html_code)
+                        html_file.close()
+        for file in copy_list:
+            file_source = os.path.join(notebook.notebook_root, file)
+            file_destin = os.path.join(notebook.notebook_dest, file)
+            try:
+                shutil.copy(file_source, file_destin)
+            except FileNotFoundError:
+                logging.warning("Local file %s not found!" % file)
         return nodes_dict
 
     @staticmethod
