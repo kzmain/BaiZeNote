@@ -1,0 +1,9 @@
+img,video {
+  height : auto;
+  width : auto;
+  max-height: 400px;
+  max-width: 600px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,54 @@
+h1 {
+  font-size: 35px;
+  color: white;
+}
+h2 {
+  font-size: 30px;
+  color: white;
+}
+h3 {
+  font-size: 26px;
+  color: white;
+}
+h4 {
+  font-size: 22px;
+  color: white;
+}
+h5 {
+  font-size: 19px;
+  color: white;
+}
+h6 {
+  font-size: 16px;
+  color: white;
+}
+img,video {
+  height : auto;
+  width : auto;
+  max-height: 400px;
+  max-width: 600px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+p {
+  color: white;
+}
+.alert-danger p{
+  color: #721c24;
+}
+.alert-info p{
+  color: #0c5460;
+}
+.alert-warning p{
+  color: #856404;
+}
+.alert-secondary p{
+  color: #393D42;
+}
+.alert-success p{
+  color: #155724;
+}
+li{
+  color: white;
+}

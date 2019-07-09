@@ -1,0 +1,42 @@
+body {
+  background-color: #2b2b2b;
+}
+code {
+  color: lightgoldenrodyellow;
+}
+pre code {
+  color: lightgoldenrodyellow;
+}
+.note
+{
+     background-position: 9px 0px;
+     background-repeat: no-repeat;
+     line-height: 18px;
+     overflow: hidden;
+     padding: 15px 60px;
+}
+.red-note
+{
+     background-color: #fbb2b6;
+     border-left: solid 4px #db6455;
+}
+.blue-note
+{
+     background-color: #f0f7fb;
+     border-left: solid 4px #3498db;
+}
+.yellow-note
+{
+     background-color: #f9fbc0;
+     border-left: solid 4px #dbd45c;
+}
+.green-note
+{
+     background-color: #b6fbbb;
+     border-left: solid 4px #65db3b;
+}
+.grey-note
+{
+     background-color: #a8a7a7;
+     border-left: solid 4px #6e6c6f;
+}

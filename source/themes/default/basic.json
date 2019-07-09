@@ -1,0 +1,30 @@
+{
+  "bootstrap.min.css" : {
+    "type" : ".css",
+    "remote": false,
+    "location" : "css/bootstrap.min.css",
+    "version": "4.3.1",
+    "description": "Latest compiled and minified CSS"
+  },
+  "jquery.min.js" : {
+    "type" : ".js",
+    "remote": false,
+    "location" : "js/jquery.min.js",
+    "version": "3.4.0",
+    "description": "jQuery library"
+  },
+  "popper.min.js" : {
+    "type" : ".js",
+    "remote": false,
+    "location" : "js/popper.min.js",
+    "version": "1.14.7",
+    "description": "Popper JS"
+  },
+  "bootstrap.min.js" : {
+    "type" : ".js",
+    "remote": false,
+    "location" : "js/bootstrap.min.js",
+    "version": "4.3.1",
+    "description": "Latest compiled JavaScript"
+  }
+}

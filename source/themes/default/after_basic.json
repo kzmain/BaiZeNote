@@ -1,0 +1,34 @@
+{
+  "default" : {
+    "white_mode_after_bootstrap" : {
+      "type" : ".css",
+      "remote": false,
+      "location" : "css/white_mode_after_bootstrap.css",
+      "version": "",
+      "description": ""
+    },
+    "main_css" : {
+      "type" : ".css",
+      "remote": false,
+      "location" : "css/main.css",
+      "version": "",
+      "description": ""
+    }
+  },
+  "darkmode" : {
+    "dark_mode_after_bootstrap" : {
+      "type" : ".css",
+      "remote": false,
+      "location" : "css/dark_mode_after_bootstrap.css",
+      "version": "",
+      "description": ""
+    },
+    "main_css" : {
+      "type" : ".css",
+      "remote": false,
+      "location" : "css/main.css",
+      "version": "",
+      "description": ""
+    }
+  }
+}

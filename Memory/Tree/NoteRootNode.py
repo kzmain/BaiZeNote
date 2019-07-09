@@ -1,4 +1,4 @@
-from Tree.NoteNode import NoteNode
+from Memory.Tree.NoteNode import NoteNode
 
 
 class NoteRootNode(NoteNode):
