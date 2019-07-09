@@ -157,7 +157,6 @@ class HTMLProcessor:
         with open(os.path.join(theme_loc, "basic.json")) as basic_json, \
                 open(os.path.join(theme_loc, "before_basic.json")) as before_basic_json, \
                 open(os.path.join(theme_loc, "after_basic.json")) as after_basic_json:
-            # basic_dict = json.loads(basic_json.read())
             other_themes_dicts = [
                 json.loads(before_basic_json.read())[theme_mode],
                 json.loads(basic_json.read()),
@@ -168,8 +167,8 @@ class HTMLProcessor:
                 for script_name, script_dict in theme_dict.items():
                     if not script_dict["remote"]:
                         if "-server" in sys.argv:
-                            script_dict["location"] += "/source/"
-                            header_html_list.append(link_dict[script_dict["type"]] % script_dict["location"])
+                            html_code = link_dict[script_dict["type"]] % ("/source/" + script_dict["location"])
+                            header_html_list.append(html_code)
                         if "-local" in sys.argv:
                             with open(os.path.join(files_dest_path_full, script_dict["location"])) as script_file:
                                 header_html_list.append(local_dict[script_dict["type"]] % script_file.read())

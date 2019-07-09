@@ -2,52 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25a3472b-9097-4a1b-af51-16d760192c7e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Memory/Tree/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Memory/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Processor/Constants/Constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Processor/Constants/Paths.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Processor/Constants/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Processor/Exception/Exceptions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Processor/Exception/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Processor/ResourceProcessor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Processor/SysProcessor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Processor/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/local/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/after_basic.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/basic.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/before_basic.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/css/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/css/dark_mode_after_bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/css/dark_mode_before_bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/css/white_mode_after_bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/css/white_mode_before_bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/js/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/js/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/themes/default/js/popper.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HTML/HTML.py" beforeDir="false" afterPath="$PROJECT_DIR$/Processor/HTMLProcessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NotePath/BaiZeSys.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NotePath/Destination.py" beforeDir="false" afterPath="$PROJECT_DIR$/Processor/DestinationProcessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NotePath/Processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Processor/CoreProcessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NotePath/Source.py" beforeDir="false" afterPath="$PROJECT_DIR$/Processor/NotebookProcessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notebook.py" beforeDir="false" afterPath="$PROJECT_DIR$/Memory/Notebook.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/URIReplacement.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/URI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tree/NoteNode.py" beforeDir="false" afterPath="$PROJECT_DIR$/Memory/Tree/NoteNode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tree/NoteRootNode.py" beforeDir="false" afterPath="$PROJECT_DIR$/Memory/Tree/NoteRootNode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tree/NoteTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/Memory/Tree/NoteTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/note_books_repo_all_notebooks.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/note_books_repo_all_notebooks.json2019-06-09 23:54:16.189752.backup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/note_books_repo_location.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/all/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/source/themes/default/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/local/js/show_current_note_page.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/server/js/show_current_note_page.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/server/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/temp/header.blade.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Processor/DestinationProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Processor/DestinationProcessor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Processor/HTMLProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Processor/HTMLProcessor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/note_books_destination.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/note_books_destination.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/note_books_resource.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/note_books_resource.json2019-07-09 01:32:18.155314.backup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/themes/default/css/dark_mode_after_bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/source/themes/default/css/dark_mode_after_bootstrap.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +18,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/BaiZeNote$git_note.coverage" NAME="git_note Coverage Results" MODIFIED="1559418989331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/BaiZeNote$baizenote.coverage" NAME="baizenote Coverage Results" MODIFIED="1562657112494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/BaiZeNote$baizenote.coverage" NAME="baizenote Coverage Results" MODIFIED="1562662511761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GitNote$CodeTagProcessor.coverage" NAME="CodeTagProcessor Coverage Results" MODIFIED="1556356783102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$MarkDown.coverage" NAME="MarkDown Coverage Results" MODIFIED="1556892615617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown" />
     <SUITE FILE_PATH="coverage/GitNote$ProcessorPacker.coverage" NAME="ProcessorPacker Coverage Results" MODIFIED="1556087744622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/emarkdown/Tools" />
@@ -95,10 +56,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Processor/DestinationProcessor.py">
+        <entry file="file://$PROJECT_DIR$/__main__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="258" selection-start-line="258" selection-end-line="258" />
+            <state relative-caret-position="173">
+              <caret line="78" column="55" selection-start-line="78" selection-start-column="55" selection-end-line="78" selection-end-column="55" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -107,22 +68,91 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/themes/default/after_basic.json">
+        <entry file="file://$PROJECT_DIR$/Processor/DestinationProcessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="11" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="11" />
+            <state relative-caret-position="52">
+              <caret line="66" column="84" selection-start-line="66" selection-start-column="84" selection-end-line="66" selection-end-column="84" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Processor/Constants/Paths.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/configs/note_books_resource.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="2" selection-start-column="2" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Processor/HTMLProcessor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="152" column="13" lean-forward="true" selection-start-line="152" selection-start-column="13" selection-end-line="152" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Processor/HTMLProcessor.py">
+        <entry file="file://$PROJECT_DIR$/source/themes/default/css/dark_mode_after_bootstrap.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="183" column="24" lean-forward="true" selection-start-line="183" selection-start-column="24" selection-end-line="183" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="345">
+              <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/themes/default/css/white_mode_after_bootstrap.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="469">
+              <caret line="60" lean-forward="true" selection-start-line="27" selection-end-line="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/configs/note_books_destination.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="56" lean-forward="true" selection-start-column="56" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Processor/Constants/Constants.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Processor/CoreProcessor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="47" column="51" lean-forward="true" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -139,7 +169,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SOURCE_SUB_NOTE_DICT_NOTE_NAME</find>
       <find>get_note_menu</find>
       <find>read</find>
       <find>URI</find>
@@ -169,6 +198,7 @@
       <find>static_file_in_lib_path_relative_temp_files</find>
       <find>notes_dest_path_full</find>
       <find>files_dest_path_full</find>
+      <find>NOTE_BOOKS_REPO_PATH_FULL</find>
     </findStrings>
     <replaceStrings>
       <replace>%;</replace>
@@ -182,9 +212,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/js/get_note.js" />
-        <option value="$PROJECT_DIR$/static_files/css/header.blade.html" />
-        <option value="$PROJECT_DIR$/source/js/note_info.js" />
         <option value="$PROJECT_DIR$/source/js/get_note_menu.js" />
         <option value="$PROJECT_DIR$/source/js/get_note.js" />
         <option value="$PROJECT_DIR$/source/a.xml" />
@@ -231,8 +258,11 @@
         <option value="$PROJECT_DIR$/source/themes/default/basic.json" />
         <option value="$PROJECT_DIR$/source/themes/default/before_basic.json" />
         <option value="$PROJECT_DIR$/source/themes/default/after_basic.json" />
+        <option value="$PROJECT_DIR$/configs/note_books_destination.json" />
+        <option value="$PROJECT_DIR$/configs/note_books_resource.json" />
         <option value="$PROJECT_DIR$/Processor/DestinationProcessor.py" />
         <option value="$PROJECT_DIR$/Processor/HTMLProcessor.py" />
+        <option value="$PROJECT_DIR$/source/themes/default/css/dark_mode_after_bootstrap.css" />
       </list>
     </option>
   </component>
@@ -263,25 +293,7 @@
             <path>
               <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
               <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
-              <item name="Processor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
               <item name="source" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-              <item name="local" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-              <item name="local" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
@@ -308,6 +320,14 @@
               <item name="source" type="462c0819:PsiDirectoryNode" />
               <item name="themes" type="462c0819:PsiDirectoryNode" />
               <item name="default" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BaiZeNote" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BaiZeNote" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="themes" type="462c0819:PsiDirectoryNode" />
+              <item name="default" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -455,7 +475,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/__main__.py" />
-      <option name="PARAMETERS" value="-g $PROJECT_DIR$/../📚Head_First_Data_Analysis_2009 -local -d $USER_HOME$/Desktop/test" />
+      <option name="PARAMETERS" value="-g $PROJECT_DIR$/../📚Head_First_Data_Analysis_2009 -local -thememode &quot;darkmode&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -501,12 +521,12 @@
       <workItem from="1559112262394" duration="54989000" />
       <workItem from="1559389414219" duration="174548000" />
       <workItem from="1560252881727" duration="7004000" />
-      <workItem from="1562601752254" duration="29033000" />
+      <workItem from="1562601752254" duration="30886000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="799056000" />
+    <option name="totallyTimeSpent" value="800909000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -518,15 +538,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="963" extended-state="6" />
+    <frame x="1" y="24" width="1680" height="963" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6831502" visible="true" weight="0.35470086" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6831229" visible="true" weight="0.35470086" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" sideWeight="0.31684983" side_tool="true" visible="true" weight="0.35470086" />
+      <window_info id="Favorites" order="2" sideWeight="0.31687716" side_tool="true" visible="true" weight="0.35470086" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.45543346" weight="0.3283582" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.518315" visible="true" weight="0.37313432" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.518315" weight="0.37313432" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.46642247" weight="0.3444317" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -564,8 +584,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Processor/HTMLProcessor.py</url>
-          <line>180</line>
+          <line>179</line>
           <option name="timeStamp" value="694" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Processor/DestinationProcessor.py</url>
+          <line>73</line>
+          <option name="timeStamp" value="695" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/source/js/show_current_note_page.js</url>
@@ -677,12 +702,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configs/note_books_resource.json2019-07-09 01:32:18.155314.backup">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configs/note_books_destination.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -694,23 +713,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="26" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Processor/CoreProcessor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="80" column="44" selection-start-line="80" selection-start-column="44" selection-end-line="80" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__main__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="97" column="62" selection-start-line="97" selection-start-column="62" selection-end-line="97" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -760,9 +762,6 @@
     <entry file="file://$PROJECT_DIR$/source/themes/default/css/white_mode_before_bootstrap.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/themes/default/css/white_mode_after_bootstrap.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/themes/default/css/dark_mode_before_bootstrap.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -771,13 +770,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/themes/default/css/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Processor/Constants/Constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="27" selection-start-line="1" selection-end-line="1" selection-end-column="27" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Processor/NotebookProcessor.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -793,26 +785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="508">
           <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/themes/default/css/dark_mode_after_bootstrap.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configs/note_books_themes.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Processor/Constants/Paths.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="100" selection-start-line="12" selection-start-column="100" selection-end-line="12" selection-end-column="100" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -836,9 +808,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configs/note_books_resource.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/themes/default/basic.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -860,10 +829,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/configs/note_books_resource.json2019-07-09 01:32:18.155314.backup">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configs/note_books_themes.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Processor/Constants/Constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configs/note_books_resource.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="2" selection-start-column="2" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Processor/Constants/Paths.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__main__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="78" column="55" selection-start-line="78" selection-start-column="55" selection-end-line="78" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Processor/CoreProcessor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="47" column="51" lean-forward="true" selection-start-line="47" selection-start-column="51" selection-end-line="47" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configs/note_books_destination.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="56" lean-forward="true" selection-start-column="56" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Processor/DestinationProcessor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="258" selection-start-line="258" selection-end-line="258" />
+        <state relative-caret-position="52">
+          <caret line="66" column="84" selection-start-line="66" selection-start-column="84" selection-end-line="66" selection-end-column="84" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -872,11 +899,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Processor/HTMLProcessor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="183" column="24" lean-forward="true" selection-start-line="183" selection-start-column="24" selection-end-line="183" selection-end-column="24" />
+        <state relative-caret-position="237">
+          <caret line="152" column="13" lean-forward="true" selection-start-line="152" selection-start-column="13" selection-end-line="152" selection-end-column="13" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/themes/default/css/white_mode_after_bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="60" lean-forward="true" selection-start-line="27" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/themes/default/css/dark_mode_after_bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
         </state>
       </provider>
     </entry>

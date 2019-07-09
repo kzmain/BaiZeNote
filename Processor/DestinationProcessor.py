@@ -21,7 +21,7 @@ class DestinationProcessor:
     @staticmethod
     def get_notebooks_destination():
         note_book_dest = ""
-        note_books_repository = DestinationProcessor.get_notebooks_repository()
+        note_books_dest_default = DestinationProcessor.get_notebooks_repository()
         if "-d" in sys.argv:
             try:
                 note_book_dest_index = sys.argv.index("-d") + 1
@@ -35,21 +35,21 @@ class DestinationProcessor:
             except IndexError:
                 logging.error("Notebook destination folder did not input!")
                 logging.warning("Will use system default destination folder \"%s\". Do you want continue?(y/n)"
-                                % note_books_repository)
+                                % note_books_dest_default)
                 if input().lower() not in ["yes", "y"]:
                     return
                 else:
-                    note_book_dest = note_books_repository
+                    note_book_dest = note_books_dest_default
             except PermissionError:
                 logging.error("Notebook destination folder \"%s\" permission error!" % note_book_dest)
                 logging.warning("Will use system default destination folder \"%s\". Do you want continue?(y/n)"
-                                % note_books_repository)
+                                % note_books_dest_default)
                 if input().lower() not in ["yes", "y"]:
                     return
                 else:
-                    note_book_dest = note_books_repository
+                    note_book_dest = note_books_dest_default
         else:
-            note_book_dest = note_books_repository
+            note_book_dest = note_books_dest_default
         return note_book_dest
 
     @staticmethod
@@ -64,7 +64,7 @@ class DestinationProcessor:
 
     @staticmethod
     def get_notebooks_repository():
-        note_book_repo_json_path_full = Paths.PATH_FULL_NOTEBOOKS_RES_LOCATION_JSON
+        note_book_repo_json_path_full = Paths.PATH_FULL_NOTEBOOKS_DEST_LOCATION_JSON
         if not os.path.isfile(note_book_repo_json_path_full):
             note_books_repo_path_full = DestinationProcessor.initial_notebooks_repository()
         else:
