@@ -1,0 +1,20 @@
+{
+  "default" : {
+    "white_mode_before_bootstrap" : {
+      "type" : ".css",
+      "remote": false,
+      "location" : "css/white_mode_before_bootstrap.css",
+      "version": "",
+      "description": ""
+    }
+  },
+  "darkmode" : {
+    "dark_mode_before_bootstrap" : {
+      "type" : ".css",
+      "remote": false,
+      "location" : "css/dark_mode_before_bootstrap.css",
+      "version": "",
+      "description": ""
+    }
+  }
+}

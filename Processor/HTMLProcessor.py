@@ -4,8 +4,10 @@ import shutil
 import sys
 from pathlib import Path
 
+from Processor.Constants import Paths
 
-class HTML:
+
+class HTMLProcessor:
     section_menu = "<div id=\"section-menu\" class=\"col-sm-2\">\n" \
                    "%s\n" \
                    "</div>"
@@ -59,12 +61,13 @@ class HTML:
     static_file_in_lib_path_rel_local_mode = "source/local"
     static_file_in_lib_path_rel_server_mode = "source/server"
     static_file_in_lib_path_relative_all_mode = "source/all"
-    static_file_in_lib_path_relative_temp_files = "source/temp"
+    static_file_in_lib_path_relative_remote = "source/remote"
+    static_file_in_lib_path_relative_temp = "source/temp"
 
-    remote_libs_in_lib_path_relative = "%s/header.blade.html" % static_file_in_lib_path_relative_temp_files
+    remote_libs_in_lib_path_relative = "%s/header.blade.html" % static_file_in_lib_path_relative_remote
     # 不同模式下 在目标 对应的静态文件所在地
     dest_path_rel = "source"
-    dest_path_rel_note_info_js = "%s/js/note_info.js" % dest_path_rel
+    NOTE_INFO_JS_REL = "%s/js/note_info.js" % dest_path_rel
     dest_file_name_head_html = "header.blade.html"
     dest_file_name_section_menu_html = "section-menu.blade.html"
 
@@ -97,72 +100,81 @@ class HTML:
     #       Step 3 Read static files under "/source/local/" and "/source/all/"  and write into <head> tag
     #       Step 4 Return HTML code back
 
-    @staticmethod
-    def get_remote_libs():
-        remote_libs_path_full = os.path.join(os.getcwd(), HTML.remote_libs_in_lib_path_relative)
-        remote_libs_file = open(remote_libs_path_full, "r")
-        remote_libs = remote_libs_file.read()
-        remote_libs_file.close()
-        return remote_libs
+    # @staticmethod
+    # def get_remote_libs():
+    #     remote_libs_path_full = os.path.join(os.getcwd(), HTMLProcessor.remote_libs_in_lib_path_relative)
+    #     remote_libs_file = open(remote_libs_path_full, "r")
+    #     remote_libs = remote_libs_file.read()
+    #     remote_libs_file.close()
+    #     return remote_libs
 
     @staticmethod
-    def generate_head(note_book, nodes_dict):
+    def generate_head(note_book, nodes_dict, theme_name, theme_mode):
         notes_dest_path_full = note_book.notebook_dest
-        files_dest_path_full = os.path.join(notes_dest_path_full, HTML.dest_path_rel)
-        header_html_list = [HTML.get_remote_libs()]
+        files_dest_path_full = os.path.join(notes_dest_path_full, HTMLProcessor.dest_path_rel)
+        header_html_list = ["<meta charset=\"utf-8\">"]
+
+        link_dict = {
+            ".css": "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">",
+            ".js": "<script src=\"%s\"></script>"
+        }
+        local_dict = {
+            ".css": "<style>%s</style>",
+            ".js": "<script>%s</script>"
+        }
 
         # Include Remote Libs
         # 读取Remote的 JavaScript/CSS 库/ <meta>
-
-        note_info_json = HTML.note_info_script % json.dumps(nodes_dict)
         if "-server" in sys.argv:
-            note_info_script_path_full = os.path.join(note_book.notebook_dest,
-                                                      HTML.dest_path_rel_note_info_js)
-            note_info_file = open(note_info_script_path_full, "w+")
-            note_info_file.write(note_info_json)
-            note_info_file.close()
+            note_info_json = HTMLProcessor.note_info_script % json.dumps(nodes_dict)
+            note_info_script_path_full = os.path. \
+                join(note_book.notebook_dest, HTMLProcessor.NOTE_INFO_JS_REL)
+            with open(note_info_script_path_full, "w+") as note_info_file:
+                note_info_file.write(note_info_json)
+            header_html_list.append(link_dict[".js"] % ("/" + HTMLProcessor.NOTE_INFO_JS_REL))
+            header_html_list.append(link_dict[".js"] % "/source/js/main.js")
         elif "-local" in sys.argv:
-            header_html_list.append("<script>%s</script>" % note_info_json)
-        else:
-            pass
+            for section_id, section_dict in nodes_dict.items():
+                for note_id, note in section_dict.items():
+                    html_note_loc = os.path. \
+                        join(note_book.notebook_dest, nodes_dict[section_id][note_id]["HTML_FILE_REL"] + ".blade.html")
+                    with open(html_note_loc) as file:
+                        nodes_dict[section_id][note_id]["HTML"] = file.read()
+                    os.remove(html_note_loc)
+            note_info_json = HTMLProcessor.note_info_script % json.dumps(nodes_dict)
+            with open(note_book.notebook_dest + "/source/js/main.js") as main_js:
+                header_html_list.append(local_dict[".js"] % note_info_json)
+                header_html_list.append(local_dict[".js"] % main_js.read())
 
-        # 链接 scripts/files 到 <head> 中
-        # Link local scripts/files to head
-        head_html_dict = {}
-        if "-server" in sys.argv:
-            head_html_dict = {
-                ".css": "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">",
-                ".js": "<script src=\"%s\"></script>"
-            }
-        elif "-local" in sys.argv:
-            head_html_dict = {
-                ".css": "<style>%s</style>",
-                ".js": "<script>%s</script>"
-            }
+            listdir = os.listdir(note_book.notebook_dest)
+            listdir.pop(listdir.index("source"))
+            for path in listdir:
+                shutil.rmtree(os.path.join(note_book.notebook_dest, path))
         else:
-            pass
+            raise Exception
 
-        for path, dirs, files in os.walk(files_dest_path_full):
-            for file in files:
-                file_path_rel = "/" + os.path.relpath(os.path.join(path, file), notes_dest_path_full)
-                file_type = Path(file_path_rel).suffix
-                if "-server" in sys.argv:
-                    try:
-                        header_html_list.append(head_html_dict[file_type] % file_path_rel)
-                    except KeyError:
-                        pass
-                elif "-local" in sys.argv:
-                    try:
-                        script_file = open(os.path.join(path, file), "r")
-                        script_file_content = script_file.read()
-                        script_file.close()
-                        header_html_list.append(head_html_dict[file_type] % script_file_content)
-                    except KeyError:
-                        pass
-                else:
-                    pass
-        if "-local" in sys.argv:
-            shutil.rmtree(files_dest_path_full)
+        theme_loc = os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/themes", theme_name)
+        with open(os.path.join(theme_loc, "basic.json")) as basic_json, \
+                open(os.path.join(theme_loc, "before_basic.json")) as before_basic_json, \
+                open(os.path.join(theme_loc, "after_basic.json")) as after_basic_json:
+            # basic_dict = json.loads(basic_json.read())
+            other_themes_dicts = [
+                json.loads(before_basic_json.read())[theme_mode],
+                json.loads(basic_json.read()),
+                json.loads(after_basic_json.read())[theme_mode]
+            ]
+
+            for theme_dict in other_themes_dicts:
+                for script_name, script_dict in theme_dict.items():
+                    if not script_dict["remote"]:
+                        if "-server" in sys.argv:
+                            script_dict["location"] += "/source/"
+                            header_html_list.append(link_dict[script_dict["type"]] % script_dict["location"])
+                        if "-local" in sys.argv:
+                            with open(os.path.join(files_dest_path_full, script_dict["location"])) as script_file:
+                                header_html_list.append(local_dict[script_dict["type"]] % script_file.read())
+                    else:
+                        header_html_list.append(link_dict[script_dict["type"]] % script_dict["location"])
         all_header_html = ""
         for header_html in header_html_list:
             all_header_html += header_html + "\n"

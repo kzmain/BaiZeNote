@@ -8,16 +8,14 @@ import logging
 import json
 from pathlib import Path
 
-from HTML.HTML import HTML
-from NotePath.Processor import Processor
-from NotePath.Source import Source
-from Notebook import Notebook
-
+from Memory.Notebook import Notebook
+from Processor.NotebookProcessor import NotebookProcessor
+from Processor.CoreProcessor import Processor
 from Tools.File import File
 from source.temp.svg.SVG import SVG
 import emarkdown.markdown as md
 
-from Tools import URIReplacement
+from Tools import URI
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -73,7 +71,7 @@ def main():
     elif "-g" in sys.argv:
         # 1. 获取需要转换的 所有 笔记本的路径,有新的写入系统，有失效的从系统删除
         notebooks_list = Processor.sys_get_processing_notebooks_list()
-        notebooks_list = Processor.sys_check_notebooks_validation(notebooks_list)
+        notebooks_list = Processor.res_check_notebooks_validation(notebooks_list)
         if len(notebooks_list) == 0:
             logging.error("No notebook needs to process. Exit!")
             return
@@ -85,22 +83,27 @@ def main():
             notebook.notebook_root = notebook_path
             notebook.notebook_name = os.path.basename(notebook_path)
             notebook.notebook_dest = Processor.get_notebook_destination(notebooks_destination, notebook.notebook_name)
-            notebook.notebook_dict = Processor.sys_get_notebooks_info()[notebook_path]
-            sections_info_dicts = Processor.source_check_section_json(notebook.notebook_root)
+            notebook.notebook_dict = Processor.res_get_notebooks_info()[notebook_path]
+            sections_info_dicts = Processor.notebook_check_section_json(notebook.notebook_root)
             nodes_dict = notebook.notebook_tree.set_note_tree(notebook.notebook_root, ".", sections_info_dicts)
+            nodes_dict = copy.deepcopy(nodes_dict)
 
             Processor.prepare_file_writing(notebook.notebook_root, notebook.notebook_dest)
+
             if "-local" in sys.argv:
-                pass
+                for key, node in nodes_dict.items():
+                    nodes_dict[key] = node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
+                nodes_dict = Processor.local_write_converted_htmls(notebook, nodes_dict)
+                html_head = Processor.server_mode_write_static_resources(notebook, nodes_dict)
+                Processor.local_mode_write_body_htmls(notebook, html_head)
             elif "-server" in sys.argv:
                 # 处理 node dict
                 nodes_dict = copy.deepcopy(nodes_dict)
                 for key, node in nodes_dict.items():
-                    nodes_dict[key] = node.node_info_dict[Source.SOURCE_SECTION_DICT_NOTES_DICT]
-                nodes_dict = Processor.server_mode_write_converted_htmls(notebook, nodes_dict)
+                    nodes_dict[key] = node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
+                nodes_dict = Processor.server_write_converted_htmls(notebook, nodes_dict)
                 html_head = Processor.server_mode_write_static_resources(notebook, nodes_dict)
                 Processor.server_mode_write_body_htmls(notebook, nodes_dict, html_head)
-                pass
     else:
         raise Exception
     return

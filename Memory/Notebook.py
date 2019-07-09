@@ -1,4 +1,4 @@
-from Tree.NoteTree import NoteTree
+from Memory.Tree.NoteTree import NoteTree
 
 
 class Notebook:

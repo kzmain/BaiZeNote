@@ -1,9 +1,9 @@
 import copy
 
-from HTML.HTML import HTML
-from NotePath.Source import Source
-from Tree.NoteNode import NoteNode
-from Tree.NoteRootNode import NoteRootNode
+from Processor.HTMLProcessor import HTMLProcessor
+from Processor.NotebookProcessor import NotebookProcessor
+from Memory.Tree.NoteNode import NoteNode
+from Memory.Tree.NoteRootNode import NoteRootNode
 from source.temp.svg.SVG import SVG
 
 
@@ -33,7 +33,7 @@ class NoteTree:
             raise Exception
 
         node.node_id = self.next_node_id
-        node.node_name = node_info_dict[Source.SOURCE_SECTION_DICT_SECTION_NAME]
+        node.node_name = node_info_dict[NotebookProcessor.SECTION_DICT_SECTION_NAME]
         node.node_info_dict = node_info_dict
         self.nodes_dict[node.node_id] = node
         self.next_node_id += 1
@@ -56,17 +56,17 @@ class NoteTree:
 
     def set_note_tree(self, notebook_root, notebook_section_path_rel, all_sections_info_dicts):
         # TODO SPLIT NO LONGER NEED NOTE INFO
-        section_info_not_need_list = [Source.SOURCE_SECTION_DICT_SECTION_MODIFICATION_TIME,
-                                      Source.SOURCE_SECTION_DICT_SECTION_CREATION_TIME,
-                                      Source.SOURCE_SECTION_DICT_REL_PATH]
+        section_info_not_need_list = [NotebookProcessor.SECTION_DICT_SECTION_MODIFICATION_TIME,
+                                      NotebookProcessor.SECTION_DICT_SECTION_CREATION_TIME,
+                                      NotebookProcessor.SECTION_DICT_REL_PATH]
         note_info_not_need_list = []
 
         current_node_info_dict = copy.deepcopy(all_sections_info_dicts[notebook_section_path_rel])
-        current_node_notes_info_dict = current_node_info_dict[Source.SOURCE_SECTION_DICT_NOTES_DICT]
+        current_node_notes_info_dict = current_node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
 
         for key in section_info_not_need_list:
             current_node_info_dict.pop(key)
-        sub_nodes = list(current_node_info_dict.pop(Source.SOURCE_SECTION_DICT_SUB_SECTION_REL_PATH_DICT).values())
+        sub_nodes = list(current_node_info_dict.pop(NotebookProcessor.SECTION_DICT_SUB_SECTION_REL_PATH_DICT).values())
 
         current_node_id = self.next_node_id
         self.add_child_node(current_node_info_dict)
@@ -82,7 +82,7 @@ class NoteTree:
         if section_id < 0:
             raise IndexError
         section_node = copy.copy(self.nodes_dict[section_id])
-        node_notes_count = len(section_node.node_info_dict[Source.SOURCE_SECTION_DICT_NOTES_DICT])
+        node_notes_count = len(section_node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT])
         if len(section_node.node_id_children_list) > 0:
             children_nodes_section_html = ""
             # 收集子section 的 section-menu
@@ -93,7 +93,7 @@ class NoteTree:
             # If current node is not root node, generate current node's section menu
             if str(type(section_node)) != str(type(NoteRootNode())):
                 section_node.html_section_menu = \
-                    HTML.sections_span % (
+                    HTMLProcessor.sections_span % (
                         section_id, section_id, section_id, SVG.sections_svg,
                         section_node.node_name, section_id, children_nodes_section_html
                     )
@@ -102,13 +102,13 @@ class NoteTree:
         # 2. 没有 sub-section 但有笔记
         # 2. Has NO sub-section and has notes
         elif len(section_node.node_id_children_list) == 0 and node_notes_count > 0:
-            section_node.html_section_menu = HTML.no_sections_span % \
-                                (section_id, section_id, SVG.no_sections_svg, section_node.node_name)
+            section_node.html_section_menu = HTMLProcessor.no_sections_span % \
+                                             (section_id, section_id, SVG.no_sections_svg, section_node.node_name)
         # 3. 没有 sub-section 没有笔记
         # 3. Has NO sub-section and has NO notes
         else:
             section_node.html_section_menu = \
-                HTML.no_notes_no_sections_span % \
+                HTMLProcessor.no_notes_no_sections_span % \
                 (section_id, section_id, SVG.no_notes_no_sections_svg, section_node.node_name)
 
         self.nodes_dict[section_id] = section_node
