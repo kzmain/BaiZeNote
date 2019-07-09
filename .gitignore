@@ -1,13 +1,3 @@
-📚Head_First_Data_Analysis_2009
-.idea
-__pycache__/
-venv
-📚Head_First_Data_Analysis_2009/.notebook.json
-a.html
-test.html
-test.html
-📚Head_First_Data_Analysis_2009/.notebook.json
-.idea/workspace.xml
-📚Head_First_Data_Analysis_2009/.notebook.json
-.idea/workspace.xml
-.idea/workspace.xml
+.idea/*
+*.pyc
+configs/*.json
