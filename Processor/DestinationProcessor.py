@@ -247,9 +247,9 @@ class DestinationProcessor:
 
         # 获取 "/source/all" 和 "/source/server" 下文件夹
         if "-server" in sys.argv:
-            static_file_current_mode_path_rel = HTMLProcessor.static_file_in_lib_path_rel_server_mode
+            static_file_current_mode_path_rel = HTMLProcessor.static_rel_server_mode
         elif "-local" in sys.argv:
-            static_file_current_mode_path_rel = HTMLProcessor.static_file_in_lib_path_rel_local_mode
+            static_file_current_mode_path_rel = HTMLProcessor.static_rel_local_mode
         else:
             logging.error("HTML output type is required")
             raise Exception

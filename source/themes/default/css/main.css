@@ -101,22 +101,12 @@ h6 {
 .button-menu{
     padding: 10px;
 }
+
 .hide{
-    /* width: 5px!important;
-    opacity: 0; */
     display: none!important;
 }
 
-/*#section-menu, #note-menu{*/
-    /*max-height: 100vh;*/
-    /*min-height: 100vh;*/
-/*}*/
-/*.bgg{*/
-    /*!* background-color: green!important; *!*/
-/*}*/
-/*.fixed{*/
 
-/*}*/
 @media (max-width: 576px){
 .section-menu-fixed {
     position: fixed;
