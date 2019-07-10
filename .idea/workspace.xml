@@ -52,7 +52,7 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Processor/DestinationProcessor.py">
+        <entry file="file://$PROJECT_DIR$/Processor/Constants/Constants.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="64">
               <caret line="55" selection-start-line="55" selection-end-line="55" />
@@ -96,15 +96,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>get_note_menu</find>
-      <find>read</find>
-      <find>URI</find>
-      <find>suffix</find>
-      <find>Path</find>
-      <find>sys_get_notebooks_paths</find>
-      <find>sys_get_resource_notebooks_info</find>
-      <find>BAIZE_REPO_NAME</find>
-      <find>PATH_FULL_SYS</find>
       <find>PATH_RELA_NOTEBOOKS_REPO_LOCATION_JSON</find>
       <find>NOTEBOOKS_REPO_LOCATION_KEY</find>
       <find>ion denied! Please enter another notebooks repository destination</find>
@@ -126,6 +117,15 @@
       <find>notes_dest_path_full</find>
       <find>files_dest_path_full</find>
       <find>NOTE_BOOKS_REPO_PATH_FULL</find>
+      <find>res_get_notebooks_info()</find>
+      <find>section</find>
+      <find>overflow</find>
+      <find>hover</find>
+      <find>margin</find>
+      <find>15</find>
+      <find>padding</find>
+      <find>mar</find>
+      <find>show</find>
     </findStrings>
     <replaceStrings>
       <replace>%;</replace>
@@ -174,7 +174,6 @@
         <option value="$PROJECT_DIR$/Processor/NotebookProcessor.py" />
         <option value="$PROJECT_DIR$/Notebook.py" />
         <option value="$PROJECT_DIR$/Processor/CoreProcessor.py" />
-        <option value="$PROJECT_DIR$/__main__.py" />
         <option value="$PROJECT_DIR$/source/local/js/show_current_note_page.js" />
         <option value="$PROJECT_DIR$/Tools/URI.py" />
         <option value="$PROJECT_DIR$/configs/note_books_themes.json" />
@@ -193,7 +192,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="12" />
     <option name="y" value="443" />
     <option name="width" value="1680" />
@@ -205,6 +204,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -252,7 +252,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -394,7 +393,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/__main__.py" />
-      <option name="PARAMETERS" value="-g $PROJECT_DIR$/../📚Head_First_Data_Analysis_2009 -local -thememode &quot;darkmode&quot;" />
+      <option name="PARAMETERS" value="-g $PROJECT_DIR$/../📚Head_First_Data_Analysis_2009 -server -thememode &quot;darkmode&quot;" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -486,6 +485,31 @@
       <window_info anchor="right" id="SciView" order="4" />
       <window_info anchor="right" id="Database" order="5" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6831229" visible="true" weight="0.36752138" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" sideWeight="0.31687716" side_tool="true" weight="0.35470086" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.45543346" weight="0.3283582" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.518315" visible="true" weight="0.37313432" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.46642247" weight="0.3444317" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.498779" weight="0.3295063" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4993895" weight="0.3295063" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.48168498" side_tool="true" weight="0.37313432" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4981685" weight="0.3295063" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.498779" weight="0.3295063" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" sideWeight="0.4981685" weight="0.3283582" />
+      <window_info anchor="right" x="0" y="0" width="370" height="763" id="Documentation" order="0" side_tool="true" weight="0.16544567" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="4" />
+      <window_info anchor="right" id="Database" order="5" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -576,23 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Memory/Tree/NoteNode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Memory/Tree/NoteTree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Processor/Exception/Exceptions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -600,31 +607,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Memory/Tree/NoteRootNode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="309" selection-start-line="309" selection-end-line="309" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Memory/Notebook.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="26" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/server/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="21" column="14" lean-forward="true" selection-end-line="107" />
         </state>
       </provider>
     </entry>
@@ -713,20 +699,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/configs/note_books_resource.json2019-07-09 01:32:18.155314.backup" />
-    <entry file="file://$PROJECT_DIR$/configs/note_books_themes.json">
+    <entry file="file://$PROJECT_DIR$/configs/note_books_destination.json">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret selection-end-column="2" />
+          <caret column="57" selection-start-column="57" selection-end-column="57" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__main__.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="78" column="55" selection-start-line="78" selection-start-column="55" selection-end-line="78" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -770,10 +753,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Processor/Constants/Constants.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Memory/Tree/NoteTree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2019">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/themes/default/css/dark_mode_before_bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Processor/CoreProcessor.py">
       <provider selected="true" editor-type-id="text-editor">
