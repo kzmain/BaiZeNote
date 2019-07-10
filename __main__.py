@@ -1,22 +1,12 @@
 import copy
-import os
-import re
-import shutil
-import sys
-import time
 import logging
-import json
-from pathlib import Path
+import os
+import sys
 
 from Memory.Notebook import Notebook
-from Processor.Constants import Paths, Constants
-from Processor.NotebookProcessor import NotebookProcessor
+from Processor.Constants import Constants
 from Processor.CoreProcessor import Processor
-from Tools.File import File
-from source.temp.svg.SVG import SVG
-import emarkdown.markdown as md
-
-from Tools import URI
+from Processor.NotebookProcessor import NotebookProcessor
 
 
 # ----------------------------------------------------------------------------------------------------------------------
