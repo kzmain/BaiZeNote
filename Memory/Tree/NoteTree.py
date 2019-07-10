@@ -97,8 +97,13 @@ class NoteTree:
                         section_id, section_id, section_id, SVG.sections_svg,
                         section_node.node_name, section_id, children_nodes_section_html
                     )
+            # 如果有子文件夹就一定会到这里，但是这个是quick note区域， 无子section, 需要检查是否有note
             else:
-                section_node.html_section_menu = children_nodes_section_html
+                svg = SVG.no_sections_svg if node_notes_count > 0 else SVG.no_notes_no_sections_svg
+                section_node.html_section_menu = HTMLProcessor.root_sections_span % (
+                    section_id, section_id, svg,
+                    section_node.node_name, children_nodes_section_html
+                )
         # 2. 没有 sub-section 但有笔记
         # 2. Has NO sub-section and has notes
         elif len(section_node.node_id_children_list) == 0 and node_notes_count > 0:
