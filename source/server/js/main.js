@@ -105,3 +105,47 @@ function expand_note_menu(section_id) {
 
 }
 
+// -----------
+let toggleClass = function(element, className) {
+    if (element.classList.contains(className)) {
+        element.classList.remove(className)
+    } else {
+        element.classList.add(className)
+    }
+};
+
+let docGet = function(selector){
+    return document.querySelector(selector);
+};
+
+let recurToggleClass = function(element,className){
+    toggleClass(element,className);
+    let child = element.childNodes;
+    if (child.length != 0){
+        child.forEach(e => {
+            if(e.nodeName != "#text"){
+                recurToggleClass(e,className)
+            }
+        });
+    }
+};
+
+document.querySelector('.top-nav').addEventListener('click',function(){
+    toggleClass(docGet('#note-menu'),'hide')
+    toggleClass(docGet('#section-menu'),'hide')
+    //设置为fixed形式
+    toggleClass(docGet('#note-menu'),'section-menu-fixed')
+    toggleClass(docGet('#section-menu'),'note-menu-fixed')
+    //取消/添加所有col的class
+    //col-
+    toggleClass(docGet('#note-menu'),'col-5')
+    toggleClass(docGet('#section-menu'),'col-5')
+    toggleClass(docGet('#show-note-area'),'col-2')
+    //col-sm
+    toggleClass(docGet('#note-menu'),'col-sm-2')
+    toggleClass(docGet('#section-menu'),'col-sm-2')
+    toggleClass(docGet('#show-note-area'),'col-sm-8')
+    //全屏显示
+    toggleClass(docGet('#show-note-area'),'col-sm-12')
+    toggleClass(docGet('#show-note-area'),'col-12')
+});
