@@ -3,7 +3,8 @@ import os
 import shutil
 import sys
 
-from Processor.Constants import Paths
+from Processor.Constants import Paths, Constants
+from Tools import Mode
 
 
 class HTMLProcessor:
@@ -124,7 +125,6 @@ class HTMLProcessor:
         notes_dest_path_full = note_book.notebook_dest
         files_dest_path_full = os.path.join(notes_dest_path_full, HTMLProcessor.dest_path_rel)
         header_html_list = ["<meta charset=\"utf-8\">"]
-
         link_dict = {
             ".css": "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">",
             ".js": "<script src=\"%s\"></script>"
@@ -136,7 +136,7 @@ class HTMLProcessor:
 
         # Include Remote Libs
         # 读取Remote的 JavaScript/CSS 库/ <meta>
-        if "-server" in sys.argv:
+        if Mode.is_server_mode():
             note_info_json = HTMLProcessor.note_info_script % json.dumps(nodes_dict)
             note_info_script_path_full = os.path. \
                 join(note_book.notebook_dest, HTMLProcessor.NOTE_INFO_JS_REL)
@@ -144,7 +144,7 @@ class HTMLProcessor:
                 note_info_file.write(note_info_json)
             header_html_list.append(link_dict[".js"] % ("/" + HTMLProcessor.NOTE_INFO_JS_REL))
             header_html_list.append(link_dict[".js"] % "/source/js/main.js")
-        elif "-local" in sys.argv:
+        elif Mode.is_local_mode():
             for section_id, section_dict in nodes_dict.items():
                 for note_id, note in section_dict.items():
                     html_note_loc = os.path. \
@@ -177,12 +177,14 @@ class HTMLProcessor:
             for theme_dict in other_themes_dicts:
                 for script_name, script_dict in theme_dict.items():
                     if not script_dict["remote"]:
-                        if "-server" in sys.argv:
+                        if Mode.is_server_mode():
                             html_code = link_dict[script_dict["type"]] % ("/source/" + script_dict["location"])
                             header_html_list.append(html_code)
-                        if "-local" in sys.argv:
+                        elif Mode.is_local_mode():
                             with open(os.path.join(files_dest_path_full, script_dict["location"])) as script_file:
                                 header_html_list.append(local_dict[script_dict["type"]] % script_file.read())
+                        else:
+                            raise Exception
                     else:
                         header_html_list.append(link_dict[script_dict["type"]] % script_dict["location"])
         all_header_html = ""

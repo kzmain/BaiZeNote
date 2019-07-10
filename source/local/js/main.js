@@ -1,19 +1,11 @@
-let current_section_id = "";
+    let current_section_id = "";
     let current_note_id = "";
     let note_history_dict = {};
 
 
-    //显示 section menu 和 笔记显示区
-    // function show_current_note_page(section_id, note_id) {
-    //     let section_menu_area = document.getElementById("section-menu");
-    //     let section_menu_path_relative = "/source/section-menu.blade.html";
-    //     get_notes_html(section_menu_path_relative, section_menu_area, section_id, note_id);
-    // }
-
     //显示笔记
     function read_note_text(section_id, note_id) {
         let show_note_area = document.getElementById("show-note-area");
-        // let note_path_relative = "/" + note_menu_dict[section_id][note_id]["HTML_FILE_REL"] + ".blade.html";
         get_notes_html(show_note_area, section_id, note_id);
     }
 
@@ -79,21 +71,6 @@ let current_section_id = "";
 
     function get_notes_html(change_tag, section_id, note_id) {
         change_tag.innerHTML = note_menu_dict[section_id][note_id]["HTML"];
-        // let target_file = new XMLHttpRequest();
-        // target_file.onreadystatechange = function () {
-        //     if (target_file.readyState === 4) {
-        //         if (target_file.status === 200 || target_file.status === 0) {
-        //             change_tag.innerHTML = target_file.responseText;
-        //             if (file_location === "/source/section-menu.blade.html"){
-        //                 get_note_menu(section_id, note_id);
-        //                 expand_note_menu(section_id)
-        //             }
-        //
-        //         }
-        //     }
-        // };
-        // target_file.open("GET", file_location);
-        // target_file.send(null);
     }
 
     function expand_note_menu(section_id) {

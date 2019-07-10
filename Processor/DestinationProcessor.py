@@ -10,7 +10,7 @@ from Processor.Constants import Paths
 from Processor.Constants import Constants
 from Processor.HTMLProcessor import HTMLProcessor
 from Processor.NotebookProcessor import NotebookProcessor
-from Tools import URI
+from Tools import URI, Mode
 from Tools.File import File
 import emarkdown.markdown as md
 
@@ -54,9 +54,9 @@ class DestinationProcessor:
 
     @staticmethod
     def get_notebook_destination(note_books_dest, notebook_name):
-        if "-local" in sys.argv:
+        if Mode.is_local_mode():
             note_book_dest = os.path.join(note_books_dest, "local", notebook_name)
-        elif "-server" in sys.argv:
+        elif Mode.is_server_mode():
             note_book_dest = os.path.join(note_books_dest, "server", notebook_name)
         else:
             raise Exception
@@ -246,9 +246,9 @@ class DestinationProcessor:
         os.mkdir(files_dest_path_full)
 
         # 获取 "/source/all" 和 "/source/server" 下文件夹
-        if "-server" in sys.argv:
+        if Mode.is_server_mode():
             static_file_current_mode_path_rel = HTMLProcessor.static_rel_server_mode
-        elif "-local" in sys.argv:
+        elif Mode.is_local_mode():
             static_file_current_mode_path_rel = HTMLProcessor.static_rel_local_mode
         else:
             logging.error("HTML output type is required")
