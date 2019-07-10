@@ -69,13 +69,13 @@ class HTMLProcessor:
     note_info_script = "let note_menu_dict = %s"
 
     # 不同模式下 在库中 对应的静态文件所在地
-    static_file_in_lib_path_rel_local_mode = "source/local"
-    static_file_in_lib_path_rel_server_mode = "source/server"
-    static_file_in_lib_path_relative_all_mode = "source/all"
-    static_file_in_lib_path_relative_remote = "source/remote"
-    static_file_in_lib_path_relative_temp = "source/temp"
+    static_rel_local_mode = "source/local"
+    static_rel_server_mode = "source/server"
+    static_rel_all_mode = "source/all"
+    static_rel_remote = "source/remote"
+    static_rel_temp = "source/temp"
 
-    remote_libs_in_lib_path_relative = "%s/header.blade.html" % static_file_in_lib_path_relative_remote
+    remote_libs_in_lib_path_relative = "%s/header.blade.html" % static_rel_remote
     # 不同模式下 在目标 对应的静态文件所在地
     dest_path_rel = "source"
     NOTE_INFO_JS_REL = "%s/js/note_info.js" % dest_path_rel
