@@ -1,42 +1,82 @@
 body {
   background-color: #2b2b2b;
 }
-code {
-  color: lightgoldenrodyellow;
+
+code, pre code {
+  color: #ffdf7e;
 }
-pre code {
-  color: lightgoldenrodyellow;
-}
-.note
-{
+
+.note {
      background-position: 9px 0px;
      background-repeat: no-repeat;
      line-height: 18px;
      overflow: hidden;
      padding: 15px 60px;
 }
-.red-note
-{
+.red-note {
      background-color: #fbb2b6;
      border-left: solid 4px #db6455;
 }
-.blue-note
-{
+.blue-note {
      background-color: #f0f7fb;
      border-left: solid 4px #3498db;
 }
-.yellow-note
-{
+.yellow-note {
      background-color: #f9fbc0;
      border-left: solid 4px #dbd45c;
 }
-.green-note
-{
+.green-note {
      background-color: #b6fbbb;
      border-left: solid 4px #65db3b;
 }
-.grey-note
-{
+.grey-note {
      background-color: #a8a7a7;
      border-left: solid 4px #6e6c6f;
 }
+
+p:not(.note){
+  color: white;
+}
+.alert-danger p{
+  color: #721c24;
+}
+.alert-info p{
+  color: #0c5460;
+}
+.alert-warning p{
+  color: #856404;
+}
+.alert-secondary p{
+  color: #393D42;
+}
+.alert-success p{
+  color: #155724;
+}
+#section-menu span p {
+     color: black;
+}
+
+#section-menu span, #note-menu span {
+    background-color: #eee; /* Grey background color */
+    color: black; /* Black text color */
+    display: block; /* Make the links appear below each other */
+    text-decoration: none; /* Remove underline from links */
+}
+
+#section-menu span:hover, #note-menu span:hover {
+    background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+#section-menu span.active, #note-menu span.active {
+    background-color: #4CAF50; /* Add a green color to the "active/current" link */
+    color: white;
+}
+
+#section-menu span.active p, #note-menu span.active{
+     color: white;
+}
+
+h1, h2, h3, h4, h5, h6, li {
+  color: white;
+}
+

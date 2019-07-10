@@ -1,19 +1,36 @@
 #section-menu, #note-menu{
-    /*width: 250px; !* Set a width if you like *!*/
     display: inline-block;
     background-color: #eee;
-    /*overflow-y: auto;*/
+    overflow-y:scroll;
+    max-height: 100vh;
+    min-height: 100vh;
+
+}
+
+#note-menu {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#section-menu {
+    padding-right: 1px;
+    padding-left: 15px;
 }
 
 #section-menu span, #note-menu span {
     background-color: #eee; /* Grey background color */
     color: black; /* Black text color */
     display: block; /* Make the links appear below each other */
-    padding: 12px; /* Add some padding */
     text-decoration: none; /* Remove underline from links */
+    font-size: 15px;
+    padding: 10px;
+    margin: 0px;
+    width: 100%;
+    font-weight: lighter;
 }
-#show-note-area{
-    /*overflow-y: auto;*/
+
+#section-menu svg, #note-menu svg {
+    width: 15px;
 }
 
 #section-menu span:hover, #note-menu span:hover {
@@ -25,30 +42,90 @@
     color: white;
 }
 
-#section-menu .active, #note-menu .active {
-    background-color: #4CAF50; /* Add a green color to the "active/current" link */
-    color: white;
-}
-
 #section-menu p {
     display: inline;
+}
+
+#show-note-area{
+    overflow-y:scroll;
+    max-height: 100vh;
+    min-height: 100vh;
 }
 
 .collapse {
     margin-left: 10px;
 }
 
-.col-sm-8, .col-sm-2{
+img,video {
+  height : auto;
+  width : auto;
+  max-height: 400px;
+  max-width: 600px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-    overflow-y:scroll;
-    max-height: 100vh;
-    min-height: 100vh;
+h1 {
+  font-size: 30px;
+  font-weight: bolder;
 }
-img{
-    max-width: 60%;
-    max-height: 500px;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+h2 {
+  font-size: 27px;
+  font-weight: bolder;
 }
+h3 {
+  font-size: 25px;
+  color: white;
+}
+h4 {
+  font-size: 21px;
+  color: white;
+}
+h5 {
+  font-size: 19px;
+  font-style: italic;
+}
+h6 {
+  font-size: 17px;
+  font-style: italic;
+}
+
+/*--------------*/
+.top-nav{
+    height: 50px;
+    width: 100%;
+    background-color: #fff;
+}
+.button-menu{
+    padding: 10px;
+}
+.hide{
+    /* width: 5px!important;
+    opacity: 0; */
+    display: none!important;
+}
+
+/*#section-menu, #note-menu{*/
+    /*max-height: 100vh;*/
+    /*min-height: 100vh;*/
+/*}*/
+/*.bgg{*/
+    /*!* background-color: green!important; *!*/
+/*}*/
+/*.fixed{*/
+
+/*}*/
+@media (max-width: 576px){
+.section-menu-fixed {
+    position: fixed;
+    z-index: 100;
+    left: 0px;
+}
+.note-menu-fixed {
+    position: fixed;
+    z-index: 100;
+    left: 41.666667%;
+}
+}
+
