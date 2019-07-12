@@ -56,7 +56,7 @@ class NoteTree:
 
     def set_note_tree(self, notebook_root, notebook_section_path_rel, all_sections_info_dicts):
         # TODO SPLIT NO LONGER NEED NOTE INFO
-        section_info_not_need_list = [NotebookProcessor.SECTION_DICT_SECTION_MODIFICATION_TIME,
+        section_info_not_need_list = [NotebookProcessor.SECTION_DICT_SECTION_UPDATE_TIME,
                                       NotebookProcessor.SECTION_DICT_SECTION_CREATION_TIME,
                                       NotebookProcessor.SECTION_DICT_REL_PATH]
         note_info_not_need_list = []

@@ -18,6 +18,16 @@ import emarkdown.markdown as md
 class DestinationProcessor:
     BAIZE_REPO_SUB_FOLDERS_LIST = ["server", "local"]
 
+    # Get the processing notebook(s) destination
+    # It has two mode:
+    #   1. Enter a specific notebook destination
+    #   2. Use default notebook destination
+    # 获取即将处理的笔记本的目标地
+    #   1. 输入一个指定即将要处理的笔记目标路径
+    #   2. 使用默认笔记本目标路径
+    # @Return:
+    # note_book_dest: All notebooks destination
+    # note_book_dest: 所有笔记本的目的地
     @staticmethod
     def get_notebooks_destination():
         note_book_dest = ""
@@ -125,6 +135,8 @@ class DestinationProcessor:
                 logging.error("Permission denied! Please enter another notebooks repository destination")
             except FileNotFoundError:
                 logging.error("Folder location denied! Please enter another notebooks repository destination")
+            except ValueError:
+                logging.error("Wrong path value! Please enter another notebooks repository destination")
 
         DestinationProcessor.__check_notebooks_dest_sub_folders(notebooks_repo_path_full)
         return notebooks_repo_path_full

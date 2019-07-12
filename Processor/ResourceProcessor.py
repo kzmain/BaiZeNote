@@ -37,29 +37,35 @@ class ResourceProcessor:
 
     @staticmethod
     def get_resource_notebooks_paths():
-        return list(ResourceProcessor.get_resource_notebooks_info().keys)
+        result = list(ResourceProcessor.get_resource_notebooks_info())
+        return result
 
+    # Check processing notebook repositories permission
+    # If invalid remove it from processing list and system's config
+    # 检查即将处理的笔记仓库的权限
+    # 如果非法将其从处理列表与系统设置中移除
+    # @INPUT:
+    # processing_list: List of notebook repositories going to be processed
+    # processing_list: 即将处理的笔记仓库list
+    # @Return:
+    # processing_list: List of checked notebook repositories going to be processed
+    # processing_list: 即将处理的笔记仓库list
     @staticmethod
-    def check_resource_notebooks_validation(notebooks_path_list):
-        result_list = notebooks_path_list
+    def check_resource_notebooks_validation(processing_list):
+        result_list = processing_list
         all_note_books_dict = ResourceProcessor.get_resource_notebooks_info()
         modified_flag = False
-        for notebook_path in notebooks_path_list:
-            if notebook_path not in all_note_books_dict:
-                new_note_info_dict = ResourceProcessor.get_new_notebook_info(notebook_path)
-                ResourceProcessor.add_resource_notebook(notebook_path, new_note_info_dict)
+        # 1. Check each notebook's permission
+        for path in processing_list:
+            # Check a notebook repository's config
+
+            if not os.path.isdir(path) or not os.access(path, os.W_OK):
+                error_info = "\"%s\" no longer existed or have permission error, will remove from system" % path
+                logging.critical(error_info)
+                all_note_books_dict.pop(path, None)
+                result_list.remove(path)
                 modified_flag = True
-            try:
-                if not os.path.isdir(notebook_path):
-                    raise InvalidNoteBookPathError
-                elif not os.access(notebook_path, os.W_OK):
-                    raise InvalidNoteBookPathError
-            except InvalidNoteBookPathError:
-                logging.error(
-                    "\"%s\" no longer existed or have permission error, will remove from system" % notebook_path)
-                all_note_books_dict.pop(notebook_path, None)
-                result_list.remove(notebook_path)
-                modified_flag = True
+        # 2. When system config modified, update system config
         if modified_flag:
             ResourceProcessor.set_resource_notebook_info(all_note_books_dict)
         return result_list

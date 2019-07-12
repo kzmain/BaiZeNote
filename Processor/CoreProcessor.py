@@ -4,12 +4,11 @@ from Processor.SysProcessor import SysProcessor
 from Processor.DestinationProcessor import DestinationProcessor
 
 
-class Processor:
+class CoreProcessor:
     # SysProcessor -----------------------------------------------------------------------------------------------------
     @staticmethod
     def sys_configs_check():
-        if not SysProcessor.configs_check():
-            DestinationProcessor.initial_notebooks_repository()
+        SysProcessor.configs_check()
 
     @staticmethod
     def sys_get_processing_notebooks_list():

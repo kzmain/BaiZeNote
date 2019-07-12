@@ -6,7 +6,7 @@ import sys
 
 from Memory.Notebook import Notebook
 from Processor.Constants import Constants
-from Processor.CoreProcessor import Processor
+from Processor.CoreProcessor import CoreProcessor as Core
 from Processor.NotebookProcessor import NotebookProcessor
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -30,39 +30,40 @@ from Tools import Mode
 
 
 def main():
-    # note = Notebook()
-    # ！！！！ 这是个initial 需分拆
-    Processor.sys_configs_check()
-
+    # Check system configs, if a system config does not exist system will create default one
+    # 检查系统的配置，如果系统配置不存系统将创建默认的配置
+    Core.sys_configs_check()
     if "-g" in sys.argv:
         # 1. 获取需要转换的 所有 笔记本的路径,有新的写入系统，有失效的从系统删除
-        notebooks_list = Processor.sys_get_processing_notebooks_list()
-        notebooks_list = Processor.res_check_notebooks_validation(notebooks_list)
+        notebooks_list = Core.sys_get_processing_notebooks_list()
+        notebooks_list = Core.res_check_notebooks_validation(notebooks_list)
+        # 1.1 空将要处理的列表，系统结束退出
         if len(notebooks_list) == 0:
-            logging.error("No notebook needs to process. Exit!")
-            return
+            logging.critical("No notebook needs to process. Exit!")
+            sys.exit(0)
         # 2. 获取转换后所有笔记的目标地
-        notebooks_destination = Processor.get_notebooks_destination()
+        notebooks_destination = Core.get_notebooks_destination()
         repository_html = "<meta charset=\"utf-8\">\n"
+        # 3. 分别处理每个笔记本
         for notebook_path in notebooks_list:
-            # 2. 获取转换后 当前笔记的目标地
+            # 3.1 处理笔记本基础信息
             notebook = Notebook()
             notebook.notebook_root = notebook_path
             notebook.notebook_name = os.path.basename(notebook_path)
-            notebook.notebook_dest = Processor.get_notebook_destination(notebooks_destination, notebook.notebook_name)
-            notebook.notebook_dict = Processor.res_get_notebooks_info()[notebook_path]
-            sections_info_dicts = Processor.notebook_check_section_json(notebook.notebook_root)
+            notebook.notebook_dest = Core.get_notebook_destination(notebooks_destination, notebook.notebook_name)
+            notebook.notebook_dict = Core.res_get_notebooks_info()[notebook_path]
+            sections_info_dicts = Core.notebook_check_section_json(notebook.notebook_root)
             nodes_dict = notebook.notebook_tree.set_note_tree(notebook.notebook_root, ".", sections_info_dicts)
             repo_note_dict = copy.deepcopy(nodes_dict)
             nodes_dict = copy.deepcopy(nodes_dict)
 
-            Processor.prepare_file_writing(notebook.notebook_root, notebook.notebook_dest)
+            Core.prepare_file_writing(notebook.notebook_root, notebook.notebook_dest)
             if Mode.is_local_mode():
                 for key, node in nodes_dict.items():
                     nodes_dict[key] = node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
-                nodes_dict = Processor.local_write_converted_htmls(notebook, nodes_dict)
-                html_head = Processor.server_mode_write_static_resources(notebook, nodes_dict)
-                Processor.local_mode_write_body_htmls(notebook, html_head)
+                nodes_dict = Core.local_write_converted_htmls(notebook, nodes_dict)
+                html_head = Core.server_mode_write_static_resources(notebook, nodes_dict)
+                Core.local_mode_write_body_htmls(notebook, html_head)
                 if Mode.is_r_local_mode():
                     repo_note_dict
                     repository_html += "<a href = \"%s%s%s\">%s</a>\n" % \
@@ -72,8 +73,8 @@ def main():
                 nodes_dict = copy.deepcopy(nodes_dict)
                 for key, node in nodes_dict.items():
                     nodes_dict[key] = node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
-                nodes_dict = Processor.server_write_converted_htmls(notebook, nodes_dict)
-                html_head = Processor.server_mode_write_static_resources(notebook, nodes_dict)
+                nodes_dict = Core.server_write_converted_htmls(notebook, nodes_dict)
+                html_head = Core.server_mode_write_static_resources(notebook, nodes_dict)
                 if Mode.is_r_server_mode():
                     link_match = re.search(r"((?<=src=\")|(?<=href=\"))(?=\/source)", html_head)
                     while link_match:
@@ -82,7 +83,7 @@ def main():
                         html_head = start + "/" + notebook.notebook_name + end
 
                         link_match = re.search(r"((?<=src=\")|(?<=href=\"))(?=\/source)", html_head)
-                Processor.server_mode_write_body_htmls(notebook, nodes_dict, html_head)
+                Core.server_mode_write_body_htmls(notebook, nodes_dict, html_head)
 
                 main_js_location = os.path.join(notebook.notebook_dest, "source/js/main.js")
                 with open(main_js_location, "r+") as main_js:
