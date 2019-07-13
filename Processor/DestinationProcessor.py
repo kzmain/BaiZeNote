@@ -234,7 +234,7 @@ class DestinationProcessor:
             for note_id, note_dict in section_dict.items():
                 html_path_rel = note_dict[NotebookProcessor.NOTE_DICT_HTML_FILE_REL] + ".html"
                 html_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, html_path_rel)
-                html_body = HTMLProcessor.generate_server_body(html_foot, section_id, note_id)
+                html_body = HTMLProcessor.__generate_server_body(html_foot, section_id, note_id)
                 html_file = open(html_path_full, "w+")
                 html_file.write(html_head)
                 html_file.write(html_body)
@@ -387,7 +387,10 @@ class DestinationProcessor:
             os.mkdir(os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, static_type))
             for res_path_full, dest_path_rel in file_type_dict.items():
                 dest_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, static_type, dest_path_rel)
-                shutil.copy(res_path_full, dest_path_full)
+                try:
+                    shutil.copy(res_path_full, dest_path_full)
+                except FileNotFoundError:
+                    logging.critical("File \"%s\" not found" % res_path_full)
         # 2. 获取 "/source/all" 和 "/source/server" 下文件夹
         if Mode.is_server_mode():
             static_rel = HTMLProcessor.static_rel_server_mode

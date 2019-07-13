@@ -110,7 +110,7 @@ class HTMLProcessor:
         return html_list
 
     @staticmethod
-    def generate_server_body(html_foot, section_id, file_id):
+    def __generate_server_body(html_foot, section_id, file_id):
         body_html = \
             "<body>\n" \
             "<div class=\"top-nav\">\n" \
@@ -140,7 +140,7 @@ class HTMLProcessor:
     #   1.1. Generate <body> tag part for "-local" mode
     #       It includes section menu，show note area will show notebook's name
     @staticmethod
-    def generate_local_body(html_menu, note_html, html_foot):
+    def __generate_local_body(html_menu, note_html, html_foot):
         body_html = "\n<body>" \
                     "\n<div class=\"container-fluid\">" \
                     "\n<div class=\"row\">" \
@@ -165,9 +165,9 @@ class HTMLProcessor:
                 break
         if Mode.is_local_mode():
             note_html = new_node_dict[section_id][note_id]["HTML"]
-            html_body = HTMLProcessor.generate_local_body(html_menu, note_html, html_foot)
+            html_body = HTMLProcessor.__generate_local_body(html_menu, note_html, html_foot)
         elif Mode.is_server_mode():
-            html_body = HTMLProcessor.generate_server_body(html_foot, section_id, note_id)
+            html_body = HTMLProcessor.__generate_server_body(html_foot, section_id, note_id)
         else:
             return Exception
         return html_body

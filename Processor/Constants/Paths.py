@@ -25,6 +25,17 @@ class Paths:
 
     PATH_FULL_NOTEBOOK_REPOSITORY = ""
 
+    # 📕 核心功能
+    # 设置单笔记本的相关目标文件夹
+    # ⬇️ 输入参数
+    # notebook_root: 笔记本的根目录（即笔记本的源仓库所在位置）
+    # notebook_dest: 笔记本目标跟目录 （即笔记最后储存未知）
+    # ------------------------------------------------------------------------------------------------------------------
+    # 📕 Core function
+    # Setup a notebook's related destination folder
+    # ⬇️ Input argument
+    # notebook_root: Notebook's root location (resource repository location)
+    # notebook_dest: Notebook's destination location (destination repository location)
     @staticmethod
     def set_dest_path(notebook_dest, notebook_root):
         Paths.PATH_FULL_NOTEBOOK_DEST = notebook_dest

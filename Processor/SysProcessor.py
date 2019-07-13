@@ -112,16 +112,18 @@ class SysProcessor:
             return all_notebooks
         while True:
             result = []
-            notice = "Enter notebooks' number. (Multiple notebooks split them by \",\")"
+            notice = "Enter notebooks' number. (Multiple notebooks split them by \",\"). Or \"all\" for all notebooks"
             print(notice)
 
             temp_list = SysProcessor.__print_list(all_notebooks)
             input_list = input().split(",")
+            if "all" in input_list or "All" in input_list:
+                input_list = temp_list
             choices = [i for i in input_list if i in temp_list]
             if len(choices) > 0:
                 for num in temp_list:
                     result.append(all_notebooks[int(num) - 1])
-                print("Following repository will be processed. Do you confirm?")
+                print("Following repository will be processed. Do you confirm?(y/n)")
                 SysProcessor.__print_list(result)
                 confirm = input().lower()
                 if confirm in ["y", "yes"]:
