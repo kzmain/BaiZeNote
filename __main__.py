@@ -6,7 +6,7 @@ import re
 import sys
 
 from Memory.Notebook import Notebook
-from Processor.Constants.Paths import  Paths
+from Processor.Constants.Paths import Paths
 from Processor.CoreProcessor import CoreProcessor as Core
 from Processor.NotebookProcessor import NotebookProcessor
 # 📕Note book 参数信息
@@ -76,18 +76,16 @@ def main():
                     repository_html += "<a href = \"%s%s%s\">%s</a>\n" % \
                                        ("./", notebook.notebook_name, "/index.html", notebook.notebook_name)
             elif Mode.is_server_mode():
-                # nodes_dict = Core.write_converted_htmls(notebook, nodes_dict)
-                # html_head = Core.write_static_resources(notebook, nodes_dict)
                 with open(Paths.PATH_FULL_NOTEBOOK_DEST + "/source/section-menu.blade.html", "w+") as section_menu:
                     section_menu.write(old_nodes_dict[0].html_section_menu)
                 if Mode.is_r_server_mode():
-                    link_match = re.search(r"((?<=src=\")|(?<=href=\"))(?=\/source)", html_head)
+                    link_match = re.search(r"((?<=src=\")|(?<=href=\"))(?=/source)", html_head)
                     while link_match:
                         start = html_head[:link_match.start()]
                         end = html_head[link_match.end():]
                         html_head = start + "/" + notebook.notebook_name + end
 
-                        link_match = re.search(r"((?<=src=\")|(?<=href=\"))(?=\/source)", html_head)
+                        link_match = re.search(r"((?<=src=\")|(?<=href=\"))(?=/source)", html_head)
                 Core.server_mode_write_body_htmls(nodes_dict, html_head, html_foot)
 
                 main_js_location = os.path.join(notebook.notebook_dest, "source/js/main.js")

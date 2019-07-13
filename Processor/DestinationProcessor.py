@@ -148,45 +148,6 @@ class DestinationProcessor:
             shutil.rmtree(Paths.PATH_FULL_NOTEBOOK_DEST)
         File.folder_tree_copy(Paths.PATH_FULL_NOTEBOOK_REPOSITORY, Paths.PATH_FULL_NOTEBOOK_DEST)
 
-    # @staticmethod
-    # def local_mode_write_converted_htmls(notebook, nodes_dict):
-    #     # TODO What to do when note status lock / hide tag/reference and so on
-    #     # TODO 后面emarkdown改了以后，generate 和 写入要分开
-    #     image_dict = {}
-    #     for section_id, section_dict in nodes_dict.items():
-    #         note_rel_list = []
-    #         for note_id, note_dict in section_dict.items():
-    #             note_rel_raw = note_dict[NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL]
-    #             note_file_type = note_dict[NotebookProcessor.NOTE_DICT_NOTE_FILE_TYPE]
-    #             note_html_rel_raw = re.sub("%s$" % note_file_type, "", note_rel_raw, 1)
-    #             next_name_counter = 0
-    #             while note_html_rel_raw in note_rel_list:
-    #                 note_html_rel_raw += str(next_name_counter)
-    #             note_html_path_rel = "%s%s" % (note_html_rel_raw, ".html")
-    #             note_html_resource_path_full = os.path.join(notebook.notebook_root, note_rel_raw)
-    #
-    #             note_html_destination_path_full = os.path.join(notebook.notebook_dest, note_html_path_rel)
-    #             note_html_destination_path_full += ".blade.html"
-    #
-    #             note_dict[NotebookProcessor.NOTE_DICT_HTML_FILE_REL] = note_html_path_rel
-    #
-    #             if note_file_type == ".md":
-    #                 md.process(["-f", note_html_resource_path_full, "-d", note_html_destination_path_full])
-    #                 html_file = open(note_html_destination_path_full, "r")
-    #                 raw_html = html_file.read()
-    #                 html_file.close()
-    #
-    #                 note_folder_res = os.path.dirname(note_html_resource_path_full)
-    #                 html_code = \
-    #                     URI.replace_local_mode_img_uri(raw_html, note_folder_res, image_dict, notebook.notebook_root)
-    #
-    #                 if raw_html != html_code:
-    #                     html_file = open(note_html_destination_path_full, "w+")
-    #                     html_file.write(html_code)
-    #                     html_file.close()
-    #     notebook.statistic_files_dict["images"] = image_dict
-    #     return nodes_dict
-
     @staticmethod
     def write_converted_htmls(notebook, nodes_dict):
         # TODO What to do when note status lock / hide tag/reference and so on
@@ -456,47 +417,6 @@ class DestinationProcessor:
                         os.mkdir(Path(dest_path_full).parent)
                     shutil.copy(res_path, dest_path_full)
         return static_files_dict
-        # if "-thememode" in sys.argv:
-        #     # !!!! 还有可能并无此mode
-        #     try:
-        #         theme_mode_index = sys.argv.index("-thememode") + 1
-        #         theme_mode = sys.argv[theme_mode_index]
-        #     except IndexError:
-        #         theme_mode = "default"
-        # else:
-        #     theme_mode = "default"
-        # with open(os.path.join(theme_loc, "libs.json")) as basic_json, \
-        #         open(os.path.join(theme_loc, "footer.json")) as before_basic_json, \
-        #         open(os.path.join(theme_loc, "header.json")) as after_basic_json:
-        #     # basic_dict = json.loads(basic_json.read())
-        #     other_themes_dicts = [
-        #         json.loads(before_basic_json.read())[theme_mode],
-        #         json.loads(basic_json.read()),
-        #         json.loads(after_basic_json.read())[theme_mode]
-        #     ]
-
-        #
-        # head_html = HTMLProcessor.generate_head(note_book, nodes_dict, static_files_dict, theme_mode)
-        # head_html_file = open(os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, HTMLProcessor.dest_file_name_head_html), "w+")
-        # head_html_file.write(head_html)
-        # head_html_file.close()
-        # section_menu_html_file = open(
-        #     os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, HTMLProcessor.dest_file_name_section_menu_html), "w+")
-        # node_root_id = note_book.notebook_tree.node_id_root
-        # section_menu_html_file.write(note_book.notebook_tree.nodes_dict[node_root_id].html_section_menu)
-        # section_menu_html_file.close()
-        #
-        # for file_type, file_dict in note_book.statistic_files_dict.items():
-        #     dest_file_dir = os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, file_type)
-        #     if not os.path.exists(dest_file_dir):
-        #         os.mkdir(dest_file_dir)
-        #     for resource_file_path_full, dest_file_path_rel in file_dict.items():
-        #         dest_file_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, file_type, dest_file_path_rel)
-        #         try:
-        #             shutil.copy(resource_file_path_full, dest_file_path_full)
-        #         except FileNotFoundError:
-        #             logging.warning("Local file %s not found!" % resource_file_path_full)
-        # return head_html
 
     @staticmethod
     def __check_notebooks_dest_sub_folders(note_books_dest_path_full):

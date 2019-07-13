@@ -23,43 +23,6 @@ class HTMLProcessor:
     dest_file_name_head_html = "header.blade.html"
     dest_file_name_section_menu_html = "section-menu.blade.html"
 
-    # 📕1. 核心任务
-    #   1.1. 生成 "-server"/"-local" 模式的 <head> 部分
-    #       1.1.1. "-server" 模式:
-    #       Step 1 将 "/source/temp/head.blade.html" 储存的远程 scripts/css 读取，写入到 <head> 中
-    #       Step 2 将 "/source/server/" 及 "/source/all/" 下的静态文件拷贝到 "/[note_book_root_folder]/source/"下，如果目标文件夹存在，删除再拷贝
-    #       Step 3 输出 note_info_dict 到 "/[note_book_root_folder]/source/js/note_info.js"
-    #       Step 4 将所有的网站本地 css/scripts 用链接形式放到 <head> 中
-    #       Step 5 将 <head> 最后形成的HTML代码储存到 "/[note_book_root_folder]/source/html/head.blade.html" 下
-    #       1.1.2. "-local" 模式:
-    #       Step 1 将 "/source/temp/head.blade.html" 储存的远程 scripts/css 读取，加入到 <head> 中
-    #       Step 2 将 note_info_dict 转化为 json 加入到 <head> 中
-    #       Step 3 将会把 "/source/local/" 及 "/source/all/" 下的静态文件读取到并加入到 <head> 中
-    #       Step 4 将 <head> 最后形成的 HTML 代码返回
-    # ------------------------------------------------------------------------------------------------------------------
-    # 📕1. Core Tasks
-    #   1.1. Generate <head> tag part for "-server/-local" mode
-    #       1.1.1. "-server" mode:
-    #       Step 1 Read remote scripts/css from "/source/temp/head.blade.html", and add it into <head> tag
-    #       Step 2 Copy statistic files under "/source/server/" and "/source/all/" to "/[note_book_root_folder]/source/"
-    #       , if the target static folder already existed, del it then copy
-    #       Step 3 Write note_info_dict to "/[note_book_root_folder]/source/js/note_info.js"
-    #       Step 4 Put all local static css/scripts into <head> tag as link format
-    #       Step 5 Write final <head> html code to "/[note_book_root_folder]/source/html/head.blade.html"
-    #       1.1.2. "-local" mode:
-    #       Step 1 Read remote scripts/css from "/source/temp/head.blade.html", and add it into <head> tag
-    #       Step 2 Get note_info_dict's json and add it into <head> tag
-    #       Step 3 Read static files under "/source/local/" and "/source/all/"  and write into <head> tag
-    #       Step 4 Return HTML code back
-
-    # @staticmethod
-    # def get_remote_libs():
-    #     remote_libs_path_full = os.path.join(os.getcwd(), HTMLProcessor.remote_libs_in_lib_path_relative)
-    #     remote_libs_file = open(remote_libs_path_full, "r")
-    #     remote_libs = remote_libs_file.read()
-    #     remote_libs_file.close()
-    #     return remote_libs
-
     @staticmethod
     def generate_html_header(static_file_dict, nodes_dict):
         # 1. Basic info of header
@@ -146,49 +109,6 @@ class HTMLProcessor:
                 html_list.append(link_dict[script_dict["type"]] % script_dict["location"])
         return html_list
 
-    # @staticmethod
-    # def generate_head(note_book, nodes_dict, theme_name, theme_mode):
-    #     notes_dest_path_full = note_book.notebook_dest
-    #     files_dest_path_full = os.path.join(notes_dest_path_full, HTMLProcessor.dest_path_rel)
-    #
-    #
-    #
-    #
-    #     theme_loc = os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/themes", theme_name)
-    #     with open(os.path.join(theme_loc, "libs.json")) as basic_json, \
-    #             open(os.path.join(theme_loc, "footer.json")) as before_basic_json, \
-    #             open(os.path.join(theme_loc, "header.json")) as after_basic_json:
-    #         other_themes_dicts = [
-    #             json.loads(before_basic_json.read())[theme_mode],
-    #             json.loads(basic_json.read()),
-    #             json.loads(after_basic_json.read())[theme_mode]
-    #         ]
-    #
-    #         for theme_dict in other_themes_dicts:
-    #             for script_name, script_dict in theme_dict.items():
-    #                 if not script_dict["remote"]:
-    #                     if Mode.is_server_mode():
-    #                         html_code = link_dict[script_dict["type"]] % ("/source/" + script_dict["location"])
-    #                         header_html_list.append(html_code)
-    #                     elif Mode.is_local_mode():
-    #                         with open(os.path.join(files_dest_path_full, script_dict["location"])) as script_file:
-    #                             header_html_list.append(local_dict[script_dict["type"]] % script_file.read())
-    #                     else:
-    #                         raise Exception
-    #                 else:
-    #                     header_html_list.append(link_dict[script_dict["type"]] % script_dict["location"])
-    #     all_header_html = ""
-    #     for header_html in header_html_list:
-    #         all_header_html += header_html + "\n"
-    #     return "<head>\n" + all_header_html + "</head>"
-
-    # 📕1. 核心任务
-    #   1.1. 生成 "-server" 模式的 <body> 部分
-    #       其中包含的 show_current_note_page 来生成真正的页面
-    # ------------------------------------------------------------------------------------------------------------------
-    # 📕1. Core Tasks
-    #   1.1. Generate <body> tag part for "-server" mode
-    #       It includes show_current_note_page to generate real note page
     @staticmethod
     def generate_server_body(html_foot, section_id, file_id):
         body_html = \
@@ -251,5 +171,3 @@ class HTMLProcessor:
         else:
             return Exception
         return html_body
-
-

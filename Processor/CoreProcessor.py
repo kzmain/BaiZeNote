@@ -96,10 +96,9 @@ class CoreProcessor:
         return HTMLProcessor.generate_html_header(static_file_dict, nodes_dict)
 
     @staticmethod
-    def generate_html_footer( static_file_dict):
+    def generate_html_footer(static_file_dict):
         return HTMLProcessor.generate_html_footer(static_file_dict)
 
     @staticmethod
     def generate_html_body(html_foot, old_node_dict, new_node_dict):
         return HTMLProcessor.generate_html_body(html_foot, old_node_dict, new_node_dict)
-

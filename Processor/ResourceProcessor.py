@@ -1,12 +1,11 @@
-import time
-from datetime import datetime
 import json
 import logging
 import os
 import shutil
+import time
+from datetime import datetime
 
 from Processor.Constants.Paths import Paths
-from Processor.Exception.Exceptions import InvalidNoteBookPathError
 
 
 class ResourceProcessor:
