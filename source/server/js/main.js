@@ -17,6 +17,16 @@ function read_note_text(section_id, note_id) {
 }
 
 function get_note_menu(section_id, note_id = -1) {
+    // read_note_text(section_id, note_id);
+    if (current_section_id != ""){
+        document.getElementById("section-span-" + current_section_id).classList.remove("active");
+    }
+    // // document.getElementById(section_id + "-" + note_id).classList.add("active");
+    // current_section_id = section_id;
+    // current_note_id = note_id;
+    document.getElementById("section-span-" + section_id).classList.add("active");
+    current_section_id = section_id;
+
     if (current_section_id === parseInt(section_id)){
         return
     }
@@ -54,19 +64,19 @@ function get_note_menu(section_id, note_id = -1) {
     }
 
     // read_note_text(section_id, note_id);
-    if (current_section_id != ""){
-        document.getElementById("section-span-" + current_section_id).classList.remove("active");
-    }
+    // if (current_section_id != ""){
+    //     document.getElementById("section-span-" + current_section_id).classList.remove("active");
+    // }
     // document.getElementById(section_id + "-" + note_id).classList.add("active");
-    current_section_id = section_id;
+
     current_note_id = note_id;
-    document.getElementById("section-span-" + section_id).classList.add("active");
+    // document.getElementById("section-span-" + section_id).classList.add("active");
     get_note(section_id, note_id)
 }
 
 function get_note(section_id, note_id) {
     read_note_text(section_id, note_id);
-    window.history.pushState("", 'Title', prefix + "/" + note_menu_dict[section_id][note_id]["HTML_FILE_REL"]);
+    window.history.pushState("", 'Title', prefix + "/" + note_menu_dict[section_id][note_id]["HTML_FILE_REL"] + ".html");
     // Remove active class note span in note menu
     // 去除现在note menu所有 active 的 class 的 note
     let note_menu = document.getElementById("note-menu");

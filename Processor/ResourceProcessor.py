@@ -5,7 +5,7 @@ import logging
 import os
 import shutil
 
-from Processor.Constants import Paths
+from Processor.Constants.Paths import Paths
 from Processor.Exception.Exceptions import InvalidNoteBookPathError
 
 

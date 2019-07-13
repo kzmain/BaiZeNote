@@ -1,9 +1,9 @@
 import copy
 
-from Processor.HTMLProcessor import HTMLProcessor
-from Processor.NotebookProcessor import NotebookProcessor
 from Memory.Tree.NoteNode import NoteNode
 from Memory.Tree.NoteRootNode import NoteRootNode
+from Processor.Constants import HTML
+from Processor.NotebookProcessor import NotebookProcessor
 from source.temp.svg.SVG import SVG
 
 
@@ -20,7 +20,11 @@ class NoteTree:
         self.nodes_dict = {}
         self.node_id_root = None
 
-    def add_child_node(self, node_info_dict):
+    # Add a child node to current or root node
+    # 加一个子node到当前node或者加入到根node
+    # @For
+    # NoteTree.__set_note_tree
+    def __add_child_node(self, node_info_dict):
         if len(self.nodes_dict) == 0:
             node = NoteRootNode()
             node.node_id_parent = None
@@ -37,52 +41,79 @@ class NoteTree:
         node.node_info_dict = node_info_dict
         self.nodes_dict[node.node_id] = node
         self.next_node_id += 1
-        return
 
-    def go_to_node(self, node_id):
+    # Go to specific node
+    # 去特定的node
+    # @For
+    # NoteTree.__set_note_tree
+    def __go_to_node(self, node_id):
         if node_id < 0:
             raise IndexError
         self.current_node_id = node_id
-        return
 
-    def go_to_parent_node(self):
-        if self.current_node_id < 0:
-            raise IndexError
-        if self.nodes_dict[self.current_node_id].parentNodeId is None:
-            self.node_id_current = self.node_id_root
-        else:
-            self.node_id_current = self.nodes_dict[self.current_node_id].parentNodeId
-        return
+    # Setup note tree of a notebook
+    # 为系统建立笔记本树
+    # @Input:
+    # notebook_root: Notebook's root location (resource repository location)
+    # sections_dicts: Notebook sections' dict
+    # notebook_root: 笔记本的根目录（即笔记本的源仓库所在位置）
+    # sections_dicts: 笔记本section字典
+    # @Return:
+    # tree_dict: Notebook's tree nodes' dictionary
+    # tree_dict: 笔记本树的节点字典
+    def set_note_tree(self, notebook_root, sections_dicts):
+        tree_dict = self.__set_note_tree(notebook_root, ".", sections_dicts)
+        return tree_dict
 
-    def set_note_tree(self, notebook_root, notebook_section_path_rel, all_sections_info_dicts):
-        # TODO SPLIT NO LONGER NEED NOTE INFO
-        section_info_not_need_list = [NotebookProcessor.SECTION_DICT_SECTION_UPDATE_TIME,
-                                      NotebookProcessor.SECTION_DICT_SECTION_CREATION_TIME,
-                                      NotebookProcessor.SECTION_DICT_REL_PATH]
-        note_info_not_need_list = []
+    # Setup note tree from an entry point
+    # 从给定的进入点建立笔记本树
+    # @Input:
+    # notebook_root: Notebook's root location (resource repository location)
+    # section_path_rel: Section's relative path
+    # sections_dicts: Notebook sections' dict
+    # notebook_root: 笔记本的根目录（即笔记本的源仓库所在位置）
+    # section_path_rel: 笔记本section的相对路径
+    # sections_dicts: 笔记本section字典
+    # @Return
+    # Notebook tree of a specific entry point
+    # 指定切入点的笔记本树
+    # @For
+    # NoteTree.set_note_tree
+    def __set_note_tree(self, notebook_root, section_path_rel, sections_dicts):
+        needless_info = [NotebookProcessor.SECTION_DICT_SECTION_UPDATE_TIME,
+                         NotebookProcessor.SECTION_DICT_SECTION_CREATION_TIME,
+                         NotebookProcessor.SECTION_DICT_REL_PATH]
 
-        current_node_info_dict = copy.deepcopy(all_sections_info_dicts[notebook_section_path_rel])
-        current_node_notes_info_dict = current_node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
-
-        for key in section_info_not_need_list:
-            current_node_info_dict.pop(key)
-        sub_nodes = list(current_node_info_dict.pop(NotebookProcessor.SECTION_DICT_SUB_SECTION_REL_PATH_DICT).values())
-
+        cur_node_dict = copy.deepcopy(sections_dicts[section_path_rel])
+        # 1. 移除不需要的信息
+        for key in needless_info:
+            cur_node_dict.pop(key)
+        sub_nodes = list(cur_node_dict.pop(NotebookProcessor.SECTION_DICT_SUB_SECTION_REL_PATH_DICT).values())
+        # 2. 添加节点
+        # 3. 如果有子节点处理子节点
         current_node_id = self.next_node_id
-        self.add_child_node(current_node_info_dict)
-
+        self.__add_child_node(cur_node_dict)
         for sub_nodes_path_rel in sub_nodes:
-            self.go_to_node(current_node_id)
-            self.set_note_tree(notebook_root, sub_nodes_path_rel, all_sections_info_dicts)
+            self.__go_to_node(current_node_id)
+            self.__set_note_tree(notebook_root, sub_nodes_path_rel, sections_dicts)
+        # 4. 处理当前节点的section menu
         self.__generate_html_section_menu(current_node_id)
         return self.nodes_dict
 
+    # Generate html section menu of current section
+    # 给指定section生存section菜单
+    # @Input:
+    # section_id: Target section id
+    # section_id: 目标section id
+    # @For
+    # NoteTree.set_note_tree
     def __generate_html_section_menu(self, section_id):
         # TODO WHEN SECTION STATUS: HIDE, LOCK WHAT TO DO
         if section_id < 0:
             raise IndexError
         section_node = copy.copy(self.nodes_dict[section_id])
-        node_notes_count = len(section_node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT])
+        notes_count = len(section_node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT])
+        # 1.1 有子section
         if len(section_node.node_id_children_list) > 0:
             children_nodes_section_html = ""
             # 收集子section 的 section-menu
@@ -93,32 +124,30 @@ class NoteTree:
             # If current node is not root node, generate current node's section menu
             if str(type(section_node)) != str(type(NoteRootNode())):
                 section_node.html_section_menu = \
-                    HTMLProcessor.sections_span % (
+                    HTML.sections_span % (
                         section_id, section_id, section_id, SVG.sections_svg,
                         section_node.node_name, section_id, children_nodes_section_html
                     )
             # 如果有子文件夹就一定会到这里，但是这个是quick note区域， 无子section, 需要检查是否有note
             else:
-                svg = SVG.no_sections_svg if node_notes_count > 0 else SVG.no_notes_no_sections_svg
-                section_node.html_section_menu = HTMLProcessor.root_sections_span % (
+                svg = SVG.no_sections_svg if notes_count > 0 else SVG.no_notes_no_sections_svg
+                section_node.html_section_menu = HTML.root_sections_span % (
                     section_id, section_id, svg,
                     section_node.node_name, children_nodes_section_html
                 )
-        # 2. 没有 sub-section 但有笔记
-        # 2. Has NO sub-section and has notes
-        elif len(section_node.node_id_children_list) == 0 and node_notes_count > 0:
-            section_node.html_section_menu = HTMLProcessor.no_sections_span % \
+        # 1.2. 没有 sub-section 但有笔记
+        # 1.2. Has NO sub-section and has notes
+        elif len(section_node.node_id_children_list) == 0 and notes_count > 0:
+            section_node.html_section_menu = HTML.no_sections_span % \
                                              (section_id, section_id, SVG.no_sections_svg, section_node.node_name)
-        # 3. 没有 sub-section 没有笔记
-        # 3. Has NO sub-section and has NO notes
+        # 1.3. 没有 sub-section 没有笔记
+        # 1.3. Has NO sub-section and has NO notes
         else:
             section_node.html_section_menu = \
-                HTMLProcessor.no_notes_no_sections_span % \
+                HTML.no_notes_no_sections_span % \
                 (section_id, section_id, SVG.no_notes_no_sections_svg, section_node.node_name)
 
         self.nodes_dict[section_id] = section_node
-        return
-
 
     # # 📕1. 核心任务
     # #   1.1. 处理当前 node 的section menu
@@ -127,7 +156,7 @@ class NoteTree:
     # #   2.1 有 sub-section （不管其是否有笔记）
     # #   2.2 没有 sub-section 但有笔记
     # #   2.3 没有 sub-section 没有笔记
-    # # ----------------------------------------------------------------------------------------------------------------------
+    # # ----------------------------------------------------------------------------------------------------------------
     # # 📕1. Core Tasks
     # #   1.1. Process current node's section menu
     # #       current node's section menu need also contains it's sub-nodes' section
@@ -184,7 +213,7 @@ class NoteTree:
     # # 📘3. 相关functions
     # #   3.1. get_section_info_dict()
     # #   3.2. process_section_menu()
-    # # ----------------------------------------------------------------------------------------------------------------------
+    # # ----------------------------------------------------------------------------------------------------------------
     # # 📕1. Core Tasks:
     # #   1.1. Process current node's info, and add it into node_tree, which stores all note related info
     # #   1.1.1 Generate all current node's notes' (md files) md files
@@ -214,7 +243,7 @@ class NoteTree:
     #     # 4. 处理当前node所有的子node
     #     #   - 因为他本身的section menu基于他的所有子node的情况，只有所有子node的section menu确定了才能完成其section menu
     #     # Process current node's children's nodes
-    #     #   - This because a section's menu is based on it's children's nodes circumstance, only all its children nodes'
+    #     #   - This because a section's menu is based on it's children's nodes circumstance, only all its ch
     #     # section menu is generated, can confirm current node's section menu
     #     current_node_id = note.note_tree.node_id - 1
     #     current_node = note.note_tree.go_to_node(current_node_id)
@@ -236,3 +265,14 @@ class NoteTree:
     #     note.note_tree = process_section_menu(note.note_tree)
     #     return note
 
+    # # Go to current node's parent node
+    # # 去当前node的父node
+    # # @For
+    # # ！！！！！！未知
+    # def __go_to_parent_node(self):
+    #     if self.current_node_id < 0:
+    #         raise IndexError
+    #     if self.nodes_dict[self.current_node_id].parentNodeId is None:
+    #         self.current_node_id = self.node_id_root
+    #     else:
+    #         self.current_node_id = self.nodes_dict[self.current_node_id].parentNodeId

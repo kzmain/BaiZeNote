@@ -3,7 +3,7 @@ import logging
 import os
 import sys
 
-from Processor.Constants import Paths
+from Processor.Constants.Paths import Paths
 from Processor.DestinationProcessor import DestinationProcessor
 from Processor.ResourceProcessor import ResourceProcessor
 from Processor.Exception.Exceptions import WrongNoteBookPathError
@@ -17,6 +17,8 @@ class SysProcessor:
 
     # Check system config, if not exit or invalid config will write default config
     # 将笔记本系统添加进系统设置, 如果不存在或者非法将写入默认的配置
+    # @Return:
+    # No return
     @staticmethod
     def configs_check():
         for path, default_value in SysProcessor.check_configs.items():

@@ -50,6 +50,11 @@ class NotebookProcessor:
                  NOTE_DICT_MODIFICATION_TIME: [], }
     PROCESS_FILE_TYPE_LIST = [".md"]
 
+    # Setup/Update the specific notebook's section and note info
+    # 建立/更新指定的的笔记本section和笔记的信息
+    # @Return:
+    # sections_dict: 所有section的及其包含的note的信息
+    # sections_dict: All sections and their containing notes info
     @staticmethod
     def check_section_json(notebook_root):
         sections_dict = {}
@@ -63,13 +68,25 @@ class NotebookProcessor:
                     section_dict = json.loads(file.read())
                     current_section_dict = NotebookProcessor.__update_section_json(section_dict, root, notebook_root)
                 except json.decoder.JSONDecodeError:
-                    # 如果无法load 删除 rm 新
+                    # 如果无法load 删除 rm 更新
                     os.remove(section_json_path_full)
                     current_section_dict = NotebookProcessor.__initial_section_json(root, notebook_root)
                 file.close()
             sections_dict[current_section_dict[NotebookProcessor.SECTION_DICT_REL_PATH]] = current_section_dict
         return sections_dict
 
+    # Setup the specific notebook's section and note info
+    # 建立指定的的笔记本section和笔记的信息
+    # @Input:
+    # section_path: Section full path in system
+    # notebook_root: Notebook's root location (resource repository location)
+    # section_path: 系统中section的绝对路径
+    # notebook_root: 笔记本的根目录（即笔记本的源仓库所在位置）
+    # @Return:
+    # section_dict: current section's info dict
+    # section_dict: 当前section的信息字典
+    # @For:
+    # NotebookProcessor.check_section_json()
     @staticmethod
     def __initial_section_json(section_path, notebook_root):
         file_dir_list = os.listdir(section_path)
@@ -128,6 +145,20 @@ class NotebookProcessor:
         section_json_file.close()
         return section_dict
 
+    # Update the specific notebook's section and note info
+    # 更新指定的的笔记本section和笔记的信息
+    # @Input:
+    # ori_section_dict: Original section info dict
+    # section_path_full: Section full path in system
+    # notebook_root: Notebook's root location (resource repository location)
+    # ori_section_dict: 原section的信息字典
+    # section_path_full: 系统中section的绝对路径
+    # notebook_root: 笔记本的根目录（即笔记本的源仓库所在位置）
+    # @Return:
+    # section_dict: current section's info dict
+    # section_dict: 当前section的信息字典
+    # @For:
+    # NotebookProcessor.check_section_json()
     @staticmethod
     def __update_section_json(ori_section_dict, section_path_full, notebook_root):
         dirs_dict = ori_section_dict[NotebookProcessor.SECTION_DICT_SUB_SECTION_REL_PATH_DICT]
@@ -136,14 +167,14 @@ class NotebookProcessor:
         new_dir_file_list = NotebookProcessor.__get_dir_file_list(section_path_full, notebook_root)
 
         modified_flag = False
-        # 检查基本信息
+        # 1. 检查基本信息
         ori_section_dict[NotebookProcessor.SECTION_DICT_SECTION_UPDATE_TIME].append(time.ctime(time.time()))
         ori_path = ori_section_dict[NotebookProcessor.SECTION_DICT_REL_PATH]
         cur_path = os.path.relpath(section_path_full, notebook_root)
         if ori_path != cur_path:
             modified_flag = True
             ori_section_dict[NotebookProcessor.SECTION_DICT_REL_PATH] = cur_path
-        # ---------------检查sub-section增减， ！！！要加入modified time！
+        # 2. 检查sub-section的增减
         ori_dir_list = list(dirs_dict.values())
         cur_dir_list = new_dir_file_list[0]
         if ori_dir_list != cur_dir_list:
@@ -158,14 +189,12 @@ class NotebookProcessor:
                 for add_folder in add_folders_list:
                     keys_list = list(dirs_dict.keys())
                     if len(keys_list) == 0:
-                        new_key = "%s" % 0
+                        new_key = "0"
                     else:
                         new_key = "%s" % (int(keys_list[len(keys_list) - 1]) + 1)
                     dirs_dict[new_key] = add_folder
                     print("%s folder added." % str(os.path.join(section_path_full, add_folder)))
-
-        # -----------------检查sub-notes增减，
-
+        # 3. 检查sub-notes的增减
         ori_notes_dict = {}
         for note_key, note_dict in files_dict.items():
             sub_note_path = note_dict[NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL]
@@ -176,17 +205,16 @@ class NotebookProcessor:
             modified_flag = True
             del_notes_list = list(set(ori_notes_list) - set(cur_notes_list))
             add_notes_list = list(set(cur_notes_list) - set(ori_notes_list))
-            # 删除
+            # 3.1 删除
             if len(del_notes_list) > 0:
                 for del_note_path in del_notes_list:
                     note_index = ori_notes_dict[del_note_path]
                     del_file = files_dict[note_index][NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL]
                     files_dict.pop(note_index)
                     print("%s note removed." % str(os.path.join(section_path_full, del_file)))
-            # 增加
+            # 3.2 增加
             if len(add_notes_list) > 0:
                 for note_file_name in add_notes_list:
-                    # !!!!测试
                     note_file_name = os.path.join(notebook_root, note_file_name)
                     note_file_path_full = note_file_name
                     note_file_path_rel = os.path.relpath(note_file_path_full, notebook_root)
@@ -194,12 +222,11 @@ class NotebookProcessor:
                     note_name = str(os.path.basename(note_file_name).split(".")[0])
                     note_ctime = time.ctime(os.path.getctime(note_file_name))
                     note_mtime = time.ctime(os.path.getmtime(note_file_name))
-                    # values_list = list(files_dict.values())
                     if len(files_dict) == 0:
-                        new_key = "%s" % 0
+                        new_key = 0
                     else:
                         last_key = int(list(files_dict.keys())[-1]) + 1
-                        new_key = "%s" % last_key
+                        new_key = last_key
                     new_note_dict = copy.deepcopy(NotebookProcessor.NOTE_DICT)
                     new_note_dict[NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL] = note_file_path_rel
                     new_note_dict[NotebookProcessor.NOTE_DICT_NOTE_FILE_TYPE] = note_suffix
@@ -212,21 +239,22 @@ class NotebookProcessor:
                 for key, values in files_dict.items():
                     files_dict[str(count)] = values
                     count += 1
-        # -----------------是否更改过。md文件
+        # 4. 检查sub-notes的更新
         for note_key, note_dict in files_dict.items():
-            old_note_path_full = os.path.join(notebook_root, note_dict[NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL])
-            new_note_path_full = os.path.join(notebook_root, files_dict[note_key][NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL])
-            rel_path = os.path.relpath(new_note_path_full, notebook_root)
-            if old_note_path_full != new_note_path_full:
+            old_path = os.path.join(notebook_root, note_dict[NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL])
+            new_path = os.path.join(notebook_root, files_dict[note_key][NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL])
+            rel_path = os.path.relpath(new_path, notebook_root)
+            if old_path != new_path:
                 modified_flag = True
                 files_dict[note_key][NotebookProcessor.NOTE_DICT_NOTE_FILE_PATH_REL] = rel_path
 
-            new_mtime = time.ctime(os.path.getctime(old_note_path_full))
+            new_mtime = time.ctime(os.path.getctime(old_path))
             ori_mtime = note_dict[NotebookProcessor.NOTE_DICT_MODIFICATION_TIME]
 
             if new_mtime not in ori_mtime:
                 modified_flag = True
                 files_dict[note_key][NotebookProcessor.NOTE_DICT_MODIFICATION_TIME].append(new_mtime)
+        # 5. 如果有更新，那么重新写入
         if modified_flag:
             section_json_path_full = os.path.join(section_path_full, NotebookProcessor.PATH_REL_SECTION_JSON)
             section_json_file = open(section_json_path_full, "w+")
@@ -234,6 +262,19 @@ class NotebookProcessor:
             section_json_file.close()
         return ori_section_dict
 
+    # Get current directory's sub-directories and sub-notes
+    # 获取当前文件夹的子文件夹及其子文件
+    # @Input:
+    # section_path: Section full path in system
+    # notebook_root: Notebook's root location (resource repository location)
+    # section_path_full: 系统中section的绝对路径
+    # notebook_root: 笔记本的根目录（即笔记本的源仓库所在位置）
+    # @Return:
+    # return as a tuple
+    # dir_list: at tuple[0], stores all sub-dirs' name
+    # file_list: at tuple[0], stores all sub-files' name
+    # @For:
+    # NotebookProcessor.__update_section_json()
     @staticmethod
     def __get_dir_file_list(section_path, notebook_root):
         file_dir_list = os.listdir(section_path)
@@ -247,43 +288,3 @@ class NotebookProcessor:
                     Path(file_dir_path).suffix.lower() in NotebookProcessor.PROCESS_FILE_TYPE_LIST):
                 file_list.append(os.path.relpath(file_dir_path, notebook_root))
         return dir_list, file_list
-#
-# def update_notebook_json(note_book_root_location):
-#     # c_datetime = datetime.datetime.now()
-#     # current_date = "%s-%s-%s" % (c_datetime.year, c_datetime.month, c_datetime.day)
-#     # current_time = "%s:%s:%s:%s" % (c_datetime.hour, c_datetime.minute, c_datetime.second, c_datetime.microsecond)
-#     # note_name = os.path.basename(note_book_root_location)
-#     # 情况 2 如果 .notebook.json 存在则添加最新更改时间
-#     # Circumstance 2 if .notebook.json exists add current update time
-#     # note_book_config_json_full_path = os.path.join(note_book_root_location, Source.SOURCE_PATH_REL_NOTEBOOK_JSON)
-#     notebooks_config_full_path = os.path.join(System.PATH_FULL_SYS, System.PATH_RELA_NOTEBOOKS_JSON)
-#     notebooks_config_file = open(notebooks_config_full_path, "r")
-#     notebooks_config_dict = json.loads(notebooks_config_file.read())
-#     if note_book_root_location in notebooks_config_dict:
-#         # ！！！！！！！要只用r+覆盖
-#         note_book_json_file = open(note_book_config_json_full_path, "r")
-#         note_book_dict = json.loads(note_book_json_file.read())
-#         note_book_json_file.close()
-#         note_book_json_file = open(note_book_config_json_full_path, "w+")
-#         new_ctime = time.ctime(os.path.getmtime(note_book_config_json_full_path))
-#         if new_ctime not in note_book_dict["Modification_Time"]:
-#             note_book_dict["Modification_Time"].append(new_ctime)
-#             note_book_json_file.write(json.dumps(note_book_dict))
-#         note_book_json_file.close()
-#     # 情况 2 如果 .notebook.json 不存在,则初始化写入信息到 .notebook.json
-#     # Circumstance 2 if .notebook.json does NOT exist, write initial info to .notebook.json
-#     else:
-#         while True:
-#             enter_author_string = "Please input notebook name, if multiple author please separate by comma \",\" : \n"
-#             confirm_author_string = "Is(Are) following your notebook's author(s) name(s)?(y/n)\n%s\n"
-#             author_raw = input(enter_author_string)
-#             author_list = author_raw.split(",")
-#             author_list = [x for x in author_list if x.strip()]
-#             if input(confirm_author_string % str(author_list)).lower() in ["yes", "y"]:
-#                 break
-#         note_book_dict = {"Author": author_list, "Note_Name": os.path.basename(note_book_root_location),
-#                           "Creation_time": time.ctime(os.path.getctime(note_book_config_json_full_path)),
-#                           "Modification_Time": [time.ctime(os.path.getmtime(note_book_config_json_full_path))]
-#                           }
-#     System.sys_add_a_note_book(note_book_root_location, note_book_dict)
-#     return note_book_dict

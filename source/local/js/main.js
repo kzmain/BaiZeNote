@@ -13,6 +13,14 @@
         if (current_section_id === parseInt(section_id)) {
             return
         }
+        // read_note_text(section_id, note_id);
+        if (current_section_id != "") {
+            document.getElementById("section-span-" + current_section_id).classList.remove("active");
+        }
+        document.getElementById("section-span-" + section_id).classList.add("active");
+        // document.getElementById(section_id + "-" + note_id).classList.add("active");
+        current_section_id = section_id;
+
         let note_menu = document.getElementById("note-menu");
         // 删除 note_menu 原先所有显示note_list
         while (note_menu.firstChild) {
@@ -46,14 +54,8 @@
             note_id = note_history_dict[section_id];
         }
 
-        // read_note_text(section_id, note_id);
-        if (current_section_id != "") {
-            document.getElementById("section-span-" + current_section_id).classList.remove("active");
-        }
-        // document.getElementById(section_id + "-" + note_id).classList.add("active");
-        current_section_id = section_id;
+
         current_note_id = note_id;
-        document.getElementById("section-span-" + section_id).classList.add("active");
         get_note(section_id, note_id)
     }
 
