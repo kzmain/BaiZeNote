@@ -1,12 +1,4 @@
 class NoteNode:
-    # nodeId = None
-    # parentNodeId = None
-    # childNodesIds = []
-    # md_dict = {}
-    # section_dict = {}
-    # name = "Index"
-    # html = ""
-    # relative_path = ""
 
     def __init__(self):
         self.node_name = None
