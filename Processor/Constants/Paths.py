@@ -3,8 +3,9 @@ from pathlib import Path
 
 
 class Paths:
+    # ------------------------------------------------------------------------------------------------------------------
     PATH_FULL_SYS_LOCATION = Path(Path(os.path.dirname(__file__)).parent).parent
-
+    # ------------------------------------------------------------------------------------------------------------------
     PATH_RELA_NOTEBOOKS_RES_LOCATION_JSON = "configs/note_books_resource.json"
     PATH_FULL_NOTEBOOKS_RES_LOCATION_JSON = os.path.join(PATH_FULL_SYS_LOCATION, PATH_RELA_NOTEBOOKS_RES_LOCATION_JSON)
 
@@ -14,7 +15,7 @@ class Paths:
 
     PATH_RELA_NOTEBOOKS_THEME_JSON = "configs/note_books_themes.json"
     PATH_FULL_NOTEBOOKS_THEME_JSON = os.path.join(PATH_FULL_SYS_LOCATION, PATH_RELA_NOTEBOOKS_THEME_JSON)
-
+    # ------------------------------------------------------------------------------------------------------------------
     PATH_FULL_NOTEBOOK_DEST = ""
 
     PATH_RELA_NOTEBOOK_RESOURCE_DEST = "source"
@@ -24,6 +25,11 @@ class Paths:
     PATH_RELA_NOTEBOOK_INFO_JS_DEST = ""
 
     PATH_FULL_NOTEBOOK_REPOSITORY = ""
+    # ------------------------------------------------------------------------------------------------------------------
+    # System Script Path Relative
+    PATH_RELA_SCRIPT_FILES_LOCAL_MODE = "source/local"
+    PATH_RELA_SCRIPT_FILES_SERVER_MODE = "source/server"
+    # ------------------------------------------------------------------------------------------------------------------
 
     # 📕 核心功能
     # 设置单笔记本的相关目标文件夹

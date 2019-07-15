@@ -25,8 +25,9 @@ from Tools import Mode
 #     "-server" mode will generate a corresponding web page for each note files, for online website usage
 #     "-rserver" besides files in "-server" mode, generate AN index page to display all notebooks
 
-# ！！！！！！两个相同名称的note
+# ！！！！！！两个相同名称的notebook
 # ！！！！！！删除static files
+# ！！！！！！添加/删除 note
 def main():
     # 0. 检查系统的配置，如果系统配置不存系统将创建默认的配置
     # ------------------------------------------------------------------------------------------------------------------
@@ -75,13 +76,13 @@ def main():
             # ----------------------------------------------------------------------------------------------------------
             # 3.2 Prepare to write html
             repo_note_dict = copy.deepcopy(old_nodes_dict)
-            nodes_dict = copy.deepcopy(old_nodes_dict)
-            for key, node in nodes_dict.items():
-                nodes_dict[key] = node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
+            sections_dict = copy.deepcopy(old_nodes_dict)
+            for key, node in sections_dict.items():
+                sections_dict[key] = node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
             Core.prepare_file_writing()
-            nodes_dict = Core.write_converted_htmls(notebook, nodes_dict)
+            sections_dict = Core.write_converted_htmls(notebook, sections_dict)
             static_file_dict = Core.write_static_resources(notebook.statistic_files_dict)
-            html_head = Core.generate_html_header(static_file_dict, nodes_dict)
+            html_head = Core.generate_html_header(static_file_dict, sections_dict)
             html_foot = Core.generate_html_footer(static_file_dict)
             # 3.3 开始写入HTML
             # ----------------------------------------------------------------------------------------------------------
@@ -96,8 +97,8 @@ def main():
                 # ------------------------------------------------------------------------------------------------------
                 # Step 1 Generate and write notebook's index.html
                 # Step 2 Prepare notebook repository index.html
-                html_body = Core.generate_html_body(html_foot, old_nodes_dict, nodes_dict)
-                Core.local_mode_write_body_htmls(html_head, html_body)
+                html_body = Core.generate_local_html_body(html_foot, old_nodes_dict, sections_dict)
+                Core.local_mode_write_index_html(html_head, html_body)
                 # ------------------------------------------------------------------------------------------------------
                 if Mode.is_r_local_mode():
                     repo_note_dict
@@ -136,7 +137,11 @@ def main():
                                     with open(dest_file, "w+") as write_file:
                                         write_file.write(after)
                 # ------------------------------------------------------------------------------------------------------
-                Core.server_mode_write_body_htmls(nodes_dict, html_head, html_foot)
+                for section_id, section_dict in sections_dict.items():
+                    for note_id, note_dict in section_dict.items():
+                        html_path_rel = note_dict[NotebookProcessor.NOTE_DICT_HTML_FILE_REL] + ".html"
+                        html_body = Core.generate_server_html_body(html_foot, section_id, note_id)
+                        Core.server_mode_write_page_html(html_path_rel, html_head, html_body)
                 # ------------------------------------------------------------------------------------------------------
                 main_js_location = os.path.join(notebook.notebook_dest, "source/js/main.js")
                 with open(main_js_location, "r+") as main_js:

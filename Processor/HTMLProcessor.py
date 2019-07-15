@@ -18,16 +18,32 @@ class HTMLProcessor:
 
     remote_libs_in_lib_path_relative = "%s/header.blade.html" % static_rel_remote
     # 不同模式下 在目标 对应的静态文件所在地
-    # dest_path_rel = "source"
-    # NOTE_INFO_JS_REL = "%s/js/note_info.js" % dest_path_rel
     dest_file_name_head_html = "header.blade.html"
     dest_file_name_section_menu_html = "section-menu.blade.html"
 
+    # 📕 核心功能
+    # 为多种模式生成头文件
+    # ⬇️ 参数
+    # static_file_dict: 静态文件字典（包括库文件信息，插入到头文件的脚本信息，插入到尾文件的脚本信息）
+    # sections_dict: 包含所有section信息的字典
+    # ⬆️ 返回值
+    # header: 选择的模式下的header
+    # ------------------------------------------------------------------------------------------------------------------
+    # 📕 Core function
+    # Generate header for multiple mode
+    # ⬇️ Parameter:
+    # static_file_dict: static files dictionary（include lib files info，header scripts info，footer scripts info）
+    # sections_dict: A dictionary includes all sections info
+    # ⬆️ Return
+    # header: Header for selected mode
     @staticmethod
-    def generate_html_header(static_file_dict, nodes_dict):
-        # 1. Basic info of header
+    def generate_html_header(static_file_dict, sections_dict):
+        # 1. 基础头文件标签列表
+        # 1. Basic header tags list
         header_html_list = ["<meta charset=\"utf-8\">"]
-
+        # 2. 为生成头文件做准备
+        #   2.1 配置基础标签形式（链接脚本模式/网页插入脚本模式）
+        #   2.1 Set basic header tags list(link script mode/in web script mode)
         link_dict = {
             ".css": "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">",
             ".js": "<script src=\"%s\"></script>"
@@ -36,54 +52,93 @@ class HTMLProcessor:
             ".css": "<style>%s</style>",
             ".js": "<script>%s</script>"
         }
-        # 2. Process note_info.json/main.js
-        note_info_json = HTMLProcessor.note_info_script % json.dumps(nodes_dict)
+        #   2.2 准备 note_info.json及main.js
+        #   2.2 Prepare note_info.json and main.js
+        note_info_json = HTMLProcessor.note_info_script % json.dumps(sections_dict)
         if Mode.is_server_mode():
-            # Write note_info.json
+            # 2.2.1 写入 note_info.json 到本地
+            # 2.2.1 Write note_info.json to local file
             with open(Paths.PATH_FULL_NOTEBOOK_INFO_JS_DEST, "w+") as note_info_file:
                 note_info_file.write(note_info_json)
-            # 此2不在static_file_dict范围内
-            # note_info.json/main.js
+            # 2.2.2 `note_info.json` and `main.js` are not in `static_file_dict` so we add them
+            # 2.2.2 `note_info.json` 和 `main.js` 不在 `static_file_dict` 内加入他们
             header_html_list.append(link_dict[".js"] % ("/" + Paths.PATH_RELA_NOTEBOOK_INFO_JS_DEST))
             header_html_list.append(link_dict[".js"] % "/source/js/main.js")
             # write section menu
 
         elif Mode.is_local_mode():
-            # 处理本地.blade.html文件
-            for section_id, section_dict in nodes_dict.items():
+            # 2.2.1 读取本地的 note_name.blade.html 文件到section_dict中
+            # 2.2.1 Read local note_name.blade.html files into section_dict
+            for section_id, section_dict in sections_dict.items():
                 for note_id, note in section_dict.items():
-                    html_note_loc_rela = nodes_dict[section_id][note_id]["HTML_FILE_REL"] + ".blade.html"
+                    html_note_loc_rela = sections_dict[section_id][note_id]["HTML_FILE_REL"] + ".blade.html"
                     html_note_loc_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, html_note_loc_rela)
                     with open(html_note_loc_full) as file:
-                        nodes_dict[section_id][note_id]["HTML"] = file.read()
-            # 此2不在static_file_dict范围内
-            # note_info.json/main.js
+                        sections_dict[section_id][note_id]["HTML"] = file.read()
+            # 2.2.2 `note_info.json` and `main.js` are not in `static_file_dict` so we add them
+            # 2.2.2 `note_info.json` 和 `main.js` 不在 `static_file_dict` 内加入他们
             with open(Paths.PATH_FULL_NOTEBOOK_DEST + "/source/js/main.js") as main_js:
                 header_html_list.append(local_dict[".js"] % note_info_json)
                 header_html_list.append(local_dict[".js"] % main_js.read())
-
         else:
             raise Exception
+        # 3. 生成头文件脚本列表
+        # 3. Generate header file script tags list
         lib_type_list = ["lib", "head"]
         for lib_type in lib_type_list:
             header_html_list = HTMLProcessor.__script_to_html(static_file_dict, lib_type, header_html_list)
         all_header_html = ""
+        # 4. 生成头文件
+        # 4. Generate header
         for header_html in header_html_list:
             all_header_html += header_html + "\n"
-        return "<head>\n" + all_header_html + "</head>\n"
+        header = "<head>\n" + all_header_html + "</head>\n"
+        return header
 
+    # 📕 核心功能
+    # 为多种模式生成尾文件
+    # ⬇️ 参数
+    # static_file_dict: 静态文件字典（包括库文件信息，插入到头文件的脚本信息，插入到尾文件的脚本信息）
+    # ⬆️ 返回值
+    # footer: 选择的模式下的header
+    # ------------------------------------------------------------------------------------------------------------------
+    # 📕 Core function
+    # Generate footer for multiple mode
+    # ⬇️ Parameter:
+    # static_file_dict: static files dictionary（include lib files info，header scripts info，footer scripts info）
+    # ⬆️ Return
+    # footer: Footer for selected mode
     @staticmethod
     def generate_html_footer(static_file_dict):
-        result_html = ""
+        footer = ""
         footer_list = HTMLProcessor.__script_to_html(static_file_dict, "foot", [])
         for footer in footer_list:
-            result_html += footer + "\n"
-        return result_html
+            footer += footer + "\n"
+        return footer
 
+    # 📕 核心功能
+    # 从系统储存的笔记本中选择要处理的笔记本
+    # ⬇️ 参数
+    # static_file_dict: 需要打印的元素list
+    # lib_type: 静态文件类型
+    # ⬆️ 返回值
+    # html_list: HTML脚本列表
+    # 🎯️ 应用
+    # HTMLProcessor.generate_html_header()
+    # HTMLProcessor.generate_html_footer()
+    # ------------------------------------------------------------------------------------------------------------------
+    # 📕 Core function
+    # Choose processing notebook(s) from notebook repository(ies) stored in system
+    # ⬇️ Parameter:
+    # static_file_dict: 静态文件字典
+    # lib_type: static file type (e.g. lib, head, foot)
+    # ⬆️ Return
+    # html_list: HTML Scripts list
+    # 🎯Usage:
+    # HTMLProcessor.generate_html_header()
+    # HTMLProcessor.generate_html_footer()
     @staticmethod
-    # lib_type foot/head/lib
     def __script_to_html(static_file_dict, lib_type, html_list):
-        # result_html = ""
         link_dict = {
             ".css": "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">",
             ".js": "<script src=\"%s\"></script>"
@@ -109,8 +164,25 @@ class HTMLProcessor:
                 html_list.append(link_dict[script_dict["type"]] % script_dict["location"])
         return html_list
 
+    # 📕 核心功能
+    # 为"(-r)server" 模式生成 <body>
+    # ⬇️ 参数
+    # html_foot: html 脚本文件
+    # section_id: 笔记section 的 id
+    # file_id: 笔记file 的 id
+    # ⬆️ 返回值
+    # body_html: HTML <body>
+    # ------------------------------------------------------------------------------------------------------------------
+    # 📕 Core function
+    # Generate <body> for "(-r)server" mode
+    # ⬇️ Parameter:
+    # html_foot: html footer
+    # section_id: note's section's id
+    # file_id: note's file's id
+    # ⬆️ Return
+    # body_html: HTML <body>
     @staticmethod
-    def __generate_server_body(html_foot, section_id, file_id):
+    def generate_html_server_body(html_foot, section_id, file_id):
         body_html = \
             "<body>\n" \
             "<div class=\"top-nav\">\n" \
@@ -132,13 +204,27 @@ class HTMLProcessor:
             "</body>" % (section_id, file_id, html_foot)
         return body_html
 
-    # 📕1. 核心任务
-    #   1.1. 生成 "-local" 模式的 <body> 部分
-    #       包括完整的 section menu，笔记显示部分将默认显示笔记本的名字
+    # 📕 核心功能
+    # 为"(-r)local" 模式生成 <body>
+    # ⬇️ 参数
+    # html_menu: html菜单
+    # note_html: 显示的note的html
+    # html_foot: html尾文件
+    # ⬆️ 返回值
+    # body_html: HTML <body>
+    # 🎯应用:
+    # HTMLProcessor.generate_local_html_body()
     # ------------------------------------------------------------------------------------------------------------------
-    # 📕1. Core Tasks
-    #   1.1. Generate <body> tag part for "-local" mode
-    #       It includes section menu，show note area will show notebook's name
+    # 📕 Core function
+    # Generate <body> for "(-r)server" mode
+    # ⬇️ Parameter:
+    # html_menu: html menu
+    # note_html: note html for first page
+    # html_foot: html footer
+    # ⬆️ Return
+    # body_html: HTML <body>
+    # 🎯Usage:
+    # HTMLProcessor.generate_local_html_body()
     @staticmethod
     def __generate_local_body(html_menu, note_html, html_foot):
         body_html = "\n<body>" \
@@ -153,21 +239,38 @@ class HTMLProcessor:
                     "\n</body>" % (html_menu, note_html, html_foot)
         return body_html
 
+    # 📕 核心功能
+    # 为"(-r)local" 模式生成 <body>
+    # ⬇️ 参数
+    # html_foot: html 脚本文件
+    # node_dict: node所有信息的字典
+    # section_dict: sections信息字典
+    # ⬆️ 返回值
+    # body_html: HTML <body>
+    # ------------------------------------------------------------------------------------------------------------------
+    # 📕 Core function
+    # Generate <body> for "(-r)server" mode
+    # ⬇️ Parameter:
+    # html_foot: html footer
+    # node_dict: node's info dict
+    # section_dict: sections's info dict
+    # ⬆️ Return
+    # body_html: HTML <body>
     @staticmethod
-    def generate_html_body(html_foot, old_node_dict, new_node_dict):
-        html_menu = old_node_dict[0].html_section_menu
+    def generate_local_html_body(html_foot, node_dict, section_dict):
+        html_menu = node_dict[0].html_section_menu
         section_id = 0
         note_id = 0
-        for sec_id, notes_dict in new_node_dict.items():
+        for sec_id, notes_dict in section_dict.items():
             if len(notes_dict) > 0:
                 section_id = sec_id
                 note_id = str(0)
                 break
         if Mode.is_local_mode():
-            note_html = new_node_dict[section_id][note_id]["HTML"]
-            html_body = HTMLProcessor.__generate_local_body(html_menu, note_html, html_foot)
+            note_html = section_dict[section_id][note_id]["HTML"]
+            body_html = HTMLProcessor.__generate_local_body(html_menu, note_html, html_foot)
         elif Mode.is_server_mode():
-            html_body = HTMLProcessor.__generate_server_body(html_foot, section_id, note_id)
+            body_html = HTMLProcessor.generate_html_server_body(html_foot, section_id, note_id)
         else:
             return Exception
-        return html_body
+        return body_html
