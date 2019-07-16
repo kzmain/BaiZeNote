@@ -26,9 +26,6 @@ from Tools import Mode
 #     "-server" mode will generate a corresponding web page for each note files, for online website usage
 #     "-rserver" besides files in "-server" mode, generate AN index page to display all notebooks
 
-# ！！！！！！两个相同名称的notebook
-# ！！！！！！删除static files
-# ！！！！！！添加/删除 note
 def main():
     # 0. 检查系统的配置，如果系统配置不存系统将创建默认的配置
     # ------------------------------------------------------------------------------------------------------------------
@@ -61,16 +58,23 @@ def main():
         # 3. 分别处理每个笔记本
         # --------------------------------------------------------------------------------------------------------------
         # 3. Start to processing each notebook
+        notebook_name_list = []
         for notebook_path in notebooks_list:
             # 3.1 处理笔记本基础信息
             # ----------------------------------------------------------------------------------------------------------
             # 3.1 Processing notebook basic info
             notebook = Notebook()
             notebook.notebook_root = notebook_path
-            # ！！！！！！！！应该从系统调取
-            notebook.notebook_name = os.path.basename(notebook_path)
-            notebook.notebook_dest = Core.get_notebook_destination(notebooks_destination, notebook.notebook_name)
             notebook.notebook_dict = Core.res_get_notebooks_info()[notebook_path]
+            notebook.notebook_name = Core.res_get_notebooks_info()[notebook_path]["NOTEBOOK_NAME"]
+            while notebook.notebook_name in notebook_name_list:
+                notebook_name_counter = 0
+                while (notebook.notebook_name + "_" + str(notebook_name_counter)) in notebook_name_list:
+                    notebook_name_counter += 1
+                notebook.notebook_name += "_" + str(notebook_name_counter)
+            notebook_name_list.append(notebook.notebook_name)
+
+            notebook.notebook_dest = Core.get_notebook_destination(notebooks_destination, notebook.notebook_name)
             sections_dict = Core.notebook_check_section_json(notebook.notebook_root)
             nodes_dict = notebook.notebook_tree.set_note_tree(notebook.notebook_root, sections_dict)
             Paths.set_dest_path(notebook.notebook_dest, notebook.notebook_root)
@@ -101,6 +105,7 @@ def main():
                 # Step 2 Prepare notebook repository index.html
                 html_body = Core.generate_local_html_body(html_foot, nodes_dict, sections_dict)
                 Core.local_mode_write_index_html(html_head, html_body)
+                Core.local_mode_del_static_files()
                 # ------------------------------------------------------------------------------------------------------
                 if Mode.is_r_local_mode():
                     repo_note_dict
@@ -173,7 +178,7 @@ def main():
                 if Mode.is_r_server_mode():
                     repo_note_dict
                     repository_html += "<a href = \"%s%s%s\">%s</a>\n" % \
-                                       ("/", notebook.notebook_name, "/Intro.html", notebook.notebook_name)
+                                       ("/", notebook.notebook_name, "/index.html", notebook.notebook_name)
             else:
                 raise Exception
         # 3.3 如果现在为仓库模式，为 所有笔记 模式写入 index.html

@@ -248,10 +248,15 @@ class SysProcessor:
             author_list = [x for x in author_list if x.strip()]
             if input(confirm_author_string % str(author_list)).lower() in ["yes", "y"]:
                 break
-        modification_time = [time.ctime(os.path.getmtime(note_book_path_full))]
+        while True:
+            enter_notebook_name = "Please enter a notebook name. If you want default name, press \"Enter\" directly"
+            confirm_notebook_string = "Is following your notebook's name?(y/n)\n%s\n"
+            notebook_name = input(enter_notebook_name)
+            if notebook_name == "":
+                notebook_name = os.path.basename(note_book_path_full)
+            if input(confirm_notebook_string % notebook_name).lower() in ["yes", "y"]:
+                break
         creation_time = time.ctime(os.path.getctime(note_book_path_full))
-        if modification_time != creation_time:
-            modification_time.insert(0, creation_time)
-        note_book_dict = {"Author": author_list, "Note_Name": os.path.basename(note_book_path_full),
-                          "Creation_time": creation_time, "Tag": []}
+        note_book_dict = {"AUTHORS": author_list, "NOTEBOOK_NAME": notebook_name,
+                          "CTIME": creation_time, "TAG": [], }
         return note_book_dict

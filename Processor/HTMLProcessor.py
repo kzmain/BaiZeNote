@@ -43,9 +43,11 @@ class HTMLProcessor:
         # 1. Basic header tags list
         header_html_list = ["<meta charset=\"utf-8\">",
                             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+                            "<meta property=\"og:title\" content=\"\" id = \"og-title\">",
+                            "<meta property=\"og:description\" content=\"白泽笔记 - 让知识薪火相传\" id = \"og-description\">",
                             "<link rel=\"shortcut icon\" href=\"%s/source/system/favicon.ico\" type=\"image/x-icon\"/>" % ("" if Mode.is_server_mode() else "."),
                             "<script>let notebook_name = \"%s\"</script>" % notebook_name,
-                            "<title id = \"title\"></title>"
+                            "<title id = \"title\"></title>",
                             ]
         # 2. 为生成头文件做准备
         #   2.1 配置基础标签形式（链接脚本模式/网页插入脚本模式）
