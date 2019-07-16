@@ -39,7 +39,7 @@ function get_note_menu(section_id, note_id = -1) {
         let note_span = document.createElement('span');
         if (section_files_info.hasOwnProperty(file_id)){
             note_span.innerText = section_files_info[file_id]["NOTE_FILE_NAME"];
-            note_span.setAttribute("onclick", "get_note('" + section_id + "','" + file_id + "');");
+            note_span.setAttribute("onclick", "get_note('" + section_id + "','" + file_id + "');toggleMenu();");
             note_menu.appendChild(note_span)
             note_span.setAttribute("id", section_id + "-" + file_id);
         }
