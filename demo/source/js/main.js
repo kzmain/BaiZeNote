@@ -32,7 +32,7 @@ function get_note_menu(section_id, note_id = -1) {
     if (Object.keys(section_files_info).length === 0){
         let section_name = document.getElementById("section-span-" + section_id).innerText.trim();
         let show_note_area = document.getElementById("show-note-area");
-        show_note_area.innerHTML = "<h1>" + section_name + " section is empty" + "</h1>"
+        show_note_area.innerHTML = "<h1>" + sect_name + " section is empty" + "</h1>"
         return
     }
     for (let file_id in section_files_info) {

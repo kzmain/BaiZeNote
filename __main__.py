@@ -2,6 +2,7 @@ import copy
 import logging
 import os
 import re
+import shutil
 import sys
 
 from Memory.Notebook import Notebook
@@ -66,23 +67,24 @@ def main():
             # 3.1 Processing notebook basic info
             notebook = Notebook()
             notebook.notebook_root = notebook_path
+            # ！！！！！！！！应该从系统调取
             notebook.notebook_name = os.path.basename(notebook_path)
             notebook.notebook_dest = Core.get_notebook_destination(notebooks_destination, notebook.notebook_name)
             notebook.notebook_dict = Core.res_get_notebooks_info()[notebook_path]
-            sections_dicts = Core.notebook_check_section_json(notebook.notebook_root)
-            old_nodes_dict = notebook.notebook_tree.set_note_tree(notebook.notebook_root, sections_dicts)
+            sections_dict = Core.notebook_check_section_json(notebook.notebook_root)
+            nodes_dict = notebook.notebook_tree.set_note_tree(notebook.notebook_root, sections_dict)
             Paths.set_dest_path(notebook.notebook_dest, notebook.notebook_root)
             # 3.2 准备写入HTML
             # ----------------------------------------------------------------------------------------------------------
             # 3.2 Prepare to write html
-            repo_note_dict = copy.deepcopy(old_nodes_dict)
-            sections_dict = copy.deepcopy(old_nodes_dict)
+            repo_note_dict = copy.deepcopy(nodes_dict)
+            sections_dict = copy.deepcopy(nodes_dict)
             for key, node in sections_dict.items():
                 sections_dict[key] = node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
             Core.prepare_file_writing()
             sections_dict = Core.write_converted_htmls(notebook, sections_dict)
             static_file_dict = Core.write_static_resources(notebook.statistic_files_dict)
-            html_head = Core.generate_html_header(static_file_dict, sections_dict)
+            html_head = Core.generate_html_header(static_file_dict, sections_dict, notebook.notebook_name)
             html_foot = Core.generate_html_footer(static_file_dict)
             # 3.3 开始写入HTML
             # ----------------------------------------------------------------------------------------------------------
@@ -97,7 +99,7 @@ def main():
                 # ------------------------------------------------------------------------------------------------------
                 # Step 1 Generate and write notebook's index.html
                 # Step 2 Prepare notebook repository index.html
-                html_body = Core.generate_local_html_body(html_foot, old_nodes_dict, sections_dict)
+                html_body = Core.generate_local_html_body(html_foot, nodes_dict, sections_dict)
                 Core.local_mode_write_index_html(html_head, html_body)
                 # ------------------------------------------------------------------------------------------------------
                 if Mode.is_r_local_mode():
@@ -121,7 +123,7 @@ def main():
                 # Step 4 Update main.js
                 # Step 5 Prepare notebook repository index.html
                 with open(Paths.PATH_FULL_NOTEBOOK_DEST + "/source/section-menu.blade.html", "w+") as section_menu:
-                    section_menu.write(old_nodes_dict[0].html_section_menu)
+                    section_menu.write(nodes_dict[0].html_section_menu)
                 # ------------------------------------------------------------------------------------------------------
                 if Mode.is_r_server_mode():
                     html_head = __rserver_update(notebook, html_head)
@@ -137,11 +139,25 @@ def main():
                                     with open(dest_file, "w+") as write_file:
                                         write_file.write(after)
                 # ------------------------------------------------------------------------------------------------------
+                index_section_id = None
+                index_note_id = None
                 for section_id, section_dict in sections_dict.items():
                     for note_id, note_dict in section_dict.items():
                         html_path_rel = note_dict[NotebookProcessor.NOTE_DICT_HTML_FILE_REL] + ".html"
                         html_body = Core.generate_server_html_body(html_foot, section_id, note_id)
                         Core.server_mode_write_page_html(html_path_rel, html_head, html_body)
+                        if index_note_id is None and index_section_id is None:
+                            index_section_id = section_id
+                            index_note_id = note_id
+
+                            inde_path = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, "index.html")
+                            note_path = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, html_path_rel)
+                            shutil.copy(note_path, inde_path)
+
+                            note_blade_rel = note_dict[NotebookProcessor.NOTE_DICT_HTML_FILE_REL] + ".blade.html"
+                            index_blade = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, "index.blade.html")
+                            note_blade = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, note_blade_rel)
+                            shutil.copy(note_blade, index_blade)
                 # ------------------------------------------------------------------------------------------------------
                 main_js_location = os.path.join(notebook.notebook_dest, "source/js/main.js")
                 with open(main_js_location, "r+") as main_js:

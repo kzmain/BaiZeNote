@@ -267,8 +267,8 @@ class CoreProcessor:
     # ⬆️ Return
     # html_header: HTML header
     @staticmethod
-    def generate_html_header(static_file_dict, sections_dict):
-        html_header = HTMLProcessor.generate_html_header(static_file_dict, sections_dict)
+    def generate_html_header(static_file_dict, sections_dict, notebook_name):
+        html_header = HTMLProcessor.generate_html_header(static_file_dict, sections_dict, notebook_name)
         return html_header
 
     # 📕 核心功能
@@ -309,8 +309,8 @@ class CoreProcessor:
     # ⬆️ Return
     # html_body: The Body html for "(r)local" or for "(r)server" mode
     @staticmethod
-    def generate_local_html_body(html_foot, node_dict, section_dict):
-        html_body = HTMLProcessor.generate_local_html_body(html_foot, node_dict, section_dict)
+    def generate_local_html_body(html_foot, node_dict, sections_dict):
+        html_body = HTMLProcessor.generate_local_html_body(html_foot, node_dict, sections_dict)
         return html_body
 
     # 📕 核心功能

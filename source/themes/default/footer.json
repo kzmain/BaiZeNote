@@ -1,18 +1,18 @@
 {
   "default" : {
-    "white_mode_before_bootstrap" : {
-      "type" : ".css",
+    "foot_js" : {
+      "type" : ".js",
       "remote": false,
-      "location" : "css/white_mode_before_bootstrap.css",
+      "location" : "js/after.js",
       "version": "",
       "description": ""
     }
   },
   "darkmode" : {
-    "dark_mode_before_bootstrap" : {
-      "type" : ".css",
+    "foot_js" : {
+      "type" : ".js",
       "remote": false,
-      "location" : "css/dark_mode_before_bootstrap.css",
+      "location" : "js/after.js",
       "version": "",
       "description": ""
     }

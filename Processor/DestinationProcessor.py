@@ -541,14 +541,14 @@ class DestinationProcessor:
     @staticmethod
     def write_static_resources(script_files_dict):
         # 1. 准备目标文件夹下的 source 静态文件夹
-        if os.path.exists(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST):
-            shutil.rmtree(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST)
-        os.mkdir(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST)
+        if os.path.exists(Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST):
+            shutil.rmtree(Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST)
+        os.mkdir(Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST)
         # 1.1 转换的静态文件
         for static_type, file_type_dict in script_files_dict.items():
-            os.mkdir(os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, static_type))
+            os.mkdir(os.path.join(Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST, static_type))
             for res_path_full, dest_path_rel in file_type_dict.items():
-                dest_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, static_type, dest_path_rel)
+                dest_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST, static_type, dest_path_rel)
                 try:
                     shutil.copy(res_path_full, dest_path_full)
                 except FileNotFoundError:
@@ -563,7 +563,7 @@ class DestinationProcessor:
             raise Exception
         # 3. 拷贝系统基础scripts
         sys_static_full = os.path.join(Paths.PATH_FULL_SYS_LOCATION, static_rel)
-        File.tree_merge_copy(sys_static_full, Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST)
+        File.tree_merge_copy(sys_static_full, Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST)
         # 4. 拷贝自定义scripts
         while True:
             theme_loc = DestinationProcessor.__select_theme()
@@ -576,7 +576,7 @@ class DestinationProcessor:
             for script_name, script_info_dict in script_dict.items():
                 if not script_info_dict["remote"]:
                     res_path = os.path.join(theme_loc, script_info_dict["location"])
-                    dest_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, script_info_dict["location"])
+                    dest_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST, script_info_dict["location"])
                     if not os.path.exists(Path(dest_path_full).parent):
                         os.mkdir(Path(dest_path_full).parent)
                     shutil.copy(res_path, dest_path_full)

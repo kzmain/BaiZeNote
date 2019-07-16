@@ -94,19 +94,32 @@ h6 {
 
 /*--------------*/
 .top-nav{
+    position: fixed;
+    top: 0;
     height: 50px;
     width: 100%;
+    z-index: 100;
     background-color: #fff;
 }
+.main-container{
+    padding-top: 50px;
+}
 .button-menu{
+    display: inline-block;
+    width: 50px;
     padding: 10px;
 }
-
+.button-menu svg{
+    cursor: pointer;
+}
 .hide{
     display: none!important;
 }
 
-
+/*
+只在xs、sm屏幕上体现为fixed布局
+两个menu针对不同屏幕大小进行位移
+*/
 @media (max-width: 576px){
 .section-menu-fixed {
     position: fixed;
@@ -118,5 +131,41 @@ h6 {
     z-index: 100;
     left: 41.666667%;
 }
+.cover-shadow{
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
 }
 
+@media (min-width: 576px) and (max-width: 768px){
+    .section-menu-fixed {
+        position: fixed;
+        z-index: 100;
+        left: 0px;
+    }
+    .note-menu-fixed {
+        position: fixed;
+        z-index: 100;
+        left: 41.666667%;
+    }
+    .cover-shadow{
+        background-color: rgba(0,0,0,0.4);
+        position: fixed;
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+    }
+}
+@media (min-width: 768px){
+    .section-menu-fixed {
+    }
+    .note-menu-fixed {
+    }
+}

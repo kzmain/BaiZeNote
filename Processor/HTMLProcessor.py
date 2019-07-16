@@ -1,6 +1,7 @@
 import json
 import os
 
+from Processor.Constants import HTML
 from Processor.Constants.Paths import Paths
 from Tools import Mode
 
@@ -37,10 +38,15 @@ class HTMLProcessor:
     # ⬆️ Return
     # header: Header for selected mode
     @staticmethod
-    def generate_html_header(static_file_dict, sections_dict):
+    def generate_html_header(static_file_dict, sections_dict, notebook_name):
         # 1. 基础头文件标签列表
         # 1. Basic header tags list
-        header_html_list = ["<meta charset=\"utf-8\">"]
+        header_html_list = ["<meta charset=\"utf-8\">",
+                            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+                            "<link rel=\"shortcut icon\" href=\"%s/source/system/favicon.ico\" type=\"image/x-icon\"/>" % ("" if Mode.is_server_mode() else "."),
+                            "<script>let notebook_name = \"%s\"</script>" % notebook_name,
+                            "<title id = \"title\"></title>"
+                            ]
         # 2. 为生成头文件做准备
         #   2.1 配置基础标签形式（链接脚本模式/网页插入脚本模式）
         #   2.1 Set basic header tags list(link script mode/in web script mode)
@@ -69,12 +75,19 @@ class HTMLProcessor:
         elif Mode.is_local_mode():
             # 2.2.1 读取本地的 note_name.blade.html 文件到section_dict中
             # 2.2.1 Read local note_name.blade.html files into section_dict
+            index_section_id = None
+            index_note_id = None
             for section_id, section_dict in sections_dict.items():
                 for note_id, note in section_dict.items():
                     html_note_loc_rela = sections_dict[section_id][note_id]["HTML_FILE_REL"] + ".blade.html"
                     html_note_loc_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, html_note_loc_rela)
                     with open(html_note_loc_full) as file:
                         sections_dict[section_id][note_id]["HTML"] = file.read()
+                        # 2.2.2 写入 <title>
+                    if index_section_id is None and index_note_id is None:
+                        index_section_id = section_id
+                        index_note_id = note_id
+            note_info_json = HTMLProcessor.note_info_script % json.dumps(sections_dict)
             # 2.2.2 `note_info.json` and `main.js` are not in `static_file_dict` so we add them
             # 2.2.2 `note_info.json` 和 `main.js` 不在 `static_file_dict` 内加入他们
             with open(Paths.PATH_FULL_NOTEBOOK_DEST + "/source/js/main.js") as main_js:
@@ -112,8 +125,8 @@ class HTMLProcessor:
     def generate_html_footer(static_file_dict):
         footer = ""
         footer_list = HTMLProcessor.__script_to_html(static_file_dict, "foot", [])
-        for footer in footer_list:
-            footer += footer + "\n"
+        for element in footer_list:
+            footer += element + "\n"
         return footer
 
     # 📕 核心功能
@@ -150,12 +163,12 @@ class HTMLProcessor:
         for script_name, script_dict in static_file_dict[lib_type].items():
             if not script_dict["remote"]:
                 if Mode.is_server_mode():
-                    script_rel_path = os.path.join(Paths.PATH_RELA_NOTEBOOK_RESOURCE_DEST, script_dict["location"])
+                    script_rel_path = os.path.join(Paths.PATH_RELA_NOTEBOOK_SCRIPTS_DEST, script_dict["location"])
                     script_rel_path = "/" + script_rel_path
                     html_code = link_dict[script_dict["type"]] % script_rel_path
                     html_list.append(html_code)
                 elif Mode.is_local_mode():
-                    script_full_path = os.path.join(Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST, script_dict["location"])
+                    script_full_path = os.path.join(Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST, script_dict["location"])
                     with open(script_full_path) as script_file:
                         html_list.append(local_dict[script_dict["type"]] % script_file.read())
                 else:
@@ -186,22 +199,22 @@ class HTMLProcessor:
         body_html = \
             "<body>\n" \
             "<div class=\"top-nav\">\n" \
-            "   <div class=\"button-menu\">" \
-            "       <svg t=\"1562684164543\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"12014\" width=\"30\" height=\"30\">" \
-            "           <path d=\"M809.106286 1023.780571H209.627429c-83.748571 0-135.314286-43.373714-135.314286-114.761142V114.980571c0-71.387429 51.565714-114.834286 135.314286-114.834285h599.478857c83.748571 0 135.314286 43.446857 135.314285 114.834285v790.966858c0 74.459429-51.565714 117.833143-135.314285 117.833142zM209.627429 62.244571c-70.875429 0-70.875429 37.229714-70.875429 52.662858v791.04c0 15.506286 0 52.662857 70.948571 52.662857h599.405715c70.875429 0 70.875429-37.156571 70.875428-52.662857V114.980571c0-15.506286 0-52.736-70.948571-52.736H209.700571z\" fill=\"#666666\" p-id=\"12015\">" \
-            "           </path><path d=\"M299.885714 1023.780571c-3.218286 0-9.654857 0-12.873143-3.072-29.037714-12.434286-29.037714-12.434286-19.382857-989.476571 0-18.651429 12.946286-31.012571 32.256-31.012571 19.382857 0 32.182857 15.506286 32.182857 31.012571-3.145143 356.717714-6.363429 899.510857 0 952.246857 3.291429 9.289143 0 21.723429-9.581714 31.012572a29.769143 29.769143 0 0 1-22.601143 9.289142zM718.848 310.345143H493.275429c-19.382857 0-32.182857-12.434286-32.182858-31.012572s12.8-31.012571 32.182858-31.012571h225.572571c19.309714 0 32.182857 12.434286 32.182857 31.012571 0 18.651429-12.873143 31.012571-32.182857 31.012572zM718.848 496.493714H493.275429c-19.382857 0-32.182857-12.434286-32.182858-31.012571 0-18.651429 12.8-31.012571 32.182858-31.012572h225.572571c19.309714 0 32.182857 12.434286 32.182857 31.012572s-12.873143 31.012571-32.182857 31.012571z\" fill=\"#666666\" p-id=\"12016\">" \
-            "           </path>" \
-            "       </svg>" \
-            "   </div>" \
-            "</div>" \
-            "<div class=\"row\">\n" \
-            "    <div id=\"section-menu\" class=\"section-menu-fixed col-5 col-sm-2\"></div>\n" \
-            "    <div id=\"note-menu\" class=\"note-menu-fixed col-5 col-sm-2\"></div>\n" \
-            "    <div id=\"show-note-area\" class=\"col-sm-7\"></div>\n" \
+            "   <div class=\"button-menu\">\n" \
+            "       %s" \
+            "   </div>\n" \
+            "   <div id = \"banner\">\n" \
+            "       <img src = \"/source/system/banner.png\">\n" \
+            "   </div>\n" \
+            "</div>\n" \
+            "<div class=\"row main-container\">\n" \
+            "   <div id=\"section-menu\" class=\"section-menu-fixed col-5 col-sm-5 col-md-3 col-lg-2\"></div>\n" \
+            "   <div id=\"note-menu\" class=\"note-menu-fixed col-5 col-sm-5 col-md-3 col-lg-2\"></div>\n" \
+            "   <div id=\"show-note-area\" class=\"col-md-6 col-lg-8\"></div>\n" \
+            "   <div class=\"cover-shadow\"></div>\n" \
             "</div>\n" \
             "<script>show_current_note_page(\"%s\", \"%s\")</script>\n" \
-            "%s\n" \
-            "</body>" % (section_id, file_id, html_foot)
+            "%s" \
+            "</body>\n" % (HTML.burger_icon, section_id, file_id, html_foot)
         return body_html
 
     # 📕 核心功能
@@ -226,17 +239,25 @@ class HTMLProcessor:
     # 🎯Usage:
     # HTMLProcessor.generate_local_html_body()
     @staticmethod
-    def __generate_local_body(html_menu, note_html, html_foot):
+    def __generate_local_body(html_menu, note_html, html_foot, section_id, note_id):
         body_html = "\n<body>" \
-                    "\n<div class=\"container-fluid\">" \
-                    "\n<div class=\"row\">" \
-                    "    \n<div id=\"section-menu\" class=\"col-sm-3\">\n%s</div>" \
-                    "    \n<div id=\"note-menu\" class=\"col-sm-3\">\n<span></span></div>" \
-                    "    \n<div id=\"show-note-area\" class=\"col-sm-6\">%s</div>" \
-                    "\n</div>" \
-                    "\n</div>" \
-                    "\n%s" \
-                    "\n</body>" % (html_menu, note_html, html_foot)
+                    "<div class=\"top-nav\">\n" \
+                    "   <div class=\"button-menu\">\n" \
+                    "       %s\n" \
+                    "   </div>\n" \
+                    "   <div id = \"banner\">\n"\
+                    "       <img src = \"./source/system/banner.png\">\n" \
+                    "   </div>\n" \
+                    "</div>\n" \
+                    "<div class=\"row main-container\">\n" \
+                    "   <div id=\"section-menu\" class=\"section-menu-fixed col-5 col-sm-5 col-md-3 col-lg-2\">\n%s</div>\n" \
+                    "   <div id=\"note-menu\" class=\"note-menu-fixed col-5 col-sm-5 col-md-3 col-lg-2\"></div>\n" \
+                    "   <div id=\"show-note-area\" class=\"col-md-6 col-lg-8\">%s</div>\n" \
+                    "   <div class=\"cover-shadow\"></div>\n" \
+                    "</div>\n" \
+                    "<script>get_note_menu(\"%s\", \"%s\")</script>\n" \
+                    "%s\n" \
+                    "</body>" % (HTML.burger_icon, html_menu, note_html, section_id, note_id, html_foot)
         return body_html
 
     # 📕 核心功能
@@ -268,7 +289,7 @@ class HTMLProcessor:
                 break
         if Mode.is_local_mode():
             note_html = section_dict[section_id][note_id]["HTML"]
-            body_html = HTMLProcessor.__generate_local_body(html_menu, note_html, html_foot)
+            body_html = HTMLProcessor.__generate_local_body(html_menu, note_html, html_foot, section_id, note_id)
         elif Mode.is_server_mode():
             body_html = HTMLProcessor.generate_html_server_body(html_foot, section_id, note_id)
         else:

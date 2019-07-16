@@ -14,11 +14,14 @@
             return
         }
         // read_note_text(section_id, note_id);
-        if (current_section_id != "") {
+        if (current_section_id !== "") {
             document.getElementById("section-span-" + current_section_id).classList.remove("active");
         }
-        document.getElementById("section-span-" + section_id).classList.add("active");
-        // document.getElementById(section_id + "-" + note_id).classList.add("active");
+        let section_element = document.getElementById("section-span-" + section_id);
+        section_element.classList.add("active");
+        let section_name = section_element.innerText.trim();
+        let title_element = document.getElementById("title");
+        title_element.innerText = section_name + " - " + notebook_name;
         current_section_id = section_id;
 
         let note_menu = document.getElementById("note-menu");
@@ -30,9 +33,8 @@
         let section_files_info = note_menu_dict[section_id];
         // 如果 没有note 直接 显示没有笔记 并返回
         if (Object.keys(section_files_info).length === 0) {
-            let section_name = document.getElementById("section-span-" + section_id).innerText.trim();
             let show_note_area = document.getElementById("show-note-area");
-            show_note_area.innerHTML = "<h1>" + section_name + " section is empty" + "</h1>"
+            show_note_area.innerHTML = "<h1>" + section_name + " section is empty" + "</h1>";
             return
         }
         for (let file_id in section_files_info) {
@@ -40,13 +42,13 @@
             if (section_files_info.hasOwnProperty(file_id)) {
                 note_span.innerText = section_files_info[file_id]["NOTE_FILE_NAME"];
                 note_span.setAttribute("onclick", "get_note('" + section_id + "','" + file_id + "');");
-                note_menu.appendChild(note_span)
+                note_menu.appendChild(note_span);
                 note_span.setAttribute("id", section_id + "-" + file_id);
             }
         }
 
 
-        if (note_id == -1) {
+        if (note_id === -1) {
             //如果历史上 曾点过词section，获取最后一次访问的 note-id 标记为 active 并且显示对应的 note 内容
             if (!note_history_dict.hasOwnProperty(section_id)) {
                 note_history_dict[section_id] = Object.keys(note_menu_dict[section_id])[0];
@@ -54,6 +56,9 @@
             note_id = note_history_dict[section_id];
         }
 
+        let note_element = document.getElementById(section_id + "-" + note_id);
+        let note_name = note_element.innerText.trim();
+        title_element.innerText = section_name + " - " + note_name + " - " + notebook_name;
 
         current_note_id = note_id;
         get_note(section_id, note_id)
@@ -63,9 +68,8 @@
         read_note_text(section_id, note_id);
         // Remove active class note span in note menu
         // 去除现在note menu所有 active 的 class 的 note
-        let note_menu = document.getElementById("note-menu");
-        document.getElementById(current_section_id + "-" + current_note_id).classList.remove("active")
-        document.getElementById(section_id + "-" + note_id).classList.add("active")
+        document.getElementById(current_section_id + "-" + current_note_id).classList.remove("active");
+        document.getElementById(section_id + "-" + note_id).classList.add("active");
         current_section_id = section_id;
         current_note_id = note_id;
         note_history_dict[current_section_id] = current_note_id
@@ -76,9 +80,9 @@
     }
 
     function expand_note_menu(section_id) {
-        let current_section_span = document.getElementById("section-span-" + section_id).parentElement
-        while (current_section_span.id != "section-menu") {
-            current_section_span.classList.add("show")
+        let current_section_span = document.getElementById("section-span-" + section_id).parentElement;
+        while (current_section_span.id !== "section-menu") {
+            current_section_span.classList.add("show");
             current_section_span = current_section_span.parentElement
         }
 

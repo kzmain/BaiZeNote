@@ -18,8 +18,8 @@ class Paths:
     # ------------------------------------------------------------------------------------------------------------------
     PATH_FULL_NOTEBOOK_DEST = ""
 
-    PATH_RELA_NOTEBOOK_RESOURCE_DEST = "source"
-    PATH_FULL_NOTEBOOK_RESOURCE_DEST = ""
+    PATH_RELA_NOTEBOOK_SCRIPTS_DEST = "source"
+    PATH_FULL_NOTEBOOK_SCRIPTS_DEST = ""
 
     PATH_FULL_NOTEBOOK_INFO_JS_DEST = ""
     PATH_RELA_NOTEBOOK_INFO_JS_DEST = ""
@@ -45,7 +45,7 @@ class Paths:
     @staticmethod
     def set_dest_path(notebook_dest, notebook_root):
         Paths.PATH_FULL_NOTEBOOK_DEST = notebook_dest
-        Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST = os.path.join(notebook_dest, Paths.PATH_RELA_NOTEBOOK_RESOURCE_DEST)
-        Paths.PATH_FULL_NOTEBOOK_INFO_JS_DEST = "%s/js/note_info.js" % Paths.PATH_FULL_NOTEBOOK_RESOURCE_DEST
-        Paths.PATH_RELA_NOTEBOOK_INFO_JS_DEST = "%s/js/note_info.js" % Paths.PATH_RELA_NOTEBOOK_RESOURCE_DEST
+        Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST = os.path.join(notebook_dest, Paths.PATH_RELA_NOTEBOOK_SCRIPTS_DEST)
+        Paths.PATH_FULL_NOTEBOOK_INFO_JS_DEST = "%s/js/note_info.js" % Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST
+        Paths.PATH_RELA_NOTEBOOK_INFO_JS_DEST = "%s/js/note_info.js" % Paths.PATH_RELA_NOTEBOOK_SCRIPTS_DEST
         Paths.PATH_FULL_NOTEBOOK_REPOSITORY = notebook_root

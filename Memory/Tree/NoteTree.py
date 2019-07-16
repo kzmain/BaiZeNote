@@ -171,18 +171,27 @@ class NoteTree:
                 svg = SVG.no_sections_svg if notes_count > 0 else SVG.no_notes_no_sections_svg
                 section_node.html_section_menu = HTML.root_sections_span % (
                     section_id, section_id, svg,
-                    section_node.node_name, children_nodes_section_html
+                    "Quick Note", children_nodes_section_html
                 )
+                # section_node.node_name
         # 1.2. 没有 sub-section 但有笔记
         # 1.2. Has NO sub-section and has notes
         elif len(section_node.node_id_children_list) == 0 and notes_count > 0:
+            if str(type(section_node)) != str(type(NoteRootNode())):
+                section_name = section_node.node_name
+            else:
+                section_name = "Quick Note"
             section_node.html_section_menu = HTML.no_sections_span % \
-                                             (section_id, section_id, SVG.no_sections_svg, section_node.node_name)
+                                             (section_id, section_id, SVG.no_sections_svg, section_name)
         # 1.3. 没有 sub-section 没有笔记
         # 1.3. Has NO sub-section and has NO notes
         else:
+            if str(type(section_node)) != str(type(NoteRootNode())):
+                section_name = section_node.node_name
+            else:
+                section_name = "Quick Note"
             section_node.html_section_menu = \
                 HTML.no_notes_no_sections_span % \
-                (section_id, section_id, SVG.no_notes_no_sections_svg, section_node.node_name)
+                (section_id, section_id, SVG.no_notes_no_sections_svg, section_name)
 
         self.nodes_dict[section_id] = section_node
