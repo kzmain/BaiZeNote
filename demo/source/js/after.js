@@ -62,4 +62,9 @@ coverShadow.addEventListener('click',function(){
     toggleMenu()
 
 })
-
+//小屏幕下默认关闭目录
+let screenWidth = window.screen.width ;
+console.log(screenWidth)
+if(screenWidth<768){
+    toggleMenu()
+}

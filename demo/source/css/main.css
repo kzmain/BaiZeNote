@@ -107,6 +107,8 @@ h6 {
     background-color: #fff;
 }
 .main-container{
+    /* 修复使用bootstrap的row后宽度溢出问题 */
+    width: 100%;
     padding-top: 50px;
 }
 .button-menu{
