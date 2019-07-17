@@ -5,13 +5,12 @@
     -webkit-overflow-scrolling: touch;
     max-height: 100vh;
     min-height: 100vh;
-    font-family: "Segoe UI",Arial,sans-serif;
-    font-size: 15px;
+
 }
 
 #note-menu {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 #section-menu {
@@ -26,9 +25,8 @@
     text-decoration: none; /* Remove underline from links */
     font-size: 15px;
     padding: 10px;
-    margin: 0px;
+    margin: 0;
     width: 100%;
-    font-weight: lighter;
 }
 
 #section-menu svg, #note-menu svg {
@@ -43,7 +41,12 @@
     background-color: #4CAF50; /* Add a green color to the "active/current" link */
     color: white;
 }
+#section-menu span{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 
+}
 #section-menu p {
     display: inline;
 }
@@ -104,6 +107,7 @@ h6 {
     background-color: #fff;
 }
 .main-container{
+    /* 修复使用bootstrap的row后宽度溢出问题 */
     width: 100%;
     padding-top: 50px;
 }
@@ -111,10 +115,13 @@ h6 {
     display: inline-block;
     width: 50px;
     padding: 10px;
+    float: left;
 }
+
 .button-menu svg{
     cursor: pointer;
 }
+
 .hide{
     display: none!important;
 }
@@ -127,7 +134,7 @@ h6 {
 .section-menu-fixed {
     position: fixed;
     z-index: 100;
-    left: 0px;
+    left: 0;
 }
 .note-menu-fixed {
     position: fixed;
@@ -149,7 +156,7 @@ h6 {
     .section-menu-fixed {
         position: fixed;
         z-index: 100;
-        left: 0px;
+        left: 0;
     }
     .note-menu-fixed {
         position: fixed;
@@ -171,4 +178,13 @@ h6 {
     }
     .note-menu-fixed {
     }
+}
+#banner{
+    height: 50px;
+    padding: 8px;
+    display: inline-block;
+}
+#banner img{
+    height: 35px;
+    float: left;
 }
