@@ -176,4 +176,12 @@ h6 {
     .note-menu-fixed {
     }
 }
-
+#banner{
+    height: 50px;
+    padding: 7.5px;
+    display: inline-block;
+}
+#banner img{
+    height: 35px;
+    float: left;
+}
