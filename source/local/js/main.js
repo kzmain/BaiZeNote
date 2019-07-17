@@ -21,7 +21,9 @@
         section_element.classList.add("active");
         let section_name = section_element.innerText.trim();
         let title_element = document.getElementById("title");
+        let og_title = document.getElementById("og-title");
         title_element.innerText = section_name + " - " + notebook_name;
+        og_title.content = section_name + " - " + notebook_name;
         current_section_id = section_id;
 
         let note_menu = document.getElementById("note-menu");
@@ -41,7 +43,7 @@
             let note_span = document.createElement('span');
             if (section_files_info.hasOwnProperty(file_id)) {
                 note_span.innerText = section_files_info[file_id]["NOTE_FILE_NAME"];
-                note_span.setAttribute("onclick", "get_note('" + section_id + "','" + file_id + "');");
+                note_span.setAttribute("onclick", "get_note('" + section_id + "','" + file_id + "');toggleMenu();");
                 note_menu.appendChild(note_span);
                 note_span.setAttribute("id", section_id + "-" + file_id);
             }
@@ -65,6 +67,15 @@
     }
 
     function get_note(section_id, note_id) {
+        let section_element = document.getElementById("section-span-" + section_id);
+        let note_element = document.getElementById(section_id + "-" + note_id);
+        let title_element = document.getElementById("title");
+        let og_title = document.getElementById("og-title");
+        let note_name = note_element.innerText.trim();
+        let section_name = section_element.innerText.trim();
+        title_element.innerText = section_name + " - " + note_name + " - " + notebook_name;
+        og_title.content = section_name + " - " + note_name + " - " + notebook_name;
+
         read_note_text(section_id, note_id);
         // Remove active class note span in note menu
         // 去除现在note menu所有 active 的 class 的 note

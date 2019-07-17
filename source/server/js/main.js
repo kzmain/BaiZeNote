@@ -27,6 +27,9 @@ function get_note_menu(section_id, note_id = -1) {
     let section_name = section_element.innerText.trim();
     let title_element = document.getElementById("title");
     title_element.innerText = section_name + " - " + notebook_name;
+    let og_title = document.getElementById("og-title");
+    og_title.content = section_name + " - " + notebook_name;
+
     current_section_id = section_id;
 
     if (current_section_id === parseInt(section_id)){
@@ -50,7 +53,7 @@ function get_note_menu(section_id, note_id = -1) {
         let note_span = document.createElement('span');
         if (section_files_info.hasOwnProperty(file_id)){
             note_span.innerText = section_files_info[file_id]["NOTE_FILE_NAME"];
-            note_span.setAttribute("onclick", "get_note('" + section_id + "','" + file_id + "');");
+            note_span.setAttribute("onclick", "get_note('" + section_id + "','" + file_id + "');toggleMenu();");
             note_menu.appendChild(note_span);
             note_span.setAttribute("id", section_id + "-" + file_id);
         }
@@ -68,12 +71,22 @@ function get_note_menu(section_id, note_id = -1) {
     let note_element = document.getElementById(section_id + "-" + note_id);
     let note_name = note_element.innerText.trim();
     title_element.innerText = section_name + " - " + note_name + " - " + notebook_name;
+    og_title.content = section_name + " - " + note_name + " - " + notebook_name;
 
     current_note_id = note_id;
     get_note(section_id, note_id)
 }
 
 function get_note(section_id, note_id) {
+    let section_element = document.getElementById("section-span-" + section_id);
+    let note_element = document.getElementById(section_id + "-" + note_id);
+    let title_element = document.getElementById("title");
+    let og_title = document.getElementById("og-title");
+    let note_name = note_element.innerText.trim();
+    let section_name = section_element.innerText.trim();
+    title_element.innerText = section_name;
+    og_title.content = section_name + " - " + note_name + " - " + notebook_name;
+
     read_note_text(section_id, note_id);
     window.history.pushState("", 'Title', prefix + "/" + note_menu_dict[section_id][note_id]["HTML_FILE_REL"] + ".html");
     // Remove active class note span in note menu

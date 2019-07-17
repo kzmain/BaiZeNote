@@ -227,6 +227,10 @@ class CoreProcessor:
         lib_dict = DestinationProcessor.write_static_resources(files_dict)
         return lib_dict
 
+    @staticmethod
+    def local_mode_del_static_files():
+        DestinationProcessor.local_mode_del_static_files()
+
     # NotebookProcessor ------------------------------------------------------------------------------------------------
 
     # 📕 核心功能

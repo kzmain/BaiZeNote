@@ -572,7 +572,6 @@ class DestinationProcessor:
                 break
 
         for script_type, script_dict in static_files_dict.items():
-            # for script_name, script_dict in theme_dict.items():
             for script_name, script_info_dict in script_dict.items():
                 if not script_info_dict["remote"]:
                     res_path = os.path.join(theme_loc, script_info_dict["location"])
@@ -580,6 +579,38 @@ class DestinationProcessor:
                     if not os.path.exists(Path(dest_path_full).parent):
                         os.mkdir(Path(dest_path_full).parent)
                     shutil.copy(res_path, dest_path_full)
+        banner_jpg = os.path.join(Paths.PATH_FULL_NOTEBOOK_REPOSITORY, "banner.jpg")
+        banner_jpg_dest = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, "source/system/banner.jpg")
+        banner_png = os.path.join(Paths.PATH_FULL_NOTEBOOK_REPOSITORY, "banner.png")
+        banner_png_dest = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, "source/system/banner.png")
+        banner_png_sys = os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/system/banner.png")
+        banner_png_sys_dest = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, "source/system/banner.png")
+        if os.path.isfile(banner_jpg):
+            res = banner_jpg
+            dest = banner_jpg_dest
+        elif os.path.isfile(banner_png):
+            res = banner_png
+            dest = banner_png_dest
+            shutil.copy(banner_png, banner_png_dest)
+        else:
+            res = banner_png_sys
+            dest = banner_png_sys_dest
+        if not os.path.exists(Path(dest).parent):
+            os.mkdir(Path(dest).parent)
+        shutil.copy(res, dest)
+        ico = os.path.join(Paths.PATH_FULL_NOTEBOOK_REPOSITORY, "favicon.ico")
+        ico_dest = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, "source/system/favicon.ico")
+        ico_sys = os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/system/favicon.ico")
+        ico_sys_dest = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, "source/system/favicon.ico")
+        if os.path.isfile(ico):
+            res = ico
+            dest = ico_dest
+        else:
+            res = ico_sys
+            dest = ico_sys_dest
+        if not os.path.exists(Path(dest).parent):
+            os.mkdir(Path(dest).parent)
+        shutil.copy(res, dest)
         return static_files_dict
 
     # 📕 核心功能
@@ -609,3 +640,31 @@ class DestinationProcessor:
             sub_folder = os.path.join(note_books_dest_path_full, sub_folder)
             if not os.path.exists(sub_folder):
                 os.mkdir(sub_folder)
+
+    # 📕 核心功能
+    # 删除 "-(r)local" 模式多余的静态文件（主要包括：.js/.css/section-menu.blade.html, .html.blade）
+    # ⬇️ 输入参数
+    # None
+    # ⬆️ 返回值
+    # None
+    # ------------------------------------------------------------------------------------------------------------------
+    # 📕 Core function
+    # Delete extra static files in "-(r)local" mode (mainly include .js/.css/section-menu.blade.html, .html.blade)
+    # ⬇️ Input argument
+    # None
+    # ⬆️ Return
+    # none
+    @staticmethod
+    def local_mode_del_static_files():
+        all_list = os.listdir(Paths.PATH_FULL_NOTEBOOK_DEST)
+        all_list += ["source/js", "source/css"]
+        for element in all_list:
+            path = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, element)
+            if os.path.isfile(path):
+                if element == "index.html":
+                    continue
+                os.remove(path)
+            else:
+                if element == "source":
+                    continue
+                shutil.rmtree(path)
