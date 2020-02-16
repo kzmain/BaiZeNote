@@ -4,8 +4,8 @@ import os
 import sys
 import time
 
-from Processor.Constants import SysArgument
-from Processor.Constants.Paths import Paths
+from Constants import SysArgument
+from Constants.Paths import Paths
 from Processor.Exception.Exceptions import WrongNoteBookPathError
 from Processor.IOProcessor import IOProcessor
 
@@ -145,20 +145,21 @@ class SysProcessor:
             result = []
             notice = "Enter notebooks' number. (Multiple notebooks split them by \",\"). Or \"all\" for all notebooks"
             print(notice)
-
             temp_list = SysProcessor.__print_list(all_notebooks)
             input_list = input().split(",")
             if "all" in input_list or "All" in input_list:
                 input_list = temp_list
             choices = [i for i in input_list if i in temp_list]
             if len(choices) > 0:
-                for num in temp_list:
+                for num in choices:
                     result.append(all_notebooks[int(num) - 1])
                 print("Following repository will be processed. Do you confirm?(y/n)")
                 SysProcessor.__print_list(result)
                 confirm = input().lower()
                 if confirm in ["y", "yes"]:
                     return result
+                elif confirm in ["n", "no"]:
+                    pass
                 else:
                     logging.critical("Re-choose notebook repositories!")
             else:

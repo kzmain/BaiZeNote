@@ -1,34 +1,74 @@
 {
   "default" : {
-    "white_mode_after_bootstrap" : {
+    "white_mode" : {
       "type" : ".css",
       "remote": false,
-      "location" : "css/white_mode_after_bootstrap.css",
+      "insert": false,
+      "location" : "css/white_mode.css",
       "version": "",
       "description": ""
     },
     "main_css" : {
       "type" : ".css",
       "remote": false,
+      "insert": false,
       "location" : "css/main.css",
       "version": "",
       "description": ""
+    },
+    "main_js_server": {
+      "type" : ".js",
+      "remote": false,
+      "insert": false,
+      "location" : "js/smain.js",
+      "version": "",
+      "description": "",
+      "target": "server"
+    },
+    "main_js_local": {
+      "type" : ".js",
+      "remote": false,
+      "insert": false,
+      "location" : "js/lmain.js",
+      "version": "",
+      "description": "",
+      "target": "local"
     }
   },
   "darkmode" : {
-    "dark_mode_after_bootstrap" : {
+    "dark_mode_css" : {
       "type" : ".css",
       "remote": false,
-      "location" : "css/dark_mode_after_bootstrap.css",
+      "insert": false,
+      "location" : "css/dark_mode.css",
       "version": "",
       "description": ""
     },
     "main_css" : {
       "type" : ".css",
       "remote": false,
+      "insert": false,
       "location" : "css/main.css",
       "version": "",
       "description": ""
+    },
+    "main_js_server": {
+      "type" : ".js",
+      "remote": false,
+      "insert": false,
+      "location" : "js/smain.js",
+      "version": "",
+      "description": "",
+      "target": "server"
+    },
+    "main_js_local": {
+      "type" : ".js",
+      "remote": false,
+      "insert": false,
+      "location" : "js/lmain.js",
+      "version": "",
+      "description": "",
+      "target": "local"
     }
   }
 }

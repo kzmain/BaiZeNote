@@ -1,0 +1,42 @@
+{
+  "default" : {
+    "top_nav_server" : {
+      "type" : "html",
+      "remote": false,
+      "insert": true,
+      "location" : "html/server_top_nav.html",
+      "target": "server",
+      "version": "",
+      "description": ""
+    },
+    "top_nav_local" : {
+      "type" : "html",
+      "remote": false,
+      "insert": true,
+      "location" : "html/local_top_nav.html",
+      "target": "local",
+      "version": "",
+      "description": ""
+    }
+  },
+  "darkmode" : {
+    "top_nav_server" : {
+      "type" : "html",
+      "remote": false,
+      "insert": true,
+      "location" : "html/server_top_nav.html",
+      "target": "server",
+      "version": "",
+      "description": ""
+    },
+    "top_nav_local" : {
+      "type" : "html",
+      "remote": false,
+      "insert": true,
+      "location" : "html/local_top_nav.html",
+      "target": "local",
+      "version": "",
+      "description": ""
+    }
+  }
+}

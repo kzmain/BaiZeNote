@@ -289,9 +289,14 @@ class CoreProcessor:
     # ⬆️ Return
     # html_footer: HTML footer
     @staticmethod
-    def generate_html_footer(static_file_dict):
-        html_footer = HTMLProcessor.generate_html_footer(static_file_dict)
+    def generate_html_body_foot(static_file_dict):
+        html_footer = HTMLProcessor.generate_html_body_foot(static_file_dict)
         return html_footer
+
+    @staticmethod
+    def generate_html_body_head(static_file_dict):
+        html_body_head = HTMLProcessor.generate_html_body_head(static_file_dict)
+        return html_body_head
 
     # 📕 核心功能
     # 为 "-local"/"-rlocal" 生成 index.html 的body
@@ -313,8 +318,8 @@ class CoreProcessor:
     # ⬆️ Return
     # html_body: The Body html for "(r)local" or for "(r)server" mode
     @staticmethod
-    def generate_local_html_body(html_foot, node_dict, sections_dict):
-        html_body = HTMLProcessor.generate_local_html_body(html_foot, node_dict, sections_dict)
+    def generate_local_html_body(html_body_head, html_body_foot, node_dict, sections_dict):
+        html_body = HTMLProcessor.generate_local_html_body(html_body_head, html_body_foot, node_dict, sections_dict)
         return html_body
 
     # 📕 核心功能
@@ -335,6 +340,8 @@ class CoreProcessor:
     # ⬆️ Return
     # html_body: The Body html for "(r)local" or for "(r)server" mode
     @staticmethod
-    def generate_server_html_body(html_foot, section_id, note_id):
-        html_body = HTMLProcessor.generate_html_server_body(html_foot, section_id, note_id)
+    def generate_server_html_body(html_body_head, html_body_foot, section_id, note_id):
+        html_body = HTMLProcessor.generate_html_server_body(html_body_head, html_body_foot, section_id, note_id)
         return html_body
+
+

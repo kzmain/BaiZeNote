@@ -9,14 +9,16 @@ from pathlib import Path
 
 import emarkdown.markdown as md
 
-from Processor.Constants import Constants, NotebooksDict, NotebookDict, SysArgument
-from Processor.Constants.Paths import Paths
+from Constants import SysArgument, Themes
+from Constants import NotebookDict, Constants, NotebooksDict
+from Constants.Paths import Paths
 from Tools import URI, Mode
 from Tools.File import File
 
 
 class DestinationProcessor:
     # TODO 如果servermode不要生成local
+    themes_dicts = {}
     BAIZE_REPO_SUB_FOLDERS_LIST = ["server", "local"]
 
     # 📕 核心功能
@@ -331,11 +333,11 @@ class DestinationProcessor:
     # None
     @staticmethod
     def server_mode_write_page_html(html_path_rel, html_head, html_body):
-                html_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, html_path_rel)
-                html_file = open(html_path_full, "w+")
-                html_file.write(html_head)
-                html_file.write(html_body)
-                html_file.close()
+        html_path_full = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, html_path_rel)
+        html_file = open(html_path_full, "w+")
+        html_file.write(html_head)
+        html_file.write(html_body)
+        html_file.close()
 
     # 📕 核心功能
     # "(-r)local" 模式写入html文件
@@ -379,7 +381,7 @@ class DestinationProcessor:
             theme_config = json.loads(theme_config_file.read())
             theme_name = theme_config["current"]
         theme_loc = os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/themes", theme_name)
-        check_file = ["libs.json", "header.json", "footer.json"]
+        check_file = ["libs.json", "header.json", "body_foot.json"]
         for file in check_file:
             file_path = os.path.join(theme_loc, file)
             if file == "libs.json":
@@ -418,6 +420,35 @@ class DestinationProcessor:
                             return DestinationProcessor.__select_theme()
         return theme_loc
 
+    @staticmethod
+    def __select_theme_mode_check_theme_json(theme_name):
+        current_theme_loc = os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/themes", theme_name)
+        jsons = {"lib": os.path.join(current_theme_loc, Themes.LIB_FILES_NAME),
+                 "head": os.path.join(current_theme_loc, Themes.HEADER_FILES_NAME),
+                 "body_head": os.path.join(current_theme_loc, Themes.BODY_HEAD_NAME),
+                 "body_foot": os.path.join(current_theme_loc, Themes.BODY_FOOT_NAME)}
+        for key, value in jsons.items():
+            if not os.access(value, os.R_OK):
+                if theme_name == "default":
+                    logging.error("Your default theme is not available! Please fix! Exit!")
+                    return None
+                else:
+                    logging.critical("Your current theme is not available, changed to default")
+                    return DestinationProcessor.__select_theme_mode_check_theme_json("default")
+            if key != "lib":
+                try:
+                    with open(value) as file:
+                        json.loads(file.read())
+                except json.JSONDecodeError:
+                    if theme_name == "default":
+                        logging.error("Your default theme is not available! Please fix! Exit!")
+                        return None
+                    else:
+                        logging.critical("Your current theme is not available, changed to default")
+                        return DestinationProcessor.__select_theme_mode_check_theme_json("default")
+        Themes.THEME_NAME = theme_name
+        return jsons
+
     # 📕 核心功能
     # 选择主题模式
     # ⬇️ 参数
@@ -435,14 +466,17 @@ class DestinationProcessor:
     # FORMAT: {"lib": {}, "head": {}, "foot": {}}
     @staticmethod
     def __select_theme_mode():
-        result = {}
+        # Step 1 Get theme configuration's name
         with open(Paths.PATH_FULL_NOTEBOOKS_THEME_JSON) as theme_config_file:
             theme_config = json.loads(theme_config_file.read())
             theme_name = theme_config["current"]
-        theme_loc = os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/themes", theme_name)
-        default_theme_loc = os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/themes", "default")
+        # Get theme configuration and check validation
+        jsons = DestinationProcessor.__select_theme_mode_check_theme_json(theme_name)
+        if jsons is None:
+            sys.exit(1)
+        theme_name = Themes.THEME_NAME
+        # Step 2 Get theme mode configuration's name
         if "-thememode" in sys.argv:
-            # !!!! 还有可能并无此mode
             try:
                 theme_mode_index = sys.argv.index("-thememode") + 1
                 theme_mode = sys.argv[theme_mode_index]
@@ -450,78 +484,40 @@ class DestinationProcessor:
                 theme_mode = "default"
         else:
             theme_mode = "default"
-        lib_loc = os.path.join(theme_loc, "libs.json")
-        foot_loc = os.path.join(theme_loc, "footer.json")
-        head_loc = os.path.join(theme_loc, "header.json")
-        if not os.path.isfile(lib_loc):
-            lib_loc = os.path.join(default_theme_loc, "libs.json")
-
-        with open(lib_loc) as lib_file, open(foot_loc) as footer_file, open(head_loc) as header_file:
+        with open(jsons["lib"]) as lib_file, \
+                open(jsons["body_foot"]) as body_foot_file, \
+                open(jsons["body_head"]) as body_head_file, \
+                open(jsons["head"]) as header_file:
             try:
-                themes_dicts = {
-                    "lib": json.loads(lib_file.read()),
-                    "head": json.loads(header_file.read())[theme_mode],
-                    "foot": json.loads(footer_file.read())[theme_mode]
-                }
-            except IndexError:
-                if theme_name == "default" and theme_mode == "default":
-                    logging.error("Default theme's config footer.json or header.json encounter problem! "
+                DestinationProcessor.themes_dicts["lib"] = json.loads(lib_file.read())
+                DestinationProcessor.themes_dicts["header"] = json.loads(header_file.read())[theme_mode]
+                DestinationProcessor.themes_dicts["body_foot"] = json.loads(body_foot_file.read())[theme_mode]
+                DestinationProcessor.themes_dicts["body_head"] = json.loads(body_head_file.read())[theme_mode]
+            except (IndexError, Exception):
+                if theme_name == Themes.DEFAULT_THEME and theme_mode == Themes.DEFAULT_THEME_MODE:
+                    logging.error("Default theme's config body_foot.json or header.json encounter problem! "
                                   "Please Fix! "
                                   "Exit!")
                     sys.exit(1)
-                elif theme_name == "default" and theme_mode != "default":
-                    logging.critical("Default theme's mode \"%s\" config footer.json or header.json encounter problem! "
-                                     "We will try default theme's default mode" % theme_mode)
-                    theme_mode_index = sys.argv.index("-thememode") + 1
-                    sys.argv[theme_mode_index] = "default"
+                elif theme_name == Themes.DEFAULT_THEME and theme_mode != Themes.DEFAULT_THEME_MODE:
+                    logging.critical(
+                        "Default theme's mode \"%s\" config body_foot.json or header.json encounter problem! "
+                        "We will try default theme's default mode" % theme_mode)
+                    theme_mode_index = sys.argv.index(SysArgument.THEME_MODE) + 1
+                    sys.argv[theme_mode_index] = Themes.DEFAULT_THEME_MODE
                     return DestinationProcessor.__select_theme_mode()
                 else:
-                    logging.critical("\"%s\" theme's mode \"%s\" config footer.json or header.json encounter problem! "
-                                     "We will try default theme's default mode" %
-                                     (theme_name[:1] + theme_name[1:], theme_mode))
-                    theme_mode_index = sys.argv.index("-thememode") + 1
-                    sys.argv[theme_mode_index] = "default"
+                    logging.critical(
+                        "\"%s\" theme's mode \"%s\" config body_foot.json or header.json encounter problem! "
+                        "We will try default theme's default mode" %
+                        (theme_name[:1] + theme_name[1:], theme_mode))
+                    theme_mode_index = sys.argv.index(SysArgument.THEME_MODE) + 1
+                    sys.argv[theme_mode_index] = Themes.DEFAULT_THEME_MODE
                     with open(Paths.PATH_FULL_NOTEBOOKS_THEME_JSON, "w+") as theme_config_file:
-                        theme_config["current"] = "default"
+                        theme_config["current"] = Themes.DEFAULT_THEME
                         theme_config_file.write(theme_config)
-                    return {}
-            for script_type, script_info_dict in themes_dicts.items():
-                result[script_type] = {}
-                for file_name, file_dict in script_info_dict.items():
-                    result[script_type][file_name] = {}
-                    if not file_dict["remote"]:
-                        local_file = os.path.join(theme_loc, file_dict["location"])
-                        if not os.path.isfile(local_file):
-                            if theme_name == "default" and theme_mode == "default":
-                                logging.error("Default theme's file \"%s\" missed! "
-                                              "Please Fix! "
-                                              "Exit!"
-                                              % os.path.join(Paths.PATH_FULL_SYS_LOCATION, file_dict["location"]))
-                                sys.exit(1)
-                            elif theme_name == "default" and theme_mode != "default":
-                                logging.critical(
-                                    "Default theme's mode \"%s\" file \"%s\" missed! "
-                                    "We will try default theme's default mode" %
-                                    (theme_mode, os.path.join(Paths.PATH_FULL_SYS_LOCATION, file_dict["location"])))
-                                theme_mode_index = sys.argv.index("-thememode") + 1
-                                sys.argv[theme_mode_index] = "default"
-                                return DestinationProcessor.__select_theme_mode()
-                            else:
-                                logging.critical(
-                                    "\"%s\" theme's mode \"%s\" file \"%s\" missed! "
-                                    "We will try default theme's default mode" %
-                                    (theme_name[:1] + theme_name[1:], theme_mode,
-                                     os.path.join(Paths.PATH_FULL_SYS_LOCATION, file_dict["location"])))
-                                theme_mode_index = sys.argv.index("-thememode") + 1
-                                sys.argv[theme_mode_index] = "default"
-                                with open(Paths.PATH_FULL_NOTEBOOKS_THEME_JSON, "w+") as theme_config_file:
-                                    theme_config["current"] = "default"
-                                    theme_config_file.write(theme_config)
-                                return {}
-                    result[script_type][file_name]["remote"] = file_dict["remote"]
-                    result[script_type][file_name]["location"] = file_dict["location"]
-                    result[script_type][file_name]["type"] = file_dict["type"]
-        return result
+                    return DestinationProcessor.__select_theme_mode()
+        return {"theme_name": theme_name, "theme_mode": theme_mode}
 
     # 📕 核心功能
     # 写入scripts文件到目标文件夹
@@ -553,25 +549,24 @@ class DestinationProcessor:
                     shutil.copy(res_path_full, dest_path_full)
                 except FileNotFoundError:
                     logging.critical("File \"%s\" not found" % res_path_full)
-        # 2. 获取 "/source/all" 和 "/source/server" 下文件夹
-        if Mode.is_server_mode():
-            static_rel = Paths.PATH_RELA_SCRIPT_FILES_SERVER_MODE
-        elif Mode.is_local_mode():
-            static_rel = Paths.PATH_RELA_SCRIPT_FILES_LOCAL_MODE
-        else:
-            logging.error("HTML output type is required")
-            raise Exception
-        # 3. 拷贝系统基础scripts
-        sys_static_full = os.path.join(Paths.PATH_FULL_SYS_LOCATION, static_rel)
-        File.tree_merge_copy(sys_static_full, Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST)
+        # # 2. 获取"/source/server" 下文件夹
+        # if Mode.is_server_mode():
+        #     static_rel = Paths.PATH_RELA_SCRIPT_FILES_SERVER_MODE
+        # elif Mode.is_local_mode():
+        #     static_rel = Paths.PATH_RELA_SCRIPT_FILES_LOCAL_MODE
+        # else:
+        #     logging.error("HTML output type is required")
+        #     raise Exception
+        # # 3. 拷贝系统基础scripts
+        # sys_static_full = os.path.join(Paths.PATH_FULL_SYS_LOCATION, static_rel)
+        # File.tree_merge_copy(sys_static_full, Paths.PATH_FULL_NOTEBOOK_SCRIPTS_DEST)
         # 4. 拷贝自定义scripts
-        while True:
-            theme_loc = DestinationProcessor.__select_theme()
-            static_files_dict = DestinationProcessor.__select_theme_mode()
-            if len(static_files_dict) > 0:
-                break
 
-        for script_type, script_dict in static_files_dict.items():
+        theme_loc = DestinationProcessor.__select_theme()
+        theme_info_dict = DestinationProcessor.__select_theme_mode()
+        theme_static_file_dict = DestinationProcessor.__get_static_files(theme_info_dict)
+
+        for script_type, script_dict in theme_static_file_dict.items():
             for script_name, script_info_dict in script_dict.items():
                 if not script_info_dict["remote"]:
                     res_path = os.path.join(theme_loc, script_info_dict["location"])
@@ -611,7 +606,7 @@ class DestinationProcessor:
         if not os.path.exists(Path(dest).parent):
             os.mkdir(Path(dest).parent)
         shutil.copy(res, dest)
-        return static_files_dict
+        return theme_static_file_dict
 
     # 📕 核心功能
     # 生成目标文件夹的local/server文件夹
@@ -668,3 +663,22 @@ class DestinationProcessor:
                 if element == "source":
                     continue
                 shutil.rmtree(path)
+
+    @staticmethod
+    def __get_static_files(theme_info_dict):
+        result = {}
+        theme_name = theme_info_dict["theme_name"]
+        theme_mode = theme_info_dict["theme_mode"]
+        for script_type, script_info_dict in DestinationProcessor.themes_dicts.items():
+            result[script_type] = {}
+            for file_name, file_dict in script_info_dict.items():
+                result[script_type][file_name] = {}
+                if not file_dict["remote"]:
+                    local_file = os.path.join(os.path.join(Paths.PATH_FULL_SYS_LOCATION, "source/themes", theme_name),
+                                              file_dict["location"])
+                    if not os.path.isfile(local_file):
+                        logging.critical(
+                            "Theme name: " + theme_name + ", Theme mode: " + theme_mode + "'s file " + local_file + "missed. Please Fix!")
+                    else:
+                        result[script_type][file_name] = file_dict
+        return result

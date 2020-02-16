@@ -1,0 +1,22 @@
+{
+  "default" : {
+    "foot_js" : {
+      "type" : ".js",
+      "remote": false,
+      "insert": false,
+      "location" : "js/after.js",
+      "version": "",
+      "description": ""
+    }
+  },
+  "darkmode" : {
+    "foot_js" : {
+      "type" : ".js",
+      "remote": false,
+      "insert": false,
+      "location" : "js/after.js",
+      "version": "",
+      "description": ""
+    }
+  }
+}

@@ -1,3 +1,5 @@
+let windowWidth = window.innerWidth ;
+
 //添加/移除class
 let toggleClass = function(element, className) {
     if (element.classList.contains(className)) {
@@ -6,10 +8,12 @@ let toggleClass = function(element, className) {
         element.classList.add(className)
     }
 };
+
 //封装document.querySelector
 let docGet = function(selector){
     return document.querySelector(selector);
 };
+
 //开关目录
 let toggleMenu = function(){
     let sectionMenu = docGet('#section-menu');
@@ -38,6 +42,29 @@ let toggleMenu = function(){
     
     toggleCoverShadow()
 };
+
+//开目录
+let openMenu = function(){
+    let sectionMenu = docGet('#section-menu');
+    let noteMenu = docGet('#note-menu');
+    let sect_hide = sectionMenu.classList.contains("hide");
+    let note_hide = noteMenu.classList.contains("hide")
+    if(sect_hide || note_hide) {
+        toggleMenu()
+    }
+};
+
+//关目录
+let closeMenu = function(){
+    let sectionMenu = docGet('#section-menu');
+    let noteMenu = docGet('#note-menu');
+    let sect_hide = sectionMenu.classList.contains("hide");
+    let note_hide = noteMenu.classList.contains("hide")
+    if(!sect_hide || !note_hide) {
+        toggleMenu()
+    }
+};
+
 //添加/移除阴影
 let toggleCoverShadow = function (){
     let coverShadow = docGet('.cover-shadow');
@@ -52,19 +79,32 @@ let toggleCoverShadow = function (){
         docGet('.row').removeChild(coverShadow);
     }
 };
+
 //汉堡按钮开关目录
 docGet('.button-menu').addEventListener('click',function(){
     toggleMenu()
 });
+
 //点击阴影部分也可以开关目录
 let coverShadow = docGet('.cover-shadow');
 coverShadow.addEventListener('click',function(){
     toggleMenu()
 
 });
+
 //小屏幕下默认关闭目录
-let screenWidth = window.screen.width ;
-console.log(screenWidth)
-if(screenWidth<768){
-    toggleMenu()
-}
+let noteMenuAutoToggle = function(){
+    if(windowWidth<768){
+        closeMenu()
+    }
+};
+
+window.onresize = function () {
+    windowWidth = window.innerWidth ;
+    if(windowWidth<768){
+        closeMenu()
+        // toggleMenu()
+    }else{
+        openMenu()
+    }
+};

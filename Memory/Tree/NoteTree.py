@@ -2,7 +2,7 @@ import copy
 
 from Memory.Tree.NoteNode import NoteNode
 from Memory.Tree.NoteRootNode import NoteRootNode
-from Processor.Constants import HTML
+from Constants import HTML
 from Processor.NotebookProcessor import NotebookProcessor
 from source.temp.svg.SVG import SVG
 

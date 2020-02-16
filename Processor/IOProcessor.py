@@ -3,7 +3,7 @@ import os
 import shutil
 from datetime import datetime
 
-from Processor.Constants.Paths import Paths
+from Constants.Paths import Paths
 
 
 class IOProcessor:

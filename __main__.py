@@ -6,7 +6,7 @@ import shutil
 import sys
 
 from Memory.Notebook import Notebook
-from Processor.Constants.Paths import Paths
+from Constants.Paths import Paths
 from Processor.CoreProcessor import CoreProcessor as Core
 from Processor.NotebookProcessor import NotebookProcessor
 from Tools import Mode
@@ -81,7 +81,6 @@ def main():
             # 3.2 准备写入HTML
             # ----------------------------------------------------------------------------------------------------------
             # 3.2 Prepare to write html
-            repo_note_dict = copy.deepcopy(nodes_dict)
             sections_dict = copy.deepcopy(nodes_dict)
             for key, node in sections_dict.items():
                 sections_dict[key] = node.node_info_dict[NotebookProcessor.SECTION_DICT_NOTES_DICT]
@@ -89,7 +88,8 @@ def main():
             sections_dict = Core.write_converted_htmls(notebook, sections_dict)
             static_file_dict = Core.write_static_resources(notebook.statistic_files_dict)
             html_head = Core.generate_html_header(static_file_dict, sections_dict, notebook.notebook_name)
-            html_foot = Core.generate_html_footer(static_file_dict)
+            html_body_head = Core.generate_html_body_head(static_file_dict)
+            html_body_foot = Core.generate_html_body_foot(static_file_dict)
             # 3.3 开始写入HTML
             # ----------------------------------------------------------------------------------------------------------
             # 3.3 Start to write html file
@@ -103,12 +103,12 @@ def main():
                 # ------------------------------------------------------------------------------------------------------
                 # Step 1 Generate and write notebook's index.html
                 # Step 2 Prepare notebook repository index.html
-                html_body = Core.generate_local_html_body(html_foot, nodes_dict, sections_dict)
+                html_body = Core.generate_local_html_body(html_body_head, html_body_foot, nodes_dict, sections_dict)
                 Core.local_mode_write_index_html(html_head, html_body)
                 Core.local_mode_del_static_files()
                 # ------------------------------------------------------------------------------------------------------
                 if Mode.is_r_local_mode():
-                    repo_note_dict
+                    # repo_note_dict
                     repository_html += "<a href = \"%s%s%s\">%s</a>\n" % \
                                        ("./", notebook.notebook_name, "/index.html", notebook.notebook_name)
             elif Mode.is_server_mode():
@@ -117,7 +117,7 @@ def main():
                 # Step 1 写入 section-menu.blade.html
                 # Step 2 为 "-rserver" 模式更新头文件，尾文件，.blade.html文件
                 # Step 3 写入 .html 文件
-                # Step 4 更新 main.js
+                # Step 4 更新 lmain.js
                 # Step 5 准备笔记本仓库 index.html
                 # ------------------------------------------------------------------------------------------------------
                 # 3.3.2 Server mode
@@ -125,14 +125,14 @@ def main():
                 # Step 1 Write section-menu.blade.html
                 # Step 2 Update header/footer/all .blade.html files for "-rserver" mode
                 # Step 3 Write .html file
-                # Step 4 Update main.js
+                # Step 4 Update lmain.js
                 # Step 5 Prepare notebook repository index.html
                 with open(Paths.PATH_FULL_NOTEBOOK_DEST + "/source/section-menu.blade.html", "w+") as section_menu:
                     section_menu.write(nodes_dict[0].html_section_menu)
                 # ------------------------------------------------------------------------------------------------------
                 if Mode.is_r_server_mode():
                     html_head = __rserver_update(notebook, html_head)
-                    html_foot = __rserver_update(notebook, html_foot)
+                    html_body_foot = __rserver_update(notebook, html_body_foot)
                     for root, dirs, files in os.walk(Paths.PATH_FULL_NOTEBOOK_DEST):
                         for file in files:
                             dest_file = os.path.join(root, file)
@@ -149,7 +149,7 @@ def main():
                 for section_id, section_dict in sections_dict.items():
                     for note_id, note_dict in section_dict.items():
                         html_path_rel = note_dict[NotebookProcessor.NOTE_DICT_HTML_FILE_REL] + ".html"
-                        html_body = Core.generate_server_html_body(html_foot, section_id, note_id)
+                        html_body = Core.generate_server_html_body(html_body_head, html_body_foot, section_id, note_id)
                         Core.server_mode_write_page_html(html_path_rel, html_head, html_body)
                         if index_note_id is None and index_section_id is None:
                             index_section_id = section_id
@@ -164,7 +164,8 @@ def main():
                             note_blade = os.path.join(Paths.PATH_FULL_NOTEBOOK_DEST, note_blade_rel)
                             shutil.copy(note_blade, index_blade)
                 # ------------------------------------------------------------------------------------------------------
-                main_js_location = os.path.join(notebook.notebook_dest, "source/js/main.js")
+                # !!!!!!不能硬写入
+                main_js_location = os.path.join(notebook.notebook_dest, "source/js/smain.js")
                 with open(main_js_location, "r+") as main_js:
                     js = main_js.read()
                 with open(main_js_location, "w+") as main_js:
@@ -176,11 +177,12 @@ def main():
                         raise Exception
                 # ------------------------------------------------------------------------------------------------------
                 if Mode.is_r_server_mode():
-                    repo_note_dict
+                    # repo_note_dict
                     repository_html += "<a href = \"%s%s%s\">%s</a>\n" % \
                                        ("/", notebook.notebook_name, "/index.html", notebook.notebook_name)
             else:
-                raise Exception
+                logging.critical("Mode not exist! System Exit!")
+                sys.exit(1)
         # 3.3 如果现在为仓库模式，为 所有笔记 模式写入 index.html
         # ----------------------------------------------------------------------------------------------------------
         # 3.3 Write index.html for all notebook if current mode is in Repository mode
@@ -194,7 +196,8 @@ def main():
                 repository_file.write(repository_html)
 
     else:
-        raise Exception
+        logging.critical("Mode not exist! System Exit!")
+        sys.exit(1)
 
 
 # 📕 核心功能
